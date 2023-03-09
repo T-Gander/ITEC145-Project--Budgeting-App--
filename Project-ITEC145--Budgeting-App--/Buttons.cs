@@ -52,12 +52,6 @@ namespace Project_ITEC145__Budgeting_App__
             button.Location = _location;
             button.Click += clickHandler;                           //Found this hint on stackoverflow
 
-            //void button_Click(object sender, EventArgs e)
-            //{
-            //    Button button = sender as Button;
-            //    // identify which button was clicked and perform necessary actions
-            //}
-
             return button;
         }
 
