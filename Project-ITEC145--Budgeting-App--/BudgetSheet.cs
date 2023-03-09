@@ -4,13 +4,6 @@ namespace Project_ITEC145__Budgeting_App__
     {
         static public MainMenu menuForm;
 
-        Interface Iinterface;
-        Category category;
-        CategoryField categoryField;
-        Buttons buttons;
-        Budgets budgets;
-        MainMenu mainMenu;
-
         List<Category> categoriesList;
         List<CategoryField> categoryFieldList;
         List<Buttons> buttonsList;
@@ -29,7 +22,10 @@ namespace Project_ITEC145__Budgeting_App__
 
         private void BudgetSheet_Load(object sender, EventArgs e)
         {
+            Interface budgetSheet = new Interface();
+            Buttons addCategory = new Buttons(100, 50, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 50);
 
+            Controls.Add(addCategory.MakeButton(addCategory.doNothing_Click));
         }
     }
 }

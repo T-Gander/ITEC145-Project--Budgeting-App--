@@ -34,7 +34,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1464, 861);
+            this.MaximizeBox = false;
             this.Name = "BudgetSheet";
             this.Text = "BudgetSheet";
             this.Load += new System.EventHandler(this.BudgetSheet_Load);
