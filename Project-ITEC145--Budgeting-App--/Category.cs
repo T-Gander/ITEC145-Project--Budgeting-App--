@@ -10,5 +10,10 @@ namespace Project_ITEC145__Budgeting_App__
     {
         static public BudgetSheet budgetForm;
 
+        public Category()
+        {
+            
+        }
+
     }
 }

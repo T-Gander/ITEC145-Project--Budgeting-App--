@@ -42,7 +42,7 @@ namespace Project_ITEC145__Budgeting_App__
             _text = name;
         }
 
-        public Button MakeButton(EventHandler clickHandler)         //Pain to figure this out
+        public Button MakeButton(EventHandler clickHandler, List<Button> buttonList)         //Pain to figure this out
         {
             Button button = new Button();
             button.Name = _name;
@@ -51,7 +51,7 @@ namespace Project_ITEC145__Budgeting_App__
             button.Size = new Size(_width, _height);
             button.Location = _location;
             button.Click += clickHandler;                           //Found this hint on stackoverflow
-
+            buttonList.Add(button);
             return button;
         }
 
