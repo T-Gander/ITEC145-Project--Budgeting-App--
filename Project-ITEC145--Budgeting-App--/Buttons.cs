@@ -63,7 +63,7 @@ namespace Project_ITEC145__Budgeting_App__
 
         public void doNothing_Click(object sender, EventArgs e)
         {
-
+            //For testing
         }
 
         public void menuClose_Click(object sender, EventArgs e)
