@@ -3,6 +3,7 @@ namespace Project_ITEC145__Budgeting_App__
     public partial class BudgetSheet : Form
     {
         static public MainMenu menuForm;
+        static public Labels budgetLabels;
 
         List<Category> categoriesList;
         List<CategoryField> categoryFieldList;

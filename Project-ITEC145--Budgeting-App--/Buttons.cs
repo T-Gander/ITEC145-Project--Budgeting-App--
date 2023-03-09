@@ -72,6 +72,10 @@ namespace Project_ITEC145__Budgeting_App__
             Buttons.menuForm.Hide();
             BudgetSheet budgetSheet = new BudgetSheet();
             budgetSheet.Show();
+        }
+        public void addCategory_Click(object sender, EventArgs e)
+        {
+            Category category = new Category();
 
         }
 
