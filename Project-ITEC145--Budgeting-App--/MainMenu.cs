@@ -29,11 +29,14 @@ namespace Project_ITEC145__Budgeting_App__
         {
             Buttons NewButton = new Buttons(150, 50, "New Budget", new Font("Arial", 12, FontStyle.Regular), MainMenuInterface.GetWindowCenterX(this), 50);
             Buttons LoadButton = new Buttons(150, 50, "Load Budget", new Font("Arial", 12, FontStyle.Regular), MainMenuInterface.GetWindowCenterX(this), 100);
+            Buttons InstructionsButton = new Buttons(150, 50, "Instructions", new Font("Arial", 12, FontStyle.Regular), MainMenuInterface.GetWindowCenterX(this), 150);
             Buttons ExitButton = new Buttons(150, 50, "Exit", new Font("Arial", 12, FontStyle.Regular), MainMenuInterface.GetWindowCenterX(this), 350);
 
-            Controls.Add(NewButton.MakeButton());
-            Controls.Add(LoadButton.MakeButton());
-            Controls.Add(ExitButton.MakeButton());
+
+            Controls.Add(NewButton.MakeButton(NewButton.doNothing_Click));
+            Controls.Add(LoadButton.MakeButton(LoadButton.doNothing_Click));
+            Controls.Add(InstructionsButton.MakeButton(InstructionsButton.doNothing_Click));
+            Controls.Add(ExitButton.MakeButton(ExitButton.menuClose_Click));
         }
     }
 }

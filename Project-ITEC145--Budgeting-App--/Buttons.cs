@@ -42,7 +42,7 @@ namespace Project_ITEC145__Budgeting_App__
             _text = name;
         }
 
-        public Button MakeButton()
+        public Button MakeButton(EventHandler clickHandler)
         {
             Button button = new Button();
             button.Name = _name;
@@ -50,24 +50,27 @@ namespace Project_ITEC145__Budgeting_App__
             button.Text = _text;
             button.Size = new Size(_width, _height);
             button.Location = _location;
+            button.Click += clickHandler;
+
+            //void button_Click(object sender, EventArgs e)
+            //{
+            //    Button button = sender as Button;
+            //    // identify which button was clicked and perform necessary actions
+            //}
 
             return button;
         }
 
-        //public Button CreateMenu()
-        //{
-        //    //Buttons BasicButtons = new Buttons();
+        public void doNothing_Click(object sender, EventArgs e)
+        {
 
+        }
 
-        //    //Button newBudgetButton = new Button();
+        public void menuClose_Click(object sender, EventArgs e)
+        {
+            Buttons.menuForm.Close();
+        }
 
-        //    //newBudgetButton.Name = "New Budget";
-        //    //newBudgetButton.Font = new Font("Arial", 12);
-        //    //newBudgetButton.Text = "New Budget";
-        //    //newBudgetButton.Size = new Size(_width, _height);
-        //    //newBudgetButton.Location = new Point(GetWindowCenterX(menuForm) - GetHalfButtonWidth((BasicButtons)), 50);
-
-        //    //return newBudgetButton;
-        //}
+        
     }
 }
