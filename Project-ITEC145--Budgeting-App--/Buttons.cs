@@ -42,7 +42,7 @@ namespace Project_ITEC145__Budgeting_App__
             _text = name;
         }
 
-        public Button MakeButton(EventHandler clickHandler)
+        public Button MakeButton(EventHandler clickHandler)         //Pain to figure this out
         {
             Button button = new Button();
             button.Name = _name;
@@ -50,7 +50,7 @@ namespace Project_ITEC145__Budgeting_App__
             button.Text = _text;
             button.Size = new Size(_width, _height);
             button.Location = _location;
-            button.Click += clickHandler;
+            button.Click += clickHandler;                           //Found this hint on stackoverflow
 
             //void button_Click(object sender, EventArgs e)
             //{
@@ -61,12 +61,15 @@ namespace Project_ITEC145__Budgeting_App__
             return button;
         }
 
+
+        //Click events for initialized buttons
+
         public void doNothing_Click(object sender, EventArgs e)
         {
             //For testing
         }
 
-        public void menuClose_Click(object sender, EventArgs e)
+        public void menuClose_Click(object sender, EventArgs e)     
         {
             Buttons.menuForm.Close();
         }
