@@ -2,11 +2,14 @@ namespace Project_ITEC145__Budgeting_App__
 {
     public partial class BudgetSheet : Form
     {
+        static public MainMenu menuForm;
+
         Interface Iinterface;
         Category category;
         CategoryField categoryField;
         Buttons buttons;
         Budgets budgets;
+        MainMenu mainMenu;
 
         List<Category> categoriesList;
         List<CategoryField> categoryFieldList;
@@ -16,10 +19,10 @@ namespace Project_ITEC145__Budgeting_App__
         public BudgetSheet()
         {
             Interface.budgetForm = this;
-            Category.mainForm = this;
-            CategoryField.mainForm = this;
+            Category.budgetForm = this;
+            CategoryField.budgetForm = this;
             Buttons.budgetForm = this;
-            Budgets.mainForm = this;
+            MainMenu.budgetForm = this;
 
             InitializeComponent();
         }

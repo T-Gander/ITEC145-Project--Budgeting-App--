@@ -12,12 +12,15 @@ namespace Project_ITEC145__Budgeting_App__
 {
     public partial class MainMenu : Form
     {
+        static public BudgetSheet budgetForm;
+
         Interface MainMenuInterface = new Interface();
 
         public MainMenu()
         {
             Buttons.menuForm = this;
             Interface.menuForm = this;
+            BudgetSheet.menuForm = this;
 
             InitializeComponent();
         }
@@ -30,7 +33,7 @@ namespace Project_ITEC145__Budgeting_App__
             Buttons ExitButton = new Buttons(150, 50, "Exit", new Font("Arial", 12, FontStyle.Regular), MainMenuInterface.GetWindowCenterX(this), 350);
 
 
-            Controls.Add(NewButton.MakeButton(NewButton.doNothing_Click));
+            Controls.Add(NewButton.MakeButton(NewButton.openBudgetSheet_Click));
             Controls.Add(LoadButton.MakeButton(LoadButton.doNothing_Click));
             Controls.Add(InstructionsButton.MakeButton(InstructionsButton.doNothing_Click));
             Controls.Add(ExitButton.MakeButton(ExitButton.menuClose_Click));

@@ -12,6 +12,9 @@ namespace Project_ITEC145__Budgeting_App__
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new MainMenu());
+
         }
+
+
     }
 }
