@@ -8,5 +8,7 @@ namespace Project_ITEC145__Budgeting_App__
 {
     internal class Category
     {
+        static public BudgetSheet mainForm;
+
     }
 }
