@@ -12,16 +12,13 @@ namespace Project_ITEC145__Budgeting_App__
 {
     public partial class MainMenu : Form
     {
-        Buttons MainMenuButtons;
-        Interface MainMenuInterface;
+        Interface MainMenuInterface = new Interface();
 
         public MainMenu()
         {
             Buttons.menuForm = this;
             Interface.menuForm = this;
 
-            MainMenuInterface = new Interface();
-            
             InitializeComponent();
         }
 
