@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_ITEC145__Budgeting_App__
 {
-    internal class CategoryField
+    public class CategoryField
     {
         static public BudgetSheet budgetForm;
 

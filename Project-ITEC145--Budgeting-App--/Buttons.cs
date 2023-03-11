@@ -101,9 +101,9 @@ namespace Project_ITEC145__Budgeting_App__
         public void addCategoryFieldForm_Click(object sender, EventArgs e)
         {
             //Add Category to budget sheet
-            Category newCategory = new Category();
             string CategoryName = Buttons.categoryFieldForm.txtCategoryName.Text;
-            //Add Category Label
+            Category newCategory = new Category(CategoryName,ref budgetForm.lastLocation);
+            Buttons.categoryFieldForm.Close();
 
         }
         public void cancelCategoryFieldForm_Click(object sender, EventArgs e)

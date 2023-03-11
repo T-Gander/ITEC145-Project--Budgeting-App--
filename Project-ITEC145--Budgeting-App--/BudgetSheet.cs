@@ -7,12 +7,13 @@ namespace Project_ITEC145__Budgeting_App__
 
         public const int HEIGHT = 50;
         //Need a variable to keep track of the last control location
-        int lastLocation = 100;
+        public int lastLocation = 100;
         
 
-        List<Category> categoriesList;
-        List<CategoryField> categoryFieldList;
-        List<Button> buttonList = new List<Button>();
+        public List<Category> categoriesList = new List<Category>();
+        public List<CategoryField> categoryFieldList = new List<CategoryField>();
+        public List<Button> buttonList = new List<Button>();
+        public List<Label> labelList = new List<Label>();
         List<Budgets> budgetsList;
 
         public BudgetSheet()
@@ -46,7 +47,7 @@ namespace Project_ITEC145__Budgeting_App__
                 {
                     Interface budgetSheet = new Interface();
 
-                    Labels budgetName = new Labels(400, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 200, 50);
+                    Labels budgetName = new Labels(800, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 400, 50);
 
                     Controls.Add(budgetName.MakeHeaderLabel());
 
