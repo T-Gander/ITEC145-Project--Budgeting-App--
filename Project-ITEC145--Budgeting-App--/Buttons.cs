@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Project_ITEC145__Budgeting_App__
 {
     internal class Buttons
     {
         static public BudgetSheet budgetForm;
-        static public MainMenu menuForm;
+        static public MainMenu menuForm;                                    //So the buttons class can keep track of forms
+        static public CategoryFieldForm categoryFieldForm;
+        static public BudgetSheetNameForm budgetSheetNameForm;
 
         private int _width;
         private int _height;
@@ -55,6 +58,18 @@ namespace Project_ITEC145__Budgeting_App__
             return button;
         }
 
+        public Button MakeButton(EventHandler clickHandler)         //Pain to figure this out (without adding to list)
+        {
+            Button button = new Button();
+            button.Name = _name;
+            button.Font = _font;
+            button.Text = _text;
+            button.Size = new Size(_width, _height);
+            button.Location = _location;
+            button.Click += clickHandler;                           //Found this hint on stackoverflow
+            return button;
+        }
+
 
         //Click events for initialized buttons
 
@@ -62,7 +77,12 @@ namespace Project_ITEC145__Budgeting_App__
         {
             //For testing
         }
-
+        public void nameForm_Click(object sender, EventArgs e)
+        {
+            Buttons.budgetForm.name = true;
+            Buttons.budgetForm.Text = Buttons.budgetSheetNameForm.txtBudgetName.Text;
+            Buttons.budgetSheetNameForm.Close();
+        }
         public void menuClose_Click(object sender, EventArgs e)     
         {
             Buttons.menuForm.Close();
@@ -75,10 +95,21 @@ namespace Project_ITEC145__Budgeting_App__
         }
         public void addCategory_Click(object sender, EventArgs e)
         {
-            Category category = new Category();
+            CategoryFieldForm form = new CategoryFieldForm();
+            form.Show();
+        }
+        public void addCategoryFieldForm_Click(object sender, EventArgs e)
+        {
+            //Add Category to budget sheet
+            Category newCategory = new Category();
+            string CategoryName = Buttons.categoryFieldForm.txtCategoryName.Text;
+            //Add Category Label
 
         }
-
+        public void cancelCategoryFieldForm_Click(object sender, EventArgs e)
+        {
+            Buttons.categoryFieldForm.Close();
+        }
 
     }
 }

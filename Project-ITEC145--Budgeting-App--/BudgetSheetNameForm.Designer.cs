@@ -1,6 +1,6 @@
 ﻿namespace Project_ITEC145__Budgeting_App__
 {
-    partial class CategoryFieldForm
+    partial class BudgetSheetNameForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,36 +29,35 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.txtCategoryName = new System.Windows.Forms.TextBox();
+            this.txtBudgetName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(12, 11);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 18);
+            this.label1.Size = new System.Drawing.Size(157, 18);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Category Name:";
+            this.label1.Text = "Budget Sheet Name :";
             // 
-            // txtCategoryName
+            // txtBudgetName
             // 
-            this.txtCategoryName.Location = new System.Drawing.Point(140, 9);
-            this.txtCategoryName.Name = "txtCategoryName";
-            this.txtCategoryName.Size = new System.Drawing.Size(209, 23);
-            this.txtCategoryName.TabIndex = 1;
+            this.txtBudgetName.Location = new System.Drawing.Point(170, 7);
+            this.txtBudgetName.Name = "txtBudgetName";
+            this.txtBudgetName.Size = new System.Drawing.Size(164, 23);
+            this.txtBudgetName.TabIndex = 1;
             // 
-            // CategoryFieldForm
+            // BudgetSheetNameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 116);
-            this.Controls.Add(this.txtCategoryName);
+            this.ClientSize = new System.Drawing.Size(354, 114);
+            this.Controls.Add(this.txtBudgetName);
             this.Controls.Add(this.label1);
-            this.MaximizeBox = false;
-            this.Name = "CategoryFieldForm";
-            this.Text = "CategoryFieldForm";
+            this.Name = "BudgetSheetNameForm";
+            this.Text = "BudgetSheetNameForm";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -67,6 +66,6 @@
         #endregion
 
         private Label label1;
-        public TextBox txtCategoryName;
+        public TextBox txtBudgetName;
     }
 }
