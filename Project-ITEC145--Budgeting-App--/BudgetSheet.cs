@@ -5,6 +5,7 @@ namespace Project_ITEC145__Budgeting_App__
         static public MainMenu menuForm;
         public bool name = false;
 
+        public const int HEIGHT = 50;
         //Need a variable to keep track of the last control location
 
         List<Category> categoriesList;
@@ -43,11 +44,14 @@ namespace Project_ITEC145__Budgeting_App__
                 {
                     Interface budgetSheet = new Interface();
 
-                    Buttons addCategory = new Buttons(100, 50, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 100);
-                    Buttons deleteCategory = new Buttons(100, 50, "Delete Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this) + addCategory.Width, 100);
+                    Labels budgetName = new Labels(400, HEIGHT, $"{this.Text}", new Font("Arial", 18), 200, 50);
+
+                    Controls.Add(budgetName.MakeHeaderLabel());
+
+
+                    Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 100);
 
                     Controls.Add(addCategory.MakeButton(addCategory.addCategory_Click, buttonList));
-                    Controls.Add(deleteCategory.MakeButton(deleteCategory.doNothing_Click, buttonList));
                 }
             }
             else

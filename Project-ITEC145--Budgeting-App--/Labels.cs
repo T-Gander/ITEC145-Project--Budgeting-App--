@@ -41,7 +41,7 @@ namespace Project_ITEC145__Budgeting_App__
             _text = name;
         }
 
-        public Label MakeLabel()         
+        public Label MakeHeaderLabel()         
         {
             Label label = new Label();
             label.Name = _name;
@@ -49,6 +49,7 @@ namespace Project_ITEC145__Budgeting_App__
             label.Text = _text;
             label.Size = new Size(_width, _height);
             label.Location = _location;
+            label.ForeColor = Color.FromArgb(1,63, 151, 252);
 
             return label;
         }
