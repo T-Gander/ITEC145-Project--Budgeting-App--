@@ -32,13 +32,19 @@ namespace Project_ITEC145__Budgeting_App__
             button.Text = "Add Field";
             button.Top = locationy + 30;
             button.Left = _locationx + 10;
+            button.Click += new EventHandler(addFields_Click);
             budgetForm.Controls.Add(button);
 
             budgetForm.categoriesList.Add(this);
             locationy = locationy + 60;
         }
 
-        
+        public void addFields_Click(object sender, EventArgs e)
+        {
+            //Make fields
+        }
+
+
 
     }
 }

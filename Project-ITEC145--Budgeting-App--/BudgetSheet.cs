@@ -60,7 +60,17 @@ namespace Project_ITEC145__Budgeting_App__
             }
             else
             {
+                Interface budgetSheet = new Interface();
 
+                Labels budgetName = new Labels(800, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 400, 50);
+
+                Controls.Add(budgetName.MakeHeaderLabel());
+
+                Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 100);
+
+                Controls.Add(addCategory.MakeButton(addCategory.addCategory_Click, buttonList));
+
+                //When clicking create category, you can add a category, which will then allow you to add transactions.
             }
 
         }
