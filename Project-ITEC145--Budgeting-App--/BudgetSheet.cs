@@ -44,10 +44,9 @@ namespace Project_ITEC145__Budgeting_App__
                 {
                     Interface budgetSheet = new Interface();
 
-                    Labels budgetName = new Labels(400, HEIGHT, $"{this.Text}", new Font("Arial", 18), 200, 50);
+                    Labels budgetName = new Labels(400, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 200, 50);
 
                     Controls.Add(budgetName.MakeHeaderLabel());
-
 
                     Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 100);
 
