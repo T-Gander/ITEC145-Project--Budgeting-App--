@@ -21,6 +21,7 @@ namespace Project_ITEC145__Budgeting_App__
         private string _text;
         private Size _size;
         private Point _location;
+        public bool anyCategories = false;
 
         public int Width { get { return _width; } }
         public int Height { get { return _height; } }
@@ -102,7 +103,7 @@ namespace Project_ITEC145__Budgeting_App__
         {
             //Add Category to budget sheet
             string CategoryName = Buttons.categoryFieldForm.txtCategoryName.Text;
-            Category newCategory = new Category(CategoryName,ref budgetForm.lastLocation);
+            Category newCategory = new Category(CategoryName,ref budgetForm.lastLocation, ref anyCategories);
             Buttons.categoryFieldForm.Close();
 
         }

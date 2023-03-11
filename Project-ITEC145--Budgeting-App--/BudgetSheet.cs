@@ -8,12 +8,13 @@ namespace Project_ITEC145__Budgeting_App__
         public const int HEIGHT = 50;
         //Need a variable to keep track of the last control location
         public int lastLocation = 100;
-        
+        public bool anyCategories = false;
 
         public List<Category> categoriesList = new List<Category>();
         public List<CategoryField> categoryFieldList = new List<CategoryField>();
         public List<Button> buttonList = new List<Button>();
         public List<Label> labelList = new List<Label>();
+        public List<TextBox> variableList = new List<TextBox>();
         List<Budgets> budgetsList;
 
         public BudgetSheet()
