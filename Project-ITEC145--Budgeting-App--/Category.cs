@@ -70,10 +70,6 @@ namespace Project_ITEC145__Budgeting_App__
             }
 
             budgetForm.lastLocation = _locationy;
-
         }
-
-
-
     }
 }
