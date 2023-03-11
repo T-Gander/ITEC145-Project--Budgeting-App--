@@ -60,6 +60,8 @@ namespace Project_ITEC145__Budgeting_App__
             }
             else
             {
+                timerConditions.Enabled = false;
+
                 Interface budgetSheet = new Interface();
 
                 Labels budgetName = new Labels(800, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 400, 50);
