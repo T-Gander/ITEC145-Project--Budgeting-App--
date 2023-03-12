@@ -1,3 +1,6 @@
+using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
+
 namespace Project_ITEC145__Budgeting_App__
 {
     public partial class BudgetSheet : Form
@@ -10,8 +13,8 @@ namespace Project_ITEC145__Budgeting_App__
         public int lastLocation = 100;
         public bool anyCategories = false;
 
+        public Label currentBalance = new Label();
         public List<Category> categoriesList = new List<Category>();
-        public List<CategoryField> categoryFieldList = new List<CategoryField>();
         public List<Button> buttonList = new List<Button>();
         public List<Label> labelList = new List<Label>();
         public List<TextBox> variableList = new List<TextBox>();
@@ -21,18 +24,17 @@ namespace Project_ITEC145__Budgeting_App__
         {
             Interface.budgetForm = this;
             Category.budgetForm = this;
-            CategoryField.budgetForm = this;
             Buttons.budgetForm = this;
             MainMenu.budgetForm = this;
             Labels.budgetForm = this;
             CategoryFieldForm.budgetForm = this;
             BudgetSheetNameForm.budgetForm = this;
+            CurrentBalance.budgetForm = this;
             InitializeComponent();
         }
 
         private void BudgetSheet_Load(object sender, EventArgs e)
         {
-            
             
         }
 
@@ -40,19 +42,29 @@ namespace Project_ITEC145__Budgeting_App__
         {
             if (name == false)
             {
+                Interface budgetSheet = new Interface();
+                
+                currentBalance.Name = "lblCurrentBalance";
+                currentBalance.Text = "Assignable: $0";
+                currentBalance.Font = new Font("Arial", 22, FontStyle.Bold);
+                currentBalance.ForeColor = Color.Green;
+                currentBalance.Top = 50;
+                currentBalance.Left = budgetSheet.GetWindowThirdX(this)-600;
+                currentBalance.Size = new Size(300, 35);
+                currentBalance.IsAccessible = true;
+                Controls.Add(currentBalance);
+
                 timerConditions.Enabled = false;
                 BudgetSheetNameForm form = new BudgetSheetNameForm();
                 form.ShowDialog();
 
                 if (name == true)
                 {
-                    Interface budgetSheet = new Interface();
-
-                    Labels budgetName = new Labels(800, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 400, 50);
+                    Labels budgetName = new Labels(300, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 150, 50);
 
                     Controls.Add(budgetName.MakeHeaderLabel());
 
-                    Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 100);
+                    Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 50);
 
                     Controls.Add(addCategory.MakeButton(addCategory.addCategory_Click, buttonList));
 

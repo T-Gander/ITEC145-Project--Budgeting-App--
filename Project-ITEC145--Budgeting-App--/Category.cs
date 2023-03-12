@@ -16,6 +16,7 @@ namespace Project_ITEC145__Budgeting_App__
         private string _name;
         private int _locationy;
         private int _locationx;
+        private int _count;
         public Category(string Name, ref int locationy, ref bool anyCategories)
         {
             if(budgetForm.categoriesList.Count == 0)
@@ -76,6 +77,7 @@ namespace Project_ITEC145__Budgeting_App__
             //Make fields that are editable with a delete button
             TextBox textBox = new TextBox();
             textBox.Text = "";
+            textBox.Name = $"{_count}";
             textBox.Font = new Font("Arial", 18, FontStyle.Bold);
             textBox.ForeColor = textBox.ForeColor = Color.FromArgb(1, 63, 70, 252);
             textBox.Top = budgetForm.lastLocation;
@@ -86,6 +88,7 @@ namespace Project_ITEC145__Budgeting_App__
 
             TextBox moneyBox = new TextBox();
             moneyBox.Text = "0";                                                        //Will need error checking for this
+            moneyBox.Name = $"{_count}";
             moneyBox.TextAlign = HorizontalAlignment.Right;
             moneyBox.Font = new Font("Arial", 18, FontStyle.Bold);
             moneyBox.ForeColor = moneyBox.ForeColor = Color.FromArgb(1, 63, 70, 252);
@@ -96,6 +99,28 @@ namespace Project_ITEC145__Budgeting_App__
             budgetForm.variableList.Add(moneyBox);
             valid.Add(moneyBox);
 
+            Label label = new Label();
+            label.Text = "$";
+            label.Name = $"{_count}";
+            label.Font = new Font("Arial", 18, FontStyle.Bold);
+            label.ForeColor = label.ForeColor = Color.FromArgb(1, 63, 100, 252);
+            label.Top = budgetForm.lastLocation;
+            label.Left = moneyBox.Left - 30;
+            label.Size = new Size(30, 30);
+            budgetForm.Controls.Add(label);
+            valid.Add(label);
+
+            Button delField = new Button();
+            delField.Text = "X";
+            delField.Name = $"{_count}";
+            delField.Tag = delField.Name;               //Found out about tags to send a buttons info to a click event
+            delField.Top = budgetForm.lastLocation;
+            delField.Left = moneyBox.Left + 160;
+            delField.Click += new EventHandler(delFields_Click);
+            budgetForm.Controls.Add(delField);
+            valid.Add(delField);
+            validButton.Add(delField);
+
             budgetForm.lastLocation += 40;
 
             foreach(Button addFields in validButton)
@@ -105,6 +130,7 @@ namespace Project_ITEC145__Budgeting_App__
                     addFields.Top = budgetForm.lastLocation;
                 }
             }
+            _count++;
         }
         public void delCategory_Click(object sender, EventArgs e)
         {
@@ -120,6 +146,48 @@ namespace Project_ITEC145__Budgeting_App__
             }
 
             budgetForm.lastLocation = _locationy;
+        }
+        public void delFields_Click(object sender, EventArgs eButton)
+        {
+            Button clickedButton = (Button)sender;                  //Casts the sender into a button so that I can retrieve the Tag variable.
+            clickedButton.Name = clickedButton.Tag.ToString();      //Converts Tag to string and assigns variable the name of the tag
+
+            foreach(Control field in valid)
+            {
+                if(field.Name == clickedButton.Name)
+                {
+                    delete.Add(field);                              //Adds objects that have the same name (or count) as the delete button to the delete list
+                }
+            }
+            foreach (Control field in delete)
+            {
+                valid.Remove(field);                                //Removes objects form the valid list in advance of being deleted
+            }
+            for (int i = 0; i < delete.Count; i++)
+            {
+                budgetForm.Controls.Remove(delete[i]);              //Deletes objects from budgetsheet
+            }
+
+            foreach (Control field in valid)                                                //Moves valid buttons up to fill deleted buttons space
+            {
+                if(int.TryParse(field.Name, out int fieldName) && int.TryParse(clickedButton.Name, out int buttonName))
+                {
+                    if(fieldName > buttonName)
+                    {
+                        field.Top -= 40;
+                    }
+                }
+            }
+
+            budgetForm.lastLocation -= 40;
+
+            foreach (Button addFields in validButton)
+            {
+                if (addFields.Name == "AddField")                   //Moves the add field button to the next field row
+                {
+                    addFields.Top = budgetForm.lastLocation;
+                }
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Project_ITEC145__Budgeting_App__
         static public MainMenu menuForm;                                    //So the buttons class can keep track of forms
         static public CategoryFieldForm categoryFieldForm;
         static public BudgetSheetNameForm budgetSheetNameForm;
+        static public CurrentBalance balanceForm;
 
         private int _width;
         private int _height;
@@ -83,6 +84,8 @@ namespace Project_ITEC145__Budgeting_App__
             Buttons.budgetForm.name = true;
             Buttons.budgetForm.Text = Buttons.budgetSheetNameForm.txtBudgetName.Text;
             Buttons.budgetSheetNameForm.Close();
+            CurrentBalance form = new CurrentBalance();
+            form.ShowDialog();
         }
         public void menuClose_Click(object sender, EventArgs e)     
         {
@@ -110,6 +113,11 @@ namespace Project_ITEC145__Budgeting_App__
         public void cancelCategoryFieldForm_Click(object sender, EventArgs e)
         {
             Buttons.categoryFieldForm.Close();
+        }
+        public void currentBalance_Click(object sender, EventArgs e)
+        {
+            Buttons.budgetForm.currentBalance.Text = $"Assignable : ${Buttons.balanceForm.txtCurrentBalance.Text}";
+            Buttons.balanceForm.Close();
         }
 
     }
