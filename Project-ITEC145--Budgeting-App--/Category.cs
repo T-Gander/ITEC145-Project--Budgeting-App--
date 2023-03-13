@@ -85,7 +85,6 @@ namespace Project_ITEC145__Budgeting_App__
 
         public void addFields_Click(object sender, EventArgs e)
         {
-            _controlIndex = _count;
             //Make fields that are editable with a delete button
             TextBox textBox = new TextBox();
             textBox.Text = "";
