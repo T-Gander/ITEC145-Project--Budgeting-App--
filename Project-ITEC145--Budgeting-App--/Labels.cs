@@ -49,7 +49,7 @@ namespace Project_ITEC145__Budgeting_App__
             label.Text = _text;
             label.Size = new Size(_width, _height);
             label.Location = _location;
-            label.ForeColor = Color.FromArgb(1,63, 151, 252);
+            label.ForeColor = Color.FromArgb(1,0, 0, 0);
 
             return label;
         }

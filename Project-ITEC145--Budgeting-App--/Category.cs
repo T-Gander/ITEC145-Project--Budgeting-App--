@@ -51,7 +51,7 @@ namespace Project_ITEC145__Budgeting_App__
             Label label = new Label();
             label.Text = _name;
             label.Font = new Font("Arial", 18, FontStyle.Bold);
-            label.ForeColor = label.ForeColor = Color.FromArgb(1, 63, 100, 252);
+            label.ForeColor = label.ForeColor = Color.FromArgb(1, 0, 0, 0);
             label.Top = locationy;
             label.Left = _locationx + 30;
             label.Size = new Size(800, 30);
@@ -79,7 +79,7 @@ namespace Project_ITEC145__Budgeting_App__
             textBox.Text = "";
             textBox.Name = $"{_count}";
             textBox.Font = new Font("Arial", 18, FontStyle.Bold);
-            textBox.ForeColor = textBox.ForeColor = Color.FromArgb(1, 63, 70, 252);
+            textBox.ForeColor = textBox.ForeColor = Color.FromArgb(1, 0, 0, 0);
             textBox.Top = budgetForm.lastLocation;
             textBox.Left = _locationx + 40;
             textBox.Size = new Size(300, 30);
@@ -91,7 +91,7 @@ namespace Project_ITEC145__Budgeting_App__
             moneyBox.Name = $"{_count}";
             moneyBox.TextAlign = HorizontalAlignment.Right;
             moneyBox.Font = new Font("Arial", 18, FontStyle.Bold);
-            moneyBox.ForeColor = moneyBox.ForeColor = Color.FromArgb(1, 63, 70, 252);
+            moneyBox.ForeColor = moneyBox.ForeColor = Color.FromArgb(1, 0, 0, 0);
             moneyBox.Top = budgetForm.lastLocation;
             moneyBox.Left = textBox.Left + 400;
             moneyBox.Size = new Size(150, 30);
@@ -103,7 +103,7 @@ namespace Project_ITEC145__Budgeting_App__
             label.Text = "$";
             label.Name = $"{_count}";
             label.Font = new Font("Arial", 18, FontStyle.Bold);
-            label.ForeColor = label.ForeColor = Color.FromArgb(1, 63, 100, 252);
+            label.ForeColor = label.ForeColor = Color.FromArgb(1, 0, 0, 0);
             label.Top = budgetForm.lastLocation;
             label.Left = moneyBox.Left - 30;
             label.Size = new Size(30, 30);
