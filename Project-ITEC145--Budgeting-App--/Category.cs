@@ -17,7 +17,13 @@ namespace Project_ITEC145__Budgeting_App__
         private int _locationy;
         private int _locationx;
         private int _count;
-        public Category(string Name, ref int locationy, ref bool anyCategories)
+        private int _categoryLocation = budgetForm.lastLocation;
+        private int _categoryIndex;
+        private Button _delCategory;
+        private Button _addField;
+        //Need to fix Add Fields Button
+
+        public Category(string Name, ref int locationy, ref bool anyCategories, ref int categoryIndex)
         {
             if(budgetForm.categoriesList.Count == 0)
             {
@@ -30,7 +36,7 @@ namespace Project_ITEC145__Budgeting_App__
 
             if(anyCategories == true)
             {
-                budgetForm.lastLocation += 40;
+                _categoryLocation += 40;
             }
 
             budgetForm.anyCategories = true;
@@ -38,6 +44,8 @@ namespace Project_ITEC145__Budgeting_App__
             _name = Name;
             _locationy = locationy;
             _locationx = 10;
+            _categoryIndex = categoryIndex;
+            categoryIndex++;
 
             Button delCategory = new Button();
             delCategory.Text = "X";
@@ -45,6 +53,7 @@ namespace Project_ITEC145__Budgeting_App__
             delCategory.Left = _locationx;
             delCategory.Size = new Size(30,25);
             delCategory.Click += new EventHandler(delCategory_Click);
+            _delCategory = delCategory;
             budgetForm.Controls.Add(delCategory);
             valid.Add(delCategory);
 
@@ -64,23 +73,26 @@ namespace Project_ITEC145__Budgeting_App__
             addField.Top = locationy + 30;
             addField.Left = _locationx + 10;
             addField.Click += new EventHandler(addFields_Click);
+            _addField = addField;
             budgetForm.Controls.Add(addField);
             valid.Add(addField);
             validButton.Add(addField);
 
             budgetForm.categoriesList.Add(this);
             locationy = locationy + 30;
+            budgetForm.lastLocation += 30;
         }
 
         public void addFields_Click(object sender, EventArgs e)
         {
+            _controlIndex = _count;
             //Make fields that are editable with a delete button
             TextBox textBox = new TextBox();
             textBox.Text = "";
             textBox.Name = $"{_count}";
             textBox.Font = new Font("Arial", 18, FontStyle.Bold);
             textBox.ForeColor = textBox.ForeColor = Color.FromArgb(1, 0, 0, 0);
-            textBox.Top = budgetForm.lastLocation;
+            textBox.Top = _categoryLocation;
             textBox.Left = _locationx + 40;
             textBox.Size = new Size(300, 30);
             budgetForm.Controls.Add(textBox);
@@ -92,7 +104,7 @@ namespace Project_ITEC145__Budgeting_App__
             moneyBox.TextAlign = HorizontalAlignment.Right;
             moneyBox.Font = new Font("Arial", 18, FontStyle.Bold);
             moneyBox.ForeColor = moneyBox.ForeColor = Color.FromArgb(1, 0, 0, 0);
-            moneyBox.Top = budgetForm.lastLocation;
+            moneyBox.Top = _categoryLocation;
             moneyBox.Left = textBox.Left + 400;
             moneyBox.Size = new Size(150, 30);
             budgetForm.Controls.Add(moneyBox);
@@ -104,7 +116,7 @@ namespace Project_ITEC145__Budgeting_App__
             label.Name = $"{_count}";
             label.Font = new Font("Arial", 18, FontStyle.Bold);
             label.ForeColor = label.ForeColor = Color.FromArgb(1, 0, 0, 0);
-            label.Top = budgetForm.lastLocation;
+            label.Top = _categoryLocation;
             label.Left = moneyBox.Left - 30;
             label.Size = new Size(30, 30);
             budgetForm.Controls.Add(label);
@@ -114,27 +126,58 @@ namespace Project_ITEC145__Budgeting_App__
             delField.Text = "X";
             delField.Name = $"{_count}";
             delField.Tag = delField.Name;               //Found out about tags to send a buttons info to a click event
-            delField.Top = budgetForm.lastLocation;
+            delField.Top = _categoryLocation;
             delField.Left = moneyBox.Left + 160;
             delField.Click += new EventHandler(delFields_Click);
             budgetForm.Controls.Add(delField);
             valid.Add(delField);
             validButton.Add(delField);
 
-            budgetForm.lastLocation += 40;
+            _categoryLocation += 40;
+            budgetForm.lastLocation += 45;
 
             foreach(Button addFields in validButton)
             {
                 if(addFields.Name == "AddField")
                 {
-                    addFields.Top = budgetForm.lastLocation;
+                    addFields.Top = _categoryLocation;
                 }
             }
             _count++;
+
+            foreach(Category category in budgetForm.categoriesList)
+            {
+                int difference = 50;
+
+                if (category._categoryIndex > this._categoryIndex)
+                {
+                    foreach (Control control in category.valid)
+                    {
+                       control.Top += difference;
+                    }
+                }
+            }
         }
         public void delCategory_Click(object sender, EventArgs e)
         {
-            foreach(Control category in valid)
+            budgetForm.categoryIndex--;
+            int topOfCategory = _delCategory.Top;
+            int bottomOfCategory = _addField.Top + 30;
+            int difference = bottomOfCategory - topOfCategory;
+
+            foreach (Category category in budgetForm.categoriesList)
+            {
+                if (category._categoryIndex > this._categoryIndex)
+                {
+                    category._categoryLocation -= difference;
+                    foreach (Control control in category.valid)
+                    {
+                        control.Top -= difference;
+                    }
+                }
+            }
+
+            foreach (Control category in valid)
             {
                 delete.Add(category);
             }
@@ -144,8 +187,9 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 budgetForm.Controls.Remove(delete[i]);
             }
-
-            budgetForm.lastLocation = _locationy;
+            
+            budgetForm.lastLocation -= difference;
+            _categoryLocation = budgetForm.lastLocation;
         }
         public void delFields_Click(object sender, EventArgs eButton)
         {
@@ -179,13 +223,26 @@ namespace Project_ITEC145__Budgeting_App__
                 }
             }
 
-            budgetForm.lastLocation -= 40;
+            _categoryLocation -= 40;
 
             foreach (Button addFields in validButton)
             {
                 if (addFields.Name == "AddField")                   //Moves the add field button to the next field row
                 {
-                    addFields.Top = budgetForm.lastLocation;
+                    addFields.Top = _categoryLocation;
+                }
+            }
+
+            foreach (Category category in budgetForm.categoriesList)
+            {
+                int difference = 50;
+
+                if (category._categoryIndex > this._categoryIndex)
+                {
+                    foreach (Control control in category.valid)
+                    {
+                        control.Top -= difference;
+                    }
                 }
             }
         }

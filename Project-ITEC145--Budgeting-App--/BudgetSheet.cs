@@ -12,6 +12,7 @@ namespace Project_ITEC145__Budgeting_App__
         //Need a variable to keep track of the last control location
         public int lastLocation = 100;
         public bool anyCategories = false;
+        public int categoryIndex = 0;
 
         public Label currentBalance = new Label();
         public List<Category> categoriesList = new List<Category>();
