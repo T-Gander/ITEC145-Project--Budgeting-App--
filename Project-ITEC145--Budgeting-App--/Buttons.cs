@@ -60,7 +60,7 @@ namespace Project_ITEC145__Budgeting_App__
             return button;
         }
 
-        public Button MakeButton(EventHandler clickHandler)         //Pain to figure this out (without adding to list)
+        public Button MakeButton(EventHandler clickHandler)         //Overload method (without adding button to list)
         {
             Button button = new Button();
             button.Name = _name;

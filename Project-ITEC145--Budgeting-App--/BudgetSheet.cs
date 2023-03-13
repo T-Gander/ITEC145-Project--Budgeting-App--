@@ -60,7 +60,7 @@ namespace Project_ITEC145__Budgeting_App__
 
                 if (name == true)
                 {
-                    Labels budgetName = new Labels(550, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 225, 50);
+                    Labels budgetName = new Labels(550, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 275, 50);
 
                     Controls.Add(budgetName.MakeHeaderLabel());
 

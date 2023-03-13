@@ -149,8 +149,8 @@ namespace Project_ITEC145__Budgeting_App__
         }
         public void delFields_Click(object sender, EventArgs eButton)
         {
-            Button clickedButton = (Button)sender;                  //Casts the sender into a button so that I can retrieve the Tag variable.
-            clickedButton.Name = clickedButton.Tag.ToString();      //Converts Tag to string and assigns variable the name of the tag
+            Button clickedButton = (Button)sender;                  //Casts the sender into a button so that I can retrieve the Tag variable. (stack overflow)
+            clickedButton.Name = clickedButton.Tag.ToString();      //Converts Tag to string and assigns the variable name to the tag
 
             foreach(Control field in valid)
             {
