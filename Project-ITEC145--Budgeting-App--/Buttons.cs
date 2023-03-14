@@ -100,7 +100,7 @@ namespace Project_ITEC145__Budgeting_App__
         public void addCategory_Click(object sender, EventArgs e)
         {
             CategoryFieldForm form = new CategoryFieldForm();
-            form.Show();
+            form.ShowDialog();
         }
         public void addCategoryFieldForm_Click(object sender, EventArgs e)
         {

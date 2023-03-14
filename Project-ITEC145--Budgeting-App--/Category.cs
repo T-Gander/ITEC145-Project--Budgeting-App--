@@ -28,6 +28,7 @@ namespace Project_ITEC145__Budgeting_App__
             if(budgetForm.categoriesList.Count == 0)
             {
                 anyCategories = false;
+                _categoryLocation += 40;
             }
             else
             {
@@ -49,7 +50,7 @@ namespace Project_ITEC145__Budgeting_App__
 
             Button delCategory = new Button();
             delCategory.Text = "X";
-            delCategory.Top = locationy+2;
+            delCategory.Top = locationy + 5;
             delCategory.Left = _locationx;
             delCategory.Size = new Size(30,25);
             delCategory.Click += new EventHandler(delCategory_Click);
@@ -133,7 +134,7 @@ namespace Project_ITEC145__Budgeting_App__
             validButton.Add(delField);
 
             _categoryLocation += 40;
-            budgetForm.lastLocation += 45;
+            budgetForm.lastLocation += 40;
 
             foreach(Button addFields in validButton)
             {
@@ -146,10 +147,12 @@ namespace Project_ITEC145__Budgeting_App__
 
             foreach(Category category in budgetForm.categoriesList)
             {
-                int difference = 50;
+                int difference = 40;
 
                 if (category._categoryIndex > this._categoryIndex)
                 {
+                    category._categoryLocation += difference;
+
                     foreach (Control control in category.valid)
                     {
                        control.Top += difference;
@@ -159,9 +162,8 @@ namespace Project_ITEC145__Budgeting_App__
         }
         public void delCategory_Click(object sender, EventArgs e)
         {
-            budgetForm.categoryIndex--;
             int topOfCategory = _delCategory.Top;
-            int bottomOfCategory = _addField.Top + 30;
+            int bottomOfCategory = _addField.Top + 25;
             int difference = bottomOfCategory - topOfCategory;
 
             foreach (Category category in budgetForm.categoriesList)
@@ -169,6 +171,7 @@ namespace Project_ITEC145__Budgeting_App__
                 if (category._categoryIndex > this._categoryIndex)
                 {
                     category._categoryLocation -= difference;
+
                     foreach (Control control in category.valid)
                     {
                         control.Top -= difference;
@@ -194,8 +197,9 @@ namespace Project_ITEC145__Budgeting_App__
         {
             Button clickedButton = (Button)sender;                  //Casts the sender into a button so that I can retrieve the Tag variable. (stack overflow)
             clickedButton.Name = clickedButton.Tag.ToString();      //Converts Tag to string and assigns the variable name to the tag
+            int difference = 40;
 
-            foreach(Control field in valid)
+            foreach (Control field in valid)
             {
                 if(field.Name == clickedButton.Name)
                 {
@@ -221,7 +225,7 @@ namespace Project_ITEC145__Budgeting_App__
                     }
                 }
             }
-
+            budgetForm.lastLocation -= difference;
             _categoryLocation -= 40;
 
             foreach (Button addFields in validButton)
@@ -229,19 +233,19 @@ namespace Project_ITEC145__Budgeting_App__
                 if (addFields.Name == "AddField")                   //Moves the add field button to the next field row
                 {
                     addFields.Top = _categoryLocation;
+                    
                 }
             }
 
             foreach (Category category in budgetForm.categoriesList)
             {
-                int difference = 50;
-
                 if (category._categoryIndex > this._categoryIndex)
                 {
                     foreach (Control control in category.valid)
                     {
                         control.Top -= difference;
                     }
+                    category._categoryLocation -= 40;
                 }
             }
         }
