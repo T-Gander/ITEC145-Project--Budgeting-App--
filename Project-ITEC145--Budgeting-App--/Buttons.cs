@@ -20,7 +20,6 @@ namespace Project_ITEC145__Budgeting_App__
         private string _name;
         private Font _font;
         private string _text;
-        private Size _size;
         private Point _location;
         public bool anyCategories = false;
 
