@@ -9,7 +9,6 @@ namespace Project_ITEC145__Budgeting_App__
         public bool name = false;
 
         public const int HEIGHT = 50;
-        //Need a variable to keep track of the last control location
         public int lastLocation = 100;
         public bool anyCategories = false;
         public int categoryIndex = 0;
@@ -51,7 +50,7 @@ namespace Project_ITEC145__Budgeting_App__
                 currentBalance.ForeColor = Color.Green;
                 currentBalance.Top = 50;
                 currentBalance.Left = budgetSheet.GetWindowThirdX(this)-600;
-                currentBalance.Size = new Size(300, 35);
+                currentBalance.Size = new Size(550, 35);
                 currentBalance.IsAccessible = true;
                 Controls.Add(currentBalance);
 

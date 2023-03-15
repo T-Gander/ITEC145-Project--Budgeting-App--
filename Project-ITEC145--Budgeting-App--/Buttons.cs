@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -115,9 +116,19 @@ namespace Project_ITEC145__Budgeting_App__
         }
         public void currentBalance_Click(object sender, EventArgs e)
         {
-            Buttons.budgetForm.currentBalance.Text = $"Assignable : ${Buttons.balanceForm.txtCurrentBalance.Text}";
-            //Will need to add this value to transactions sheet when I eventually make it.
-            Buttons.balanceForm.Close();
+            switch(decimal.TryParse(Buttons.balanceForm.txtCurrentBalance.Text, out decimal result))
+            {
+                case true:
+                    Buttons.budgetForm.currentBalance.Text = $"Assignable : ${Buttons.balanceForm.txtCurrentBalance.Text}";
+                    //Will need to add this value to transactions sheet when I eventually make it.
+                    Buttons.balanceForm.Close();
+                    break;
+                case false:
+                    MessageBox.Show("The value entered was not in a decimal format, please try again.");
+                    Buttons.balanceForm.txtCurrentBalance.Text = "";
+                    break;
+            }
+            
         }
 
     }
