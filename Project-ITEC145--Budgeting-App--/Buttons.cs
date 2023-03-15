@@ -126,6 +126,7 @@ namespace Project_ITEC145__Budgeting_App__
                 case false:
                     MessageBox.Show("The value entered was not in a decimal format, please try again.");
                     Buttons.balanceForm.txtCurrentBalance.Text = "";
+                    Buttons.balanceForm.txtCurrentBalance.Focus();
                     break;
             }
             

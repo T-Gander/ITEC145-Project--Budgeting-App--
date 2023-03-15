@@ -17,7 +17,7 @@ namespace Project_ITEC145__Budgeting_App__
         public List<Category> categoriesList = new List<Category>();
         public List<Button> buttonList = new List<Button>();
         public List<Label> labelList = new List<Label>();
-        public List<TextBox> variableList = new List<TextBox>();
+        public List<Label> variableList = new List<Label>();
         List<Budgets> budgetsList;
 
         public BudgetSheet()
