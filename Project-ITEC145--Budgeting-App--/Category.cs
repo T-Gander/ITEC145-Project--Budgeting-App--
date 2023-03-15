@@ -92,6 +92,8 @@ namespace Project_ITEC145__Budgeting_App__
 
         public void addFields_Click(object sender, EventArgs e)
         {
+            int offFormLocation = 0;
+
             Label label = new Label();
             label.Text = "Click to Add Name";
             label.Name = $"{_count}";
@@ -144,14 +146,23 @@ namespace Project_ITEC145__Budgeting_App__
             validButton.Add(delField);
 
             _categoryLocation += 40;
-            budgetForm.lastLocation += 40;
+            budgetForm.lastLocation += 40;                  //Problem Location?
 
             foreach(Button addFields in validButton)
             {
-                if(addFields.Name == "AddField")
+                int location = _categoryLocation;
+
+                if(addFields.Name == "AddField" && location < 840)
                 {
-                    addFields.Top = _categoryLocation;
+                    addFields.Top = _categoryLocation;     //Problem location
                 }
+
+                if (addFields.Name == "AddField" && location > 840)
+                {
+                    addFields.Visible = false;                                       //Weird issue that only occurs based on auto scroll position. 
+                    budgetForm.addCategoryButton.Visible = false;                    //Ended up adding a next page button
+                }
+
             }
             _count++;
 
@@ -202,9 +213,19 @@ namespace Project_ITEC145__Budgeting_App__
             
             budgetForm.lastLocation -= difference;
             _categoryLocation = budgetForm.lastLocation;
+
+            if(_categoryLocation < 840)
+            {
+                budgetForm.addCategoryButton.Visible = true;
+            }
         }
         public void delFields_Click(object sender, EventArgs eButton)
         {
+            if (_categoryLocation < 880)
+            {
+                budgetForm.addCategoryButton.Visible = true;
+            }
+
             Button clickedButton = (Button)sender;                  //Casts the sender into a button so that I can retrieve the Tag variable. (stack overflow)
             clickedButton.Name = clickedButton.Tag.ToString();      //Converts Tag to string and assigns the variable name to the tag
             int difference = 40;

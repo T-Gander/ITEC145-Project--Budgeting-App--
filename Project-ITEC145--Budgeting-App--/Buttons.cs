@@ -72,7 +72,6 @@ namespace Project_ITEC145__Budgeting_App__
             return button;
         }
 
-
         //Click events for initialized buttons
 
         public void doNothing_Click(object sender, EventArgs e)
@@ -129,8 +128,6 @@ namespace Project_ITEC145__Budgeting_App__
                     Buttons.balanceForm.txtCurrentBalance.Focus();
                     break;
             }
-            
         }
-
     }
 }
