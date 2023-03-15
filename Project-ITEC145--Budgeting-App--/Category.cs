@@ -284,12 +284,12 @@ namespace Project_ITEC145__Budgeting_App__
         public void convertToTextbox_Click(object sender, EventArgs eButton)
         {
             Label clickedLabel = (Label)sender;
-            clickedLabel.Name = clickedLabel.Tag.ToString();
-            TextBox newTextBox = new TextBox();
+            clickedLabel.Name = clickedLabel.Tag.ToString();            //Fix editing textboxes
+            TextBox newTextBox = null;
 
             foreach(Label label in _convertableLabels)
             {
-                if(clickedLabel.Name == label.Name)
+                if(clickedLabel.Text == label.Name)
                 {
                     TextBox textBox = new TextBox();
                     textBox.Text = label.Text;
@@ -331,13 +331,16 @@ namespace Project_ITEC145__Budgeting_App__
                     newTextBox = textBox;
                 }
             }
-            newTextBox.Focus();
+            if(newTextBox != null)
+            {
+                newTextBox.Focus();
+            }
 
             for (int i = 0; i < delete.Count; i++)
             {
                 if (clickedLabel.Name == delete[i].Name && delete[i].GetType() == typeof(Label))
                 {
-                    _convertableLabels.Remove((Label)delete[i]);
+                    _convertableLabels.Clear();
                     budgetForm.Controls.Remove(delete[i]);
                     valid.Remove(delete[i]);
                 }
