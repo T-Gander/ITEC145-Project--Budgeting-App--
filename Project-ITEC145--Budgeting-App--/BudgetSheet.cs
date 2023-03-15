@@ -20,6 +20,8 @@ namespace Project_ITEC145__Budgeting_App__
         public List<TextBox> variableList = new List<TextBox>();
         List<Budgets> budgetsList;
 
+        public Button addCategoryButton;
+
         public BudgetSheet()
         {
             Interface.budgetForm = this;
@@ -68,6 +70,14 @@ namespace Project_ITEC145__Budgeting_App__
 
                     Controls.Add(addCategory.MakeButton(addCategory.addCategory_Click, buttonList));
 
+                    foreach (Button button in buttonList)
+                    {
+                        if (button.Name == "AddCategory")
+                        {
+                            addCategoryButton = button;
+                        }
+                    }
+
                     //When clicking create category, you can add a category, which will then allow you to add transactions.
                 }
             }
@@ -83,8 +93,16 @@ namespace Project_ITEC145__Budgeting_App__
 
                 Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 100);
 
+
                 Controls.Add(addCategory.MakeButton(addCategory.addCategory_Click, buttonList));
 
+                foreach (Button button in buttonList)
+                {
+                    if (button.Name == "AddCategory")
+                    {
+                        addCategoryButton = button;
+                    }
+                }
                 //When clicking create category, you can add a category, which will then allow you to add transactions.
             }
 

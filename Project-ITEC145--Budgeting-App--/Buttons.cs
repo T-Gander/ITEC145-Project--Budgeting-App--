@@ -128,8 +128,6 @@ namespace Project_ITEC145__Budgeting_App__
                     Buttons.balanceForm.txtCurrentBalance.Text = "";
                     break;
             }
-            
         }
-
     }
 }

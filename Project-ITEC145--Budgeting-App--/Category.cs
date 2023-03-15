@@ -146,6 +146,14 @@ namespace Project_ITEC145__Budgeting_App__
                     }
                 }
 
+                if (_categoryLocation > 760)
+                {
+                    if (addFields.Name == "AddField")
+                    {
+                        budgetForm.addCategoryButton.Visible = false;
+                    }
+                }
+
                 if (_categoryLocation > 800)
                 {
                     if (addFields.Name == "AddField")
@@ -198,6 +206,15 @@ namespace Project_ITEC145__Budgeting_App__
                     if (addFields.Name == "AddField")
                     {
                         addFields.Visible = true;
+                        budgetForm.addCategoryButton.Visible = true;
+                    }
+                }
+
+                if (_categoryLocation > 760)
+                {
+                    if (addFields.Name == "AddField")
+                    {
+                        budgetForm.addCategoryButton.Visible = false;
                     }
                 }
             }
@@ -256,7 +273,6 @@ namespace Project_ITEC145__Budgeting_App__
                 if (addFields.Name == "AddField")                   //Moves the add field button to the next field row
                 {
                     addFields.Top = _categoryLocation;
-                    
                 }
             }
 
@@ -279,6 +295,15 @@ namespace Project_ITEC145__Budgeting_App__
                     if (addFields.Name == "AddField")
                     {
                         addFields.Visible = true;
+                        budgetForm.addCategoryButton.Visible = true;
+                    }
+                }
+
+                if (_categoryLocation < 760)
+                {
+                    if (addFields.Name == "AddField")
+                    {
+                        budgetForm.addCategoryButton.Visible = true;
                     }
                 }
             }
