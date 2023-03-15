@@ -88,7 +88,7 @@ namespace Project_ITEC145__Budgeting_App__
         {
             //Make fields that are editable with a delete button
             TextBox textBox = new TextBox();
-            textBox.Text = "";
+            textBox.Text = "Enter Field Name";
             textBox.Name = $"{_count}";
             textBox.Font = new Font("Arial", 18, FontStyle.Bold);
             textBox.ForeColor = textBox.ForeColor = Color.FromArgb(1, 0, 0, 0);
@@ -138,9 +138,21 @@ namespace Project_ITEC145__Budgeting_App__
 
             foreach(Button addFields in validButton)
             {
-                if(addFields.Name == "AddField")
+                if(_categoryLocation < 800)
                 {
-                    addFields.Top = _categoryLocation;
+                    if (addFields.Name == "AddField")
+                    {
+                        addFields.Top = _categoryLocation;
+                    }
+                }
+
+                if (_categoryLocation > 800)
+                {
+                    if (addFields.Name == "AddField")
+                    {
+                        addFields.Visible = false;
+                        //make add category button invisible
+                    }
                 }
             }
             _count++;
@@ -175,6 +187,17 @@ namespace Project_ITEC145__Budgeting_App__
                     foreach (Control control in category.valid)
                     {
                         control.Top -= difference;
+                    }
+                }
+            }
+
+            foreach (Button addFields in validButton)
+            {
+                if (_categoryLocation < 800)
+                {
+                    if (addFields.Name == "AddField")
+                    {
+                        addFields.Visible = true;
                     }
                 }
             }
@@ -246,6 +269,17 @@ namespace Project_ITEC145__Budgeting_App__
                         control.Top -= difference;
                     }
                     category._categoryLocation -= 40;
+                }
+            }
+
+            foreach (Button addFields in validButton)
+            {
+                if (_categoryLocation < 800)
+                {
+                    if (addFields.Name == "AddField")
+                    {
+                        addFields.Visible = true;
+                    }
                 }
             }
         }
