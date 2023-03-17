@@ -17,7 +17,7 @@ namespace Project_ITEC145__Budgeting_App__
         public List<Category> categoriesList = new List<Category>();
         public List<Button> buttonList = new List<Button>();
         public List<Label> labelList = new List<Label>();
-        public List<TextBox> variableList = new List<TextBox>();
+        public List<Label> variableList = new List<Label>();
         List<Budgets> budgetsList;
 
         public Button addCategoryButton;
@@ -34,12 +34,10 @@ namespace Project_ITEC145__Budgeting_App__
             CurrentBalance.budgetForm = this;
             InitializeComponent();
         }
-
         private void BudgetSheet_Load(object sender, EventArgs e)
         {
             
         }
-
         private void timerConditions_Tick(object sender, EventArgs e)
         {
             if (name == false)
@@ -70,9 +68,11 @@ namespace Project_ITEC145__Budgeting_App__
 
                     Controls.Add(addCategory.MakeButton(addCategory.addCategory_Click, buttonList));
 
+
                     foreach (Button button in buttonList)
                     {
                         if (button.Name == "AddCategory")
+
                         {
                             addCategoryButton = button;
                         }
@@ -98,11 +98,15 @@ namespace Project_ITEC145__Budgeting_App__
 
                 foreach (Button button in buttonList)
                 {
+
                     if (button.Name == "AddCategory")
+
                     {
                         addCategoryButton = button;
                     }
                 }
+
+
                 //When clicking create category, you can add a category, which will then allow you to add transactions.
             }
 

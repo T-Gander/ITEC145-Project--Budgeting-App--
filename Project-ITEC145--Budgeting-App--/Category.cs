@@ -16,10 +16,12 @@ namespace Project_ITEC145__Budgeting_App__
         private string _name;
         private int _locationx;
         private int _count;
+
         private int _categoryLocation = budgetForm.lastLocation;        //Used to assign the category location based on the next available space.
         private int _categoryIndex;                                     //Keeps track of a categories ID and a new one is created each time a category class is made
         private Button _delCategory;                                    //Used to keep track of the delete category button.
         private Button _addField;                                       //Used to keep track of the addfield button
+
 
         public Category(string Name, ref int locationy, ref bool anyCategories, ref int categoryIndex)
         {
@@ -47,8 +49,10 @@ namespace Project_ITEC145__Budgeting_App__
             label.Top = locationy;
             label.Left = _locationx + 30;
             label.Size = new Size(800, 30);
+            label.Tag = label.Text;
             budgetForm.Controls.Add(label);
             valid.Add(label);
+            //Make this convertable
 
             Button addField = new Button();                             //The addfield button
             addField.Text = "Add Field";
@@ -68,6 +72,7 @@ namespace Project_ITEC145__Budgeting_App__
 
         public void addFields_Click(object sender, EventArgs e)                         //The addfield button click event
         {
+
             //Make fields that are editable with a delete button
             TextBox textBox = new TextBox();
             textBox.Text = "Enter Field Name";
@@ -80,15 +85,18 @@ namespace Project_ITEC145__Budgeting_App__
             valid.Add(textBox);
 
             TextBox moneyBox = new TextBox();                                           //Where you enter your assigned money
+
             moneyBox.Text = "0";                                                        //Will need error checking for this
             moneyBox.Name = $"{_count}";
-            moneyBox.TextAlign = HorizontalAlignment.Right;
+            moneyBox.TextAlign = ContentAlignment.MiddleRight;
             moneyBox.Font = new Font("Arial", 18, FontStyle.Bold);
             moneyBox.Top = _categoryLocation;
-            moneyBox.Left = textBox.Left + 400;
+            moneyBox.Left = label.Left + 400;
             moneyBox.Size = new Size(150, 30);
+            moneyBox.Tag = moneyBox.Name;
+            moneyBox.Click += new EventHandler(convertToMoneyTextbox_Click);
+            _convertableMoneyLabels.Add(moneyBox);            
             budgetForm.Controls.Add(moneyBox);
-            budgetForm.variableList.Add(moneyBox);
             valid.Add(moneyBox);
 
             Label label = new Label();                                                  //Dollar sign label
@@ -113,7 +121,7 @@ namespace Project_ITEC145__Budgeting_App__
             validButton.Add(delField);
 
             _categoryLocation += 40;
-            budgetForm.lastLocation += 40;
+            budgetForm.lastLocation += 40;                  //Problem Location?
 
             _count++;
 
@@ -219,9 +227,19 @@ namespace Project_ITEC145__Budgeting_App__
 
             budgetForm.lastLocation -= difference;                              //These might be redundant as the category no longer functionally exists
             _categoryLocation = budgetForm.lastLocation;
+
+            if(_categoryLocation < 840)
+            {
+                budgetForm.addCategoryButton.Visible = true;
+            }
         }
         public void delFields_Click(object sender, EventArgs eButton)
         {
+            if (_categoryLocation < 880)
+            {
+                budgetForm.addCategoryButton.Visible = true;
+            }
+
             Button clickedButton = (Button)sender;                  //Casts the sender into a button so that I can retrieve the Tag variable. (stack overflow)
             clickedButton.Name = clickedButton.Tag.ToString();      //Converts Tag to string and assigns the variable name to the tag
             int difference = 40;
@@ -294,6 +312,211 @@ namespace Project_ITEC145__Budgeting_App__
                             budgetForm.addCategoryButton.Visible = true;
                         }
                     }
+                }
+            }
+        }
+
+        public void convertToTextbox_Click(object sender, EventArgs eButton)
+        {
+            Label clickedLabel = (Label)sender;
+            clickedLabel.Name = clickedLabel.Tag.ToString();            //Fix editing textboxes
+            TextBox newTextBox = null;
+
+            foreach(Label label in _convertableLabels)
+            {
+                if(clickedLabel.Text == label.Name)
+                {
+                    TextBox textBox = new TextBox();
+                    textBox.Text = label.Text;
+                    textBox.Name = label.Name;
+                    textBox.Font = label.Font;
+                    textBox.ForeColor = label.ForeColor;
+                    textBox.Top = label.Top;
+                    textBox.Left = label.Left;
+                    textBox.Size = label.Size;
+                    textBox.Tag = label.Tag;
+                    textBox.Leave += new EventHandler(convertToLabel_Leave);
+                    _convertableTextBox.Add(textBox);
+                    budgetForm.Controls.Add(textBox);
+                    valid.Add(textBox);
+                    delete.Add(label);
+                    newTextBox = textBox; 
+                }
+            }
+
+            foreach (Label label in _convertableMoneyLabels)
+            {
+                if (clickedLabel.Name == label.Name)
+                {
+                    TextBox textBox = new TextBox();
+                    textBox.Text = label.Text;
+                    textBox.Name = label.Name;
+                    textBox.Font = label.Font;
+                    textBox.ForeColor = label.ForeColor;
+                    textBox.Top = label.Top;
+                    textBox.Left = label.Left;
+                    textBox.Size = label.Size;
+                    textBox.Tag = label.Tag;
+                    textBox.Leave += new EventHandler(convertToLabel_Leave);
+                    _convertableMoneyTextBox.Add(textBox);
+                    budgetForm.Controls.Add(textBox);
+                    valid.Add(textBox);
+                    delete.Add(label);
+                    budgetForm.variableList.Remove(label);
+                    newTextBox = textBox;
+                }
+            }
+            if(newTextBox != null)
+            {
+                newTextBox.Focus();
+            }
+
+            for (int i = 0; i < delete.Count; i++)
+            {
+                if (clickedLabel.Name == delete[i].Name && delete[i].GetType() == typeof(Label))
+                {
+                    _convertableLabels.Clear();
+                    budgetForm.Controls.Remove(delete[i]);
+                    valid.Remove(delete[i]);
+                }
+            }
+        }
+
+        public void convertToMoneyTextbox_Click(object sender, EventArgs eButton)
+        {
+            Label clickedLabel = (Label)sender;
+            clickedLabel.Name = clickedLabel.Tag.ToString();
+            TextBox newTextBox = new TextBox();
+
+            foreach (Label label in _convertableMoneyLabels)
+            {
+                if (clickedLabel.Name == label.Name)
+                {
+                    TextBox textBox = new TextBox();
+                    textBox.Text = label.Text;
+                    textBox.Name = label.Name;
+                    textBox.Font = label.Font;
+                    textBox.ForeColor = label.ForeColor;
+                    textBox.Top = label.Top;
+                    textBox.Left = label.Left;
+                    textBox.Size = label.Size;
+                    textBox.Tag = label.Tag;
+                    textBox.Leave += new EventHandler(convertToMoneyLabel_Leave);
+                    _convertableMoneyTextBox.Add(textBox);
+                    budgetForm.Controls.Add(textBox);
+                    valid.Add(textBox);
+                    delete.Add(label);
+                    budgetForm.variableList.Remove(label);
+                    newTextBox = textBox;
+                }
+            }
+            newTextBox.Focus();
+
+            for (int i = 0; i < delete.Count; i++)
+            {
+                if (clickedLabel.Name == delete[i].Name && delete[i].GetType() == typeof(Label))
+                {
+                    _convertableMoneyLabels.Remove((Label)delete[i]);
+                    budgetForm.Controls.Remove(delete[i]);
+                    valid.Remove(delete[i]);
+                }
+            }
+        }
+
+        public void convertToLabel_Leave(object sender, EventArgs eButton)
+        {
+            TextBox enteredTextbox = (TextBox)sender;
+            enteredTextbox.Name = enteredTextbox.Tag.ToString();
+
+            foreach (TextBox textBox in _convertableTextBox)
+            {
+                if (enteredTextbox.Name == textBox.Name)
+                {
+                    Label label = new Label();
+                    label.Text = textBox.Text;
+                    label.Name = textBox.Name;
+                    label.Font = textBox.Font;
+                    label.ForeColor = textBox.ForeColor;
+                    label.Top = textBox.Top;
+                    label.Left = textBox.Left;
+                    label.Size = textBox.Size;
+                    label.Tag = textBox.Tag;
+                    label.Click += new EventHandler(convertToTextbox_Click);
+                    _convertableLabels.Add(label);
+                    budgetForm.Controls.Add(label);
+                    valid.Add(label);
+                    delete.Add(textBox);
+                }
+            }
+
+            foreach (TextBox textBox in _convertableMoneyTextBox)
+            {
+                if (enteredTextbox.Name == textBox.Name)
+                {
+                    Label label = new Label();
+                    label.Text = textBox.Text;
+                    label.Name = textBox.Name;
+                    label.Font = textBox.Font;
+                    label.ForeColor = textBox.ForeColor;
+                    label.Top = textBox.Top;
+                    label.Left = textBox.Left;
+                    label.Size = textBox.Size;
+                    label.Tag = textBox.Tag;
+                    label.TextAlign = ContentAlignment.MiddleRight;
+                    label.Click += new EventHandler(convertToTextbox_Click);
+                    _convertableMoneyLabels.Add(label);
+                    budgetForm.Controls.Add(label);
+                    valid.Add(label);
+                    delete.Add(textBox);
+                    budgetForm.variableList.Add(label);
+                }
+            }
+
+            for (int i = 0; i < delete.Count; i++)
+            {
+                if (enteredTextbox.Name == delete[i].Name && delete[i].GetType() == typeof(TextBox))
+                {
+                    _convertableTextBox.Remove((TextBox)delete[i]);
+                    budgetForm.Controls.Remove(delete[i]);
+                    valid.Remove(delete[i]);
+                }
+            }
+        }
+        public void convertToMoneyLabel_Leave(object sender, EventArgs eButton)
+        {
+            TextBox enteredTextbox = (TextBox)sender;
+            enteredTextbox.Name = enteredTextbox.Tag.ToString();
+
+            foreach (TextBox textBox in _convertableMoneyTextBox)
+            {
+                if (enteredTextbox.Name == textBox.Name)
+                {
+                    Label label = new Label();
+                    label.Text = textBox.Text;
+                    label.Name = textBox.Name;
+                    label.Font = textBox.Font;
+                    label.ForeColor = textBox.ForeColor;
+                    label.Top = textBox.Top;
+                    label.Left = textBox.Left;
+                    label.Size = textBox.Size;
+                    label.Tag = textBox.Tag;
+                    label.TextAlign = ContentAlignment.MiddleRight;
+                    label.Click += new EventHandler(convertToMoneyTextbox_Click);
+                    _convertableMoneyLabels.Add(label);
+                    budgetForm.Controls.Add(label);
+                    valid.Add(label);
+                    delete.Add(textBox);
+                    budgetForm.variableList.Add(label);
+                }
+            }
+
+            for (int i = 0; i < delete.Count; i++)
+            {
+                if (enteredTextbox.Name == delete[i].Name && delete[i].GetType() == typeof(TextBox))
+                {
+                    _convertableMoneyTextBox.Remove((TextBox)delete[i]);
+                    budgetForm.Controls.Remove(delete[i]);
+                    valid.Remove(delete[i]);
                 }
             }
         }
