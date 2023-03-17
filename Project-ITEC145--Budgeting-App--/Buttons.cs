@@ -108,6 +108,28 @@ namespace Project_ITEC145__Budgeting_App__
             Category newCategory = new Category(CategoryName,ref budgetForm.lastLocation, ref anyCategories, ref budgetForm.categoryIndex);
             Buttons.categoryFieldForm.Close();
 
+            foreach (Category category in budgetForm.categoriesList)
+            {
+                foreach (Button addFields in category.validButton)
+                {
+                    if (budgetForm.lastLocation > 760)
+                    {
+                        if (addFields.Name == "AddField")
+                        {
+                            addFields.Visible = false;
+                        }
+                    }
+
+                    if (budgetForm.lastLocation > 680)
+                    {
+                        if (addFields.Name == "AddField")
+                        {
+                            budgetForm.addCategoryButton.Visible = false;
+                        }
+                    }
+                }
+            }
+
         }
         public void cancelCategoryFieldForm_Click(object sender, EventArgs e)
         {
