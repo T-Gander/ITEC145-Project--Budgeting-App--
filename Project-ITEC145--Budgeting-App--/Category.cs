@@ -12,7 +12,7 @@ namespace Project_ITEC145__Budgeting_App__
 
         private List<Control> delete = new List<Control>();
         private List<Control> valid = new List<Control>();
-        private List<Button> validButton = new List<Button>();
+        public List<Button> validButton = new List<Button>();
         private string _name;
         private int _locationy;
         private int _locationx;
@@ -21,6 +21,7 @@ namespace Project_ITEC145__Budgeting_App__
         private int _categoryIndex;
         private Button _delCategory;
         private Button _addField;
+        private bool _firstFields = false;
         //Need to fix Add Fields Button
 
         public Category(string Name, ref int locationy, ref bool anyCategories, ref int categoryIndex)
@@ -71,7 +72,7 @@ namespace Project_ITEC145__Budgeting_App__
             Button addField = new Button();
             addField.Text = "Add Field";
             addField.Name = "AddField";
-            addField.Top = locationy + 30;
+            addField.Top = locationy + 40;
             addField.Left = _locationx + 10;
             addField.Click += new EventHandler(addFields_Click);
             _addField = addField;
@@ -80,7 +81,7 @@ namespace Project_ITEC145__Budgeting_App__
             validButton.Add(addField);
 
             budgetForm.categoriesList.Add(this);
-            locationy = locationy + 30;
+            locationy = locationy + 40;
             budgetForm.lastLocation += 30;
         }
 
@@ -168,12 +169,11 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 foreach (Button addFields in category.validButton)
                 {
-                    if (budgetForm.lastLocation > 800)
+                    if (budgetForm.lastLocation > 760)
                     {
                         if (addFields.Name == "AddField")
                         {
                             addFields.Visible = false;
-                            //make add category button invisible
                         }
                     }
 
@@ -184,21 +184,13 @@ namespace Project_ITEC145__Budgeting_App__
                             budgetForm.addCategoryButton.Visible = false;
                         }
                     }
-
-                    if (budgetForm.lastLocation < 680)
-                    {
-                        if (addFields.Name == "AddField")
-                        {
-                            budgetForm.addCategoryButton.Visible = true;
-                        }
-                    }
                 }
             }
         }
         public void delCategory_Click(object sender, EventArgs e)
         {
             int topOfCategory = _delCategory.Top;
-            int bottomOfCategory = _addField.Top + 25;
+            int bottomOfCategory = _addField.Top + 35;
             int difference = bottomOfCategory - topOfCategory;
 
             foreach (Category category in budgetForm.categoriesList)
@@ -229,23 +221,15 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 foreach (Button addFields in category.validButton)
                 {
-                    if (_categoryLocation < 800)
-                    {
-                        if (addFields.Name == "AddField")
-                        {
-                            addFields.Top = _categoryLocation;
-                        }
-                    }
-
-                    if (budgetForm.lastLocation < 800)
+                    if (_categoryLocation < 760)
                     {
                         if (addFields.Name == "AddField")
                         {
                             addFields.Visible = true;
                         }
                     }
-                    
-                    if (budgetForm.lastLocation < 680)
+
+                    if (budgetForm.lastLocation < 760)
                     {
                         if (addFields.Name == "AddField")
                         {
@@ -317,33 +301,15 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 foreach (Button addFields in category.validButton)
                 {
-                    if (_categoryLocation < 800)
-                    {
-                        if (addFields.Name == "AddField")
-                        {
-                            addFields.Top = _categoryLocation;
-                        }
-                    }
-
-                    if (budgetForm.lastLocation < 800)
+                    if (_categoryLocation < 760)
                     {
                         if (addFields.Name == "AddField")
                         {
                             addFields.Visible = true;
-                            //make add category button invisible
                         }
                     }
 
-                    if (budgetForm.lastLocation > 800)
-                    {
-                        if (addFields.Name == "AddField")
-                        {
-                            addFields.Visible = false;
-                            //make add category button invisible
-                        }
-                    }
-
-                    if (budgetForm.lastLocation < 680)
+                    if (budgetForm.lastLocation < 720)
                     {
                         if (addFields.Name == "AddField")
                         {
