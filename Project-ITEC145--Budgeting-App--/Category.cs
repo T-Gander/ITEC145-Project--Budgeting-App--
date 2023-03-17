@@ -10,28 +10,28 @@ namespace Project_ITEC145__Budgeting_App__
     {
         static public BudgetSheet budgetForm;
 
-        private List<Control> delete = new List<Control>();
-        private List<Control> valid = new List<Control>();
-        public List<Button> validButton = new List<Button>();
+        private List<Control> delete = new List<Control>();             //Used to delete controls.
+        private List<Control> valid = new List<Control>();              //a list of a category controls
+        public List<Button> validButton = new List<Button>();           //Used to select buttons only
         private string _name;
         private int _locationx;
         private int _count;
-        private int _categoryLocation = budgetForm.lastLocation;
-        private int _categoryIndex;
-        private Button _delCategory;
-        private Button _addField;
+        private int _categoryLocation = budgetForm.lastLocation;        //Used to assign the category location based on the next available space.
+        private int _categoryIndex;                                     //Keeps track of a categories ID and a new one is created each time a category class is made
+        private Button _delCategory;                                    //Used to keep track of the delete category button.
+        private Button _addField;                                       //Used to keep track of the addfield button
 
         public Category(string Name, ref int locationy, ref bool anyCategories, ref int categoryIndex)
         {
             
-            _categoryLocation += 40;                //a location the category class uses to keep track of where to place controls
+            _categoryLocation += 40;                                    //a location the category class uses to keep track of where to place controls
 
             _name = Name;
             _locationx = 10;
-            _categoryIndex = categoryIndex;         //Keeps track of a categories ID and a new one is created each time a category class is made
+            _categoryIndex = categoryIndex;         
             categoryIndex++;
 
-            Button delCategory = new Button();
+            Button delCategory = new Button();                          
             delCategory.Text = "X";
             delCategory.Top = locationy + 5;
             delCategory.Left = _locationx;
@@ -41,7 +41,7 @@ namespace Project_ITEC145__Budgeting_App__
             budgetForm.Controls.Add(delCategory);
             valid.Add(delCategory);
 
-            Label label = new Label();
+            Label label = new Label();                                  //The label of the category
             label.Text = _name;
             label.Font = new Font("Arial", 18, FontStyle.Bold);
             label.Top = locationy;
@@ -50,7 +50,7 @@ namespace Project_ITEC145__Budgeting_App__
             budgetForm.Controls.Add(label);
             valid.Add(label);
 
-            Button addField = new Button();
+            Button addField = new Button();                             //The addfield button
             addField.Text = "Add Field";
             addField.Name = "AddField";
             addField.Top = locationy + 40;
@@ -66,7 +66,7 @@ namespace Project_ITEC145__Budgeting_App__
             budgetForm.lastLocation += 30;
         }
 
-        public void addFields_Click(object sender, EventArgs e)
+        public void addFields_Click(object sender, EventArgs e)                         //The addfield button click event
         {
             //Make fields that are editable with a delete button
             TextBox textBox = new TextBox();
@@ -79,7 +79,7 @@ namespace Project_ITEC145__Budgeting_App__
             budgetForm.Controls.Add(textBox);
             valid.Add(textBox);
 
-            TextBox moneyBox = new TextBox();
+            TextBox moneyBox = new TextBox();                                           //Where you enter your assigned money
             moneyBox.Text = "0";                                                        //Will need error checking for this
             moneyBox.Name = $"{_count}";
             moneyBox.TextAlign = HorizontalAlignment.Right;
@@ -91,7 +91,7 @@ namespace Project_ITEC145__Budgeting_App__
             budgetForm.variableList.Add(moneyBox);
             valid.Add(moneyBox);
 
-            Label label = new Label();
+            Label label = new Label();                                                  //Dollar sign label
             label.Text = "$";
             label.Name = $"{_count}";
             label.Font = new Font("Arial", 18, FontStyle.Bold);
@@ -101,7 +101,7 @@ namespace Project_ITEC145__Budgeting_App__
             budgetForm.Controls.Add(label);
             valid.Add(label);
 
-            Button delField = new Button();
+            Button delField = new Button();                                             //Delete field button within a category
             delField.Text = "X";
             delField.Name = $"{_count}";
             delField.Tag = delField.Name;               //Found out about tags to send a buttons info to a click event
@@ -117,7 +117,7 @@ namespace Project_ITEC145__Budgeting_App__
 
             _count++;
 
-            foreach(Category category in budgetForm.categoriesList)
+            foreach(Category category in budgetForm.categoriesList)                 //Used to move all controls that are below a category
             {
                 int difference = 40;
 
@@ -132,7 +132,7 @@ namespace Project_ITEC145__Budgeting_App__
                 }
             }
 
-            foreach (Button addFields in validButton)
+            foreach (Button addFields in validButton)                               //Used to move the addfields button down that belongs to the current category
             {
                 if (_categoryLocation < 800)
                 {
@@ -143,7 +143,7 @@ namespace Project_ITEC145__Budgeting_App__
                 }
             }
 
-            foreach (Category category in budgetForm.categoriesList)
+            foreach (Category category in budgetForm.categoriesList)                //Hides add buttons on the form so that no more buttons can be added
             {
                 foreach (Button addFields in category.validButton)
                 {
@@ -171,7 +171,7 @@ namespace Project_ITEC145__Budgeting_App__
             int bottomOfCategory = _addField.Top + 35;
             int difference = bottomOfCategory - topOfCategory;
 
-            foreach (Category category in budgetForm.categoriesList)
+            foreach (Category category in budgetForm.categoriesList)            //Used to move categories down that are below the current category
             {
                 if (category._categoryIndex > this._categoryIndex)
                 {
@@ -184,18 +184,18 @@ namespace Project_ITEC145__Budgeting_App__
                 }
             }
 
-            foreach (Control category in valid)
+            foreach (Control category in valid)                                 //Adds all controls in current category to the delete list
             {
                 delete.Add(category);
             }
-            valid.Clear();
+            valid.Clear();                                                      
 
             for(int i = 0; i < delete.Count; i++)
             {
-                budgetForm.Controls.Remove(delete[i]);
+                budgetForm.Controls.Remove(delete[i]);                          //Deletes all controls
             }
 
-            foreach (Category category in budgetForm.categoriesList)
+            foreach (Category category in budgetForm.categoriesList)            //Checks all categories buttons, and hides them if the current category is too far down the page.
             {
                 foreach (Button addFields in category.validButton)
                 {
@@ -217,7 +217,7 @@ namespace Project_ITEC145__Budgeting_App__
                 }
             }
 
-            budgetForm.lastLocation -= difference;
+            budgetForm.lastLocation -= difference;                              //These might be redundant as the category no longer functionally exists
             _categoryLocation = budgetForm.lastLocation;
         }
         public void delFields_Click(object sender, EventArgs eButton)
@@ -263,7 +263,7 @@ namespace Project_ITEC145__Budgeting_App__
                 }
             }
 
-            foreach (Category category in budgetForm.categoriesList)
+            foreach (Category category in budgetForm.categoriesList)        //Moves categories and their controls below this one up.
             {
                 if (category._categoryIndex > this._categoryIndex)
                 {
@@ -275,7 +275,7 @@ namespace Project_ITEC145__Budgeting_App__
                 }
             }
 
-            foreach (Category category in budgetForm.categoriesList)
+            foreach (Category category in budgetForm.categoriesList)        //Checks all categories controls and makes their add buttons visible and also shows the add category button again
             {
                 foreach (Button addFields in category.validButton)
                 {
