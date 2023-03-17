@@ -44,7 +44,6 @@ namespace Project_ITEC145__Budgeting_App__
             Label label = new Label();
             label.Text = _name;
             label.Font = new Font("Arial", 18, FontStyle.Bold);
-            label.ForeColor = label.ForeColor = Color.FromArgb(1, 0, 0, 0);
             label.Top = locationy;
             label.Left = _locationx + 30;
             label.Size = new Size(800, 30);
@@ -74,7 +73,6 @@ namespace Project_ITEC145__Budgeting_App__
             textBox.Text = "Enter Field Name";
             textBox.Name = $"{_count}";
             textBox.Font = new Font("Arial", 18, FontStyle.Bold);
-            textBox.ForeColor = textBox.ForeColor = Color.FromArgb(1, 0, 0, 0);
             textBox.Top = _categoryLocation;
             textBox.Left = _locationx + 40;
             textBox.Size = new Size(300, 30);
@@ -86,7 +84,6 @@ namespace Project_ITEC145__Budgeting_App__
             moneyBox.Name = $"{_count}";
             moneyBox.TextAlign = HorizontalAlignment.Right;
             moneyBox.Font = new Font("Arial", 18, FontStyle.Bold);
-            moneyBox.ForeColor = moneyBox.ForeColor = Color.FromArgb(1, 0, 0, 0);
             moneyBox.Top = _categoryLocation;
             moneyBox.Left = textBox.Left + 400;
             moneyBox.Size = new Size(150, 30);
@@ -98,7 +95,6 @@ namespace Project_ITEC145__Budgeting_App__
             label.Text = "$";
             label.Name = $"{_count}";
             label.Font = new Font("Arial", 18, FontStyle.Bold);
-            label.ForeColor = label.ForeColor = Color.FromArgb(1, 0, 0, 0);
             label.Top = _categoryLocation;
             label.Left = moneyBox.Left - 30;
             label.Size = new Size(30, 30);
@@ -194,7 +190,7 @@ namespace Project_ITEC145__Budgeting_App__
             }
             valid.Clear();
 
-            for(int i = 0; i<delete.Count; i++)
+            for(int i = 0; i < delete.Count; i++)
             {
                 budgetForm.Controls.Remove(delete[i]);
             }
