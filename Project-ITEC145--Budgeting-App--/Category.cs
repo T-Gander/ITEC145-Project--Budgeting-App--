@@ -14,39 +14,21 @@ namespace Project_ITEC145__Budgeting_App__
         private List<Control> valid = new List<Control>();
         public List<Button> validButton = new List<Button>();
         private string _name;
-        private int _locationy;
         private int _locationx;
         private int _count;
         private int _categoryLocation = budgetForm.lastLocation;
         private int _categoryIndex;
         private Button _delCategory;
         private Button _addField;
-        private bool _firstFields = false;
-        //Need to fix Add Fields Button
 
         public Category(string Name, ref int locationy, ref bool anyCategories, ref int categoryIndex)
         {
-            if(budgetForm.categoriesList.Count == 0)
-            {
-                anyCategories = false;
-                _categoryLocation += 40;
-            }
-            else
-            {
-                anyCategories = true;
-            }
-
-            if(anyCategories == true)
-            {
-                _categoryLocation += 40;
-            }
-
-            budgetForm.anyCategories = true;
+            
+            _categoryLocation += 40;                //a location the category class uses to keep track of where to place controls
 
             _name = Name;
-            _locationy = locationy;
             _locationx = 10;
-            _categoryIndex = categoryIndex;
+            _categoryIndex = categoryIndex;         //Keeps track of a categories ID and a new one is created each time a category class is made
             categoryIndex++;
 
             Button delCategory = new Button();
