@@ -147,7 +147,7 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 foreach (Button addFields in category.validButton)
                 {
-                    if (budgetForm.lastLocation > 760)
+                    if (budgetForm.lastLocation > 780)
                     {
                         if (addFields.Name == "AddField")
                         {

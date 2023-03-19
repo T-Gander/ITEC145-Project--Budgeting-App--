@@ -20,6 +20,8 @@ namespace Project_ITEC145__Budgeting_App__
         {
             InitializeComponent();
 
+            this.StartPosition = FormStartPosition.CenterScreen;
+
             Buttons.balanceForm = this;
 
             Interface balanceForm = new Interface();

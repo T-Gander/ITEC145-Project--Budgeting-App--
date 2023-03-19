@@ -28,27 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.timerConditions = new System.Windows.Forms.Timer(this.components);
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            timerConditions = new System.Windows.Forms.Timer(components);
+            SuspendLayout();
             // 
             // timerConditions
             // 
-            this.timerConditions.Enabled = true;
-            this.timerConditions.Tick += new System.EventHandler(this.timerConditions_Tick);
+            timerConditions.Enabled = true;
+            timerConditions.Tick += timerConditions_Tick;
             // 
             // BudgetSheet
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1464, 861);
-            this.MaximizeBox = false;
-            this.Name = "BudgetSheet";
-            this.Text = "BudgetSheet";
-            this.Load += new System.EventHandler(this.BudgetSheet_Load);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1464, 861);
+            MaximizeBox = false;
+            Name = "BudgetSheet";
+            Text = "BudgetSheet";
+            Load += BudgetSheet_Load;
+            ResumeLayout(false);
         }
 
         #endregion

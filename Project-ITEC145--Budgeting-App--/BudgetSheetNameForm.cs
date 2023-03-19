@@ -16,8 +16,11 @@ namespace Project_ITEC145__Budgeting_App__
 
         public BudgetSheetNameForm()
         {
-            Buttons.budgetSheetNameForm = this;
             InitializeComponent();
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            Buttons.budgetSheetNameForm = this;
 
             Interface budgetSheetNameForm = new Interface();
             Buttons nameForm = new Buttons(100, BudgetSheet.HEIGHT, "Ok", new Font("Arial", 12), budgetSheetNameForm.GetWindowCenterX(this), 50);

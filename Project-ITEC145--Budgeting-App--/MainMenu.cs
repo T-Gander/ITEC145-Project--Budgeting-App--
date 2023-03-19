@@ -19,11 +19,13 @@ namespace Project_ITEC145__Budgeting_App__
 
         public MainMenu()
         {
+            InitializeComponent();
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+
             Buttons.menuForm = this;
             Interface.menuForm = this;
             BudgetSheet.menuForm = this;
-
-            InitializeComponent();
         }
 
         private void MainMenu_Load(object sender, EventArgs e)

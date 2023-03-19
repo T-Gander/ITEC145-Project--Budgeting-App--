@@ -19,7 +19,10 @@ namespace Project_ITEC145__Budgeting_App__
         public CategoryFieldForm()
         {
             InitializeComponent();
+
             Buttons.categoryFieldForm = this;   //Assigns this form to the buttons class
+
+            this.StartPosition = FormStartPosition.CenterScreen;
 
             Buttons OkButton = new Buttons(100, BudgetSheet.HEIGHT, "Ok", new Font("Arial", 12, FontStyle.Regular), CategoryFieldInterface.GetWindowFirstX(this), 50);
             Buttons CancelButton = new Buttons(100, BudgetSheet.HEIGHT, "Cancel", new Font("Arial", 12, FontStyle.Regular), CategoryFieldInterface.GetWindowThirdX(this), 50);
