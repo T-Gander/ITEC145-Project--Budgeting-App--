@@ -10,7 +10,6 @@ namespace Project_ITEC145__Budgeting_App__
 
         public const int HEIGHT = 50;
         public int lastLocation = 100;
-        public bool anyCategories = false;
         public int categoryIndex = 0;
 
         public Label currentBalance = new Label();

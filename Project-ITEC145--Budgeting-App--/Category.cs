@@ -21,7 +21,7 @@ namespace Project_ITEC145__Budgeting_App__
         private Button _delCategory;                                    //Used to keep track of the delete category button.
         private Button _addField;                                       //Used to keep track of the addfield button
 
-        public Category(string Name, ref int locationy, ref bool anyCategories, ref int categoryIndex)
+        public Category(string Name, ref int locationy, ref int categoryIndex)
         {
             
             _categoryLocation += 40;                                    //a location the category class uses to keep track of where to place controls
