@@ -19,6 +19,7 @@ namespace Project_ITEC145__Budgeting_App__
         private int _width;
         private int _height;
         private string _name;
+        private int _budgetSheetIndex;
         private Font _font;
         private string _text;
         private Point _location;
@@ -27,6 +28,26 @@ namespace Project_ITEC145__Budgeting_App__
         public int Width { get { return _width; } }
         public int Height { get { return _height; } }
 
+
+        public Buttons(int width, int height, string name, Font font, int locationx, int locationy, int budgetSheetIndex)
+        {
+            string fullname = "";
+            List<string> nameparts = new List<string>();
+            nameparts.AddRange(name.Split(' '));
+
+            foreach (string namepart in nameparts)
+            {
+                fullname += namepart;
+            }
+
+            _width = width;
+            _height = height;
+            _name = fullname;
+            _font = font;
+            _location = new Point(locationx - (_width / 2), locationy);
+            _text = name;
+            _budgetSheetIndex = budgetSheetIndex;
+        }
 
         public Buttons(int width, int height, string name, Font font, int locationx, int locationy)
         {
@@ -56,6 +77,20 @@ namespace Project_ITEC145__Budgeting_App__
             button.Size = new Size(_width, _height);
             button.Location = _location;
             button.Click += clickHandler;                           //Found this hint on stackoverflow
+            buttonList.Add(button);
+            return button;
+        }
+
+        public Button MakeButton(EventHandler clickHandler, List<Button> buttonList, int budgetSheetIndex, bool visible)         //Pain to figure this out
+        {
+            Button button = new Button();
+            button.Name = budgetSheetIndex.ToString();
+            button.Font = _font;
+            button.Text = _text;
+            button.Size = new Size(_width, _height);
+            button.Location = _location;
+            button.Click += clickHandler;                           //Found this hint on stackoverflow
+            button.Visible = visible;
             buttonList.Add(button);
             return button;
         }
@@ -153,6 +188,25 @@ namespace Project_ITEC145__Budgeting_App__
             List<BudgetSheet> globalBudgetSheets = BudgetSheet.budgetSheets;
             int currentBudgetSheetIndex = globalBudgetSheets.Count-1;
 
+            foreach (BudgetSheet sheet in BudgetSheet.budgetSheets)
+            {
+                foreach (Control control in sheet.Controls)
+                {
+                    if (int.TryParse(control.Name, out int result) == true)
+                    {
+                        if (control.Text == "New Page" && result == this._budgetSheetIndex)
+                        {
+                            control.Visible = false;
+                        }
+
+                        if (control.Text == "Next Page" && result == this._budgetSheetIndex)
+                        {
+                            control.Visible = true;
+                        }
+                    }
+                }
+            }
+
             globalBudgetSheets[currentBudgetSheetIndex].Hide();
 
             BudgetSheet newSheet = new BudgetSheet();
@@ -161,13 +215,38 @@ namespace Project_ITEC145__Budgeting_App__
 
         public void PrevPage_Click(object sender, EventArgs e)
         {
-            List<BudgetSheet> globalBudgetSheets = BudgetSheet.budgetSheets;
+            foreach (BudgetSheet sheet in BudgetSheet.budgetSheets)
+            {
+                foreach (Control control in sheet.Controls)
+                {
+                    if (int.TryParse(control.Name, out int result) == true)
+                    {
+                        if (control.Text == "Previous Page" && result == this._budgetSheetIndex)
+                        {
+                            BudgetSheet.budgetSheets[_budgetSheetIndex].Hide();
+                            BudgetSheet.budgetSheets[_budgetSheetIndex - 1].Show();
+                        }
+                    }
+                }
+            }
+        }
 
-            int currentBudgetSheetIndex = globalBudgetSheets.Count - 1;
-            int lastBudgetSheetIndex = globalBudgetSheets.Count - 2;
-
-            globalBudgetSheets[currentBudgetSheetIndex].Hide();
-            globalBudgetSheets[lastBudgetSheetIndex].ShowDialog();
+        public void NextPage_Click(object sender, EventArgs e)
+        {
+            foreach(BudgetSheet sheet in BudgetSheet.budgetSheets)
+            {
+                foreach(Control control in sheet.Controls)
+                {
+                    if(int.TryParse(control.Name, out int result) == true)
+                    {
+                        if (control.Text == "Next Page" && result == this._budgetSheetIndex)
+                        {
+                            BudgetSheet.budgetSheets[_budgetSheetIndex].Hide();
+                            BudgetSheet.budgetSheets[_budgetSheetIndex + 1].Show();
+                        }
+                    }
+                }
+            }
         }
     }
 }

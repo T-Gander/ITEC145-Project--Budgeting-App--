@@ -71,10 +71,13 @@ namespace Project_ITEC145__Budgeting_App__
 
                 Controls.Add(addCategory.MakeButton(addCategory.addCategory_Click, buttonList));                                                        //Same here and adds the button to this budget sheets button list
 
-                Buttons newPage = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this)-300, 800);
-                //add a next page button that is invisible until all add fields fields are invisible
+                Buttons newPage = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this)-300, 800, budgetSheetIndex);
 
-                Controls.Add(newPage.MakeButton(newPage.NewPage_Click, buttonList));
+                Controls.Add(newPage.MakeButton(newPage.NewPage_Click, buttonList, budgetSheetIndex, true));
+
+                Buttons nextPage = new Buttons(100, HEIGHT, "Next Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this) - 300, 800, budgetSheetIndex);
+
+                Controls.Add(nextPage.MakeButton(nextPage.NextPage_Click, buttonList, budgetSheetIndex, false));
 
                 foreach (Button button in buttonList)
                 {
@@ -105,16 +108,18 @@ namespace Project_ITEC145__Budgeting_App__
 
                 Controls.Add(addCategory.MakeButton(addCategory.addCategory_Click, buttonList));
 
-                Buttons previousPage = new Buttons(100, HEIGHT, "Previous Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 300, 800);
+                Buttons previousPage = new Buttons(100, HEIGHT, "Previous Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 300, 800, budgetSheetIndex);
                 //add a previous page button as well as the add page
 
-                Controls.Add(previousPage.MakeButton(previousPage.PrevPage_Click, buttonList));
+                Controls.Add(previousPage.MakeButton(previousPage.PrevPage_Click, buttonList, budgetSheetIndex, true));
 
-                Buttons newPageButton = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 200, 800);
+                Buttons newPageButton = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 200, 800, budgetSheetIndex);
 
-                Controls.Add(newPageButton.MakeButton(newPageButton.NewPage_Click, buttonList));    //Needs to change to next page once a new page has been made
+                Controls.Add(newPageButton.MakeButton(newPageButton.NewPage_Click, buttonList, budgetSheetIndex, true));
 
-                //Create a Next page button to swap to once a new page has been made
+                Buttons nextPageButton = new Buttons(100, HEIGHT, "Next Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 200, 800, budgetSheetIndex);
+
+                Controls.Add(nextPageButton.MakeButton(nextPageButton.NextPage_Click, buttonList, budgetSheetIndex, false));
 
                 foreach (Button button in buttonList)
                 {
