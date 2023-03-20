@@ -8,27 +8,27 @@ namespace Project_ITEC145__Budgeting_App__
 {
     public class Category
     {
-        static public BudgetSheet budgetForm;
+        public BudgetSheet budgetForm;
 
-        private List<Control> delete = new List<Control>();             //Used to delete controls.
-        private List<Control> valid = new List<Control>();              //a list of a category controls
+        public List<Control> delete = new List<Control>();             //Used to delete controls.
+        public List<Control> valid = new List<Control>();              //a list of a category controls
         public List<Button> validButton = new List<Button>();           //Used to select buttons only
         private string _name;
         private int _locationx;
         private int _count;
-        private int _categoryLocation = budgetForm.lastLocation;        //Used to assign the category location based on the next available space.
-        private int _categoryIndex;                                     //Keeps track of a categories ID and a new one is created each time a category class is made
-        private Button _delCategory;                                    //Used to keep track of the delete category button.
-        private Button _addField;                                       //Used to keep track of the addfield button
+        public int _categoryLocation;                                  //Used to assign the category location based on the next available space.
+        public int _categoryIndex;                                     //Keeps track of a categories ID and a new one is created each time a category class is made
+        private int _budgetSheetIndex;
+        
 
-        public Category(string Name, ref int locationy, ref int categoryIndex)
+        public Category(string Name, ref int locationy, ref int categoryIndex, int budgetSheetIndex)
         {
-            
             _categoryLocation += 40;                                    //a location the category class uses to keep track of where to place controls
 
             _name = Name;
             _locationx = 10;
-            _categoryIndex = categoryIndex;         
+            _categoryIndex = categoryIndex;
+            budgetForm = BudgetSheet.budgetSheets[budgetSheetIndex];
             categoryIndex++;
 
             Button delCategory = new Button();                          
@@ -165,61 +165,7 @@ namespace Project_ITEC145__Budgeting_App__
                 }
             }
         }
-        public void delCategory_Click(object sender, EventArgs e)
-        {
-            int topOfCategory = _delCategory.Top;
-            int bottomOfCategory = _addField.Top + 35;
-            int difference = bottomOfCategory - topOfCategory;
-
-            foreach (Category category in budgetForm.categoriesList)            //Used to move categories down that are below the current category
-            {
-                if (category._categoryIndex > this._categoryIndex)
-                {
-                    category._categoryLocation -= difference;
-
-                    foreach (Control control in category.valid)
-                    {
-                        control.Top -= difference;
-                    }
-                }
-            }
-
-            foreach (Control category in valid)                                 //Adds all controls in current category to the delete list
-            {
-                delete.Add(category);
-            }
-            valid.Clear();                                                      
-
-            for(int i = 0; i < delete.Count; i++)
-            {
-                budgetForm.Controls.Remove(delete[i]);                          //Deletes all controls
-            }
-
-            foreach (Category category in budgetForm.categoriesList)            //Checks all categories buttons, and hides them if the current category is too far down the page.
-            {
-                foreach (Button addFields in category.validButton)
-                {
-                    if (_categoryLocation < 760)
-                    {
-                        if (addFields.Name == "AddField")
-                        {
-                            addFields.Visible = true;
-                        }
-                    }
-
-                    if (budgetForm.lastLocation < 760)
-                    {
-                        if (addFields.Name == "AddField")
-                        {
-                            budgetForm.addCategoryButton.Visible = true;
-                        }
-                    }
-                }
-            }
-
-            budgetForm.lastLocation -= difference;                              //These might be redundant as the category no longer functionally exists
-            _categoryLocation = budgetForm.lastLocation;
-        }
+        
         public void delFields_Click(object sender, EventArgs eButton)
         {
             Button clickedButton = (Button)sender;                  //Casts the sender into a button so that I can retrieve the Tag variable. (stack overflow)

@@ -130,16 +130,12 @@ namespace Project_ITEC145__Budgeting_App__
             BudgetSheet budgetSheet = new BudgetSheet();
             budgetSheet.Show();
         }
-        public void addCategory_Click(object sender, EventArgs e)
-        {
-            CategoryFieldForm form = new CategoryFieldForm();
-            form.ShowDialog();
-        }
+        
         public void addCategoryFieldForm_Click(object sender, EventArgs e)
         {
             //Add Category to budget sheet
             string CategoryName = Buttons.categoryFieldForm.txtCategoryName.Text;
-            Category newCategory = new Category(CategoryName,ref budgetForm.lastLocation, ref budgetForm.categoryIndex);
+            Category newCategory = new Category(CategoryName,ref budgetForm.lastLocation, ref budgetForm.categoryIndex, _budgetSheetIndex);
             Buttons.categoryFieldForm.Close();
 
             foreach (Category category in budgetForm.categoriesList)
@@ -173,7 +169,8 @@ namespace Project_ITEC145__Budgeting_App__
             switch(decimal.TryParse(Buttons.balanceForm.txtCurrentBalance.Text, out decimal result))
             {
                 case true:
-                    BudgetSheet.currentBalance.Text = $"Assignable : ${Buttons.balanceForm.txtCurrentBalance.Text}";
+                    BudgetSheet.currentBalance.Text = $"Assignable : ${result}";
+                    BudgetSheet.budgetSheetCurrentBalance = result;
                     //Will need to add this value to transactions sheet when I eventually make it.
                     Buttons.balanceForm.Close();
                     break;
@@ -188,10 +185,17 @@ namespace Project_ITEC145__Budgeting_App__
             List<BudgetSheet> globalBudgetSheets = BudgetSheet.budgetSheets;
             int currentBudgetSheetIndex = globalBudgetSheets.Count-1;
 
+            BudgetSheet newSheet = new BudgetSheet();
+
             foreach (BudgetSheet sheet in BudgetSheet.budgetSheets)
             {
                 foreach (Control control in sheet.Controls)
                 {
+                    if (control.Name == "lblCurrentBalance")
+                    {
+                        control.Text = $"Assignable : ${BudgetSheet.budgetSheetCurrentBalance}";
+                    }
+
                     if (int.TryParse(control.Name, out int result) == true)
                     {
                         if (control.Text == "New Page" && result == this._budgetSheetIndex)
@@ -203,13 +207,14 @@ namespace Project_ITEC145__Budgeting_App__
                         {
                             control.Visible = true;
                         }
+
                     }
                 }
             }
 
             globalBudgetSheets[currentBudgetSheetIndex].Hide();
 
-            BudgetSheet newSheet = new BudgetSheet();
+            
             newSheet.ShowDialog();
         }
 
@@ -219,6 +224,11 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 foreach (Control control in sheet.Controls)
                 {
+                    if (control.Name == "lblCurrentBalance")
+                    {
+                        control.Text = $"Assignable : ${BudgetSheet.budgetSheetCurrentBalance}";
+                    }
+
                     if (int.TryParse(control.Name, out int result) == true)
                     {
                         if (control.Text == "Previous Page" && result == this._budgetSheetIndex)
@@ -239,6 +249,11 @@ namespace Project_ITEC145__Budgeting_App__
                 {
                     if(int.TryParse(control.Name, out int result) == true)
                     {
+                        if (control.Name == "lblCurrentBalance")
+                        {
+                            control.Text = $"Assignable : {BudgetSheet.budgetSheetCurrentBalance}";
+                        }
+
                         if (control.Text == "Next Page" && result == this._budgetSheetIndex)
                         {
                             BudgetSheet.budgetSheets[_budgetSheetIndex].Hide();

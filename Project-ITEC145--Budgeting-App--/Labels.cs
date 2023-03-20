@@ -52,7 +52,18 @@ namespace Project_ITEC145__Budgeting_App__
 
             return label;
         }
+        public Label MakeBalanceLabel()
+        {
+            Label label = new Label();
+            label.Name = _name;
+            label.Font = _font;
+            label.Text = _text;
+            label.Size = new Size(_width, _height);
+            label.Location = _location;
+            label.ForeColor = Color.Green;
 
+            return label;
+        }
 
     }
 }
