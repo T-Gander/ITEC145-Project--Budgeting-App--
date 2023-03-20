@@ -72,6 +72,19 @@ namespace Project_ITEC145__Budgeting_App__
             return button;
         }
 
+        public Button MakeButton(EventHandler clickHandler, bool visible)         //Overload method (without adding button to list)
+        {
+            Button button = new Button();
+            button.Name = _name;
+            button.Font = _font;
+            button.Text = _text;
+            button.Size = new Size(_width, _height);
+            button.Location = _location;
+            button.Click += clickHandler;                           //Found this hint on stackoverflow
+            button.Visible = visible;
+            return button;
+        }
+
         //Click events for initialized buttons
 
         public void doNothing_Click(object sender, EventArgs e)
@@ -80,7 +93,6 @@ namespace Project_ITEC145__Budgeting_App__
         }
         public void nameForm_Click(object sender, EventArgs e)
         {
-            Buttons.budgetForm.name = true;
             Buttons.budgetForm.Text = Buttons.budgetSheetNameForm.txtBudgetName.Text;
             Buttons.budgetSheetNameForm.Close();
             CurrentBalance form = new CurrentBalance();
@@ -139,7 +151,7 @@ namespace Project_ITEC145__Budgeting_App__
             switch(decimal.TryParse(Buttons.balanceForm.txtCurrentBalance.Text, out decimal result))
             {
                 case true:
-                    Buttons.budgetForm.currentBalance.Text = $"Assignable : ${Buttons.balanceForm.txtCurrentBalance.Text}";
+                    BudgetSheet.currentBalance.Text = $"Assignable : ${Buttons.balanceForm.txtCurrentBalance.Text}";
                     //Will need to add this value to transactions sheet when I eventually make it.
                     Buttons.balanceForm.Close();
                     break;
@@ -148,6 +160,27 @@ namespace Project_ITEC145__Budgeting_App__
                     Buttons.balanceForm.txtCurrentBalance.Text = "";
                     break;
             }
+        }
+        public void NewPage_Click(object sender, EventArgs e)
+        {
+            List<BudgetSheet> globalBudgetSheets = BudgetSheet.budgetSheets;
+            int currentBudgetSheetIndex = globalBudgetSheets.Count-1;
+
+            globalBudgetSheets[currentBudgetSheetIndex].Hide();
+
+            BudgetSheet newSheet = new BudgetSheet();
+            newSheet.ShowDialog();
+        }
+
+        public void PrevPage_Click(object sender, EventArgs e)
+        {
+            List<BudgetSheet> globalBudgetSheets = BudgetSheet.budgetSheets;
+
+            int currentBudgetSheetIndex = globalBudgetSheets.Count - 1;
+            int lastBudgetSheetIndex = globalBudgetSheets.Count - 2;
+
+            globalBudgetSheets[currentBudgetSheetIndex].Hide();
+            globalBudgetSheets[lastBudgetSheetIndex].ShowDialog();
         }
     }
 }

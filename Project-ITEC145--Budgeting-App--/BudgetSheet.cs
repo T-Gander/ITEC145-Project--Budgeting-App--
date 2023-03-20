@@ -6,9 +6,12 @@ namespace Project_ITEC145__Budgeting_App__
     public partial class BudgetSheet : Form
     {
         static public MainMenu menuForm;
-        public bool name = false;                                                       //A bool for checking if the form has been named yet.
+        public static bool name = false;                                                       //A bool for checking if the form has been named yet.
         public static string globalName;
 
+        public static int budgetSheetIndexAssign = 0;
+
+        public int budgetSheetIndex = 0;
         public const int HEIGHT = 50;
         public int lastLocation = 100;
         public int categoryIndex = 0;                                                   //Used to keep track of categories within the form.
@@ -42,22 +45,8 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 budgetSheets = new List<BudgetSheet>();                                 //Creates a budgetsheet if it doesn't already exist
                 name = true;
-            }
-            else
-            {
-                globalName = budgetSheets[0].Text;
-            }
-        }
+                budgetSheetIndexAssign++;
 
-        private void BudgetSheet_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void timerConditions_Tick(object sender, EventArgs e)
-        {
-            if (name == false)
-            {
                 Interface budgetSheet = new Interface();                                    //Builds interface class (which contains calculations on finding a location on a form)
 
                 currentBalance.Name = "lblCurrentBalance";                                  //Creates the balance label if the budgetsheet hasn't been named yet
@@ -74,42 +63,58 @@ namespace Project_ITEC145__Budgeting_App__
                 BudgetSheetNameForm form = new BudgetSheetNameForm();
                 form.ShowDialog();
 
-                if (name == true)
-                {
-                    Labels myLabels = new Labels(550, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 275, 50);                          //Creates a labels class (seems a little redundant and inefficient now, but when I made this class I
+                Labels budgetLabel = new Labels(550, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 275, 50);                          //Creates a labels class (seems a little redundant and inefficient now, but when I made this class I
                                                                                                                                                         // didn't completely understand classes yet...) which contains all the labels I may want to make
-                    Controls.Add(myLabels.MakeHeaderLabel());
+                Controls.Add(budgetLabel.MakeHeaderLabel());
 
-                    Buttons myButtons = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 50);
+                Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 50);
 
-                    Controls.Add(myButtons.MakeButton(myButtons.addCategory_Click, buttonList));                                                        //Same here and adds the button to this budget sheets button list
+                Controls.Add(addCategory.MakeButton(addCategory.addCategory_Click, buttonList));                                                        //Same here and adds the button to this budget sheets button list
 
-                    //add a next page button that is invisible until all add fields fields are invisible
+                Buttons newPage = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this)-300, 800);
+                //add a next page button that is invisible until all add fields fields are invisible
 
-                    foreach (Button button in buttonList)
+                Controls.Add(newPage.MakeButton(newPage.NewPage_Click, buttonList));
+
+                foreach (Button button in buttonList)
+                {
+                    if (button.Name == "AddCategory")
                     {
-                        if (button.Name == "AddCategory")
-                        {
-                            addCategoryButton = button;
-                        }
+                        addCategoryButton = button;
                     }
-
-                    //When clicking create category, you can add a category, which will then allow you to assign your money to a field wothin that category.
                 }
+                //When clicking create category, you can add a category, which will then allow you to assign your money to a field within that category.
+
+                budgetSheets.Add(this);
             }
-            else                                    //If the original budget sheet has already been named, then create a regular "additional page" budget sheet and use the variables from the original
+            else
             {
+                budgetSheetIndex = budgetSheetIndexAssign;
+
+                budgetSheetIndexAssign++;
+
+                globalName = budgetSheets[0].Text;
+
                 Interface newPage = new Interface();
 
-                Labels myLabels = new Labels(800, HEIGHT, $"{globalName}", new Font("Arial", 24, FontStyle.Bold), 400, 50);
+                Labels headerLabel = new Labels(800, HEIGHT, $"{globalName}", new Font("Arial", 24, FontStyle.Bold), 400, 50);
 
-                Controls.Add(myLabels.MakeHeaderLabel());
+                Controls.Add(headerLabel.MakeHeaderLabel());
 
-                Buttons myButtons = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), newPage.GetWindowThirdX(this), 100);
+                Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), newPage.GetWindowThirdX(this), 100);
 
-                Controls.Add(myButtons.MakeButton(myButtons.addCategory_Click, buttonList));
+                Controls.Add(addCategory.MakeButton(addCategory.addCategory_Click, buttonList));
 
+                Buttons previousPage = new Buttons(100, HEIGHT, "Previous Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 300, 800);
                 //add a previous page button as well as the add page
+
+                Controls.Add(previousPage.MakeButton(previousPage.PrevPage_Click, buttonList));
+
+                Buttons newPageButton = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 200, 800);
+
+                Controls.Add(newPageButton.MakeButton(newPageButton.NewPage_Click, buttonList));    //Needs to change to next page once a new page has been made
+
+                //Create a Next page button to swap to once a new page has been made
 
                 foreach (Button button in buttonList)
                 {
@@ -121,8 +126,18 @@ namespace Project_ITEC145__Budgeting_App__
 
                 //When clicking create category, you can add a category, which will then allow you to add transactions.
 
-                timerConditions.Enabled = false;
+                budgetSheets.Add(this);
             }
+        }
+
+        private void BudgetSheet_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timerConditions_Tick(object sender, EventArgs e)
+        {
+            //Redundant
         }
     }
 }

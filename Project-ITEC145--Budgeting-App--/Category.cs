@@ -147,11 +147,18 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 foreach (Button addFields in category.validButton)
                 {
-                    if (budgetForm.lastLocation > 780)
+                    if (budgetForm.lastLocation > 760)
                     {
                         if (addFields.Name == "AddField")
                         {
                             addFields.Visible = false;
+                            foreach(Button NewPage in budgetForm.buttonList)
+                            {
+                                if(NewPage.Name == "NewPage")
+                                {
+                                    NewPage.Visible = true;
+                                }
+                            }
                         }
                     }
 
