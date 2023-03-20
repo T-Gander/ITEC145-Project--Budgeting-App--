@@ -27,8 +27,10 @@ namespace Project_ITEC145__Budgeting_App__
 
         public Button addCategoryButton;                                                //Used to keep track of a forms add category button
 
-        private Button _delCategory;                                    //Used to keep track of the delete category button.
-        private Button _addField;                                       //Used to keep track of the addfield button
+        public Button _delCategory;                                    //Used to keep track of the delete category button.
+        public Button _addField;                                       //Used to keep track of the addfield button
+        private BudgetSheet _budgetForm;
+        private Category _workingCategory;
 
         public BudgetSheet()
         {
@@ -43,6 +45,8 @@ namespace Project_ITEC145__Budgeting_App__
             CategoryFieldForm.budgetForm = this;
             BudgetSheetNameForm.budgetForm = this;
             CurrentBalance.budgetForm = this;
+            _budgetForm = BudgetSheet.budgetSheets[budgetSheetIndex];
+
 
             Interface firstPage = new Interface();
 
@@ -76,15 +80,15 @@ namespace Project_ITEC145__Budgeting_App__
 
                 Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 50, budgetSheetIndex);
 
-                Controls.Add(addCategory.MakeButton(addCategory.addCategory_Click, buttonList));                                                        //Same here and adds the button to this budget sheets button list
+                Controls.Add(addCategory.MakeButton(addCategory_Click, buttonList));                                                        //Same here and adds the button to this budget sheets button list
 
                 Buttons newPage = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this)-300, 800, budgetSheetIndex);
 
-                Controls.Add(newPage.MakeButton(newPage.NewPage_Click, buttonList, budgetSheetIndex, true));
+                Controls.Add(newPage.MakeButton(NewPage_Click, buttonList, budgetSheetIndex, true));
 
                 Buttons nextPage = new Buttons(100, HEIGHT, "Next Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this) - 300, 800, budgetSheetIndex);
 
-                Controls.Add(nextPage.MakeButton(nextPage.NextPage_Click, buttonList, budgetSheetIndex, false));
+                Controls.Add(nextPage.MakeButton(NextPage_Click, buttonList, budgetSheetIndex, false));
 
                 foreach (Button button in buttonList)
                 {
@@ -122,15 +126,15 @@ namespace Project_ITEC145__Budgeting_App__
                 Buttons previousPage = new Buttons(100, HEIGHT, "Previous Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 300, 800, budgetSheetIndex);
                 //add a previous page button as well as the add page
 
-                Controls.Add(previousPage.MakeButton(previousPage.PrevPage_Click, buttonList, budgetSheetIndex, true));
+                Controls.Add(previousPage.MakeButton(PrevPage_Click, buttonList, budgetSheetIndex, true));
 
                 Buttons newPageButton = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 200, 800, budgetSheetIndex);
 
-                Controls.Add(newPageButton.MakeButton(newPageButton.NewPage_Click, buttonList, budgetSheetIndex, true));
+                Controls.Add(newPageButton.MakeButton(NewPage_Click, buttonList, budgetSheetIndex, true));
 
                 Buttons nextPageButton = new Buttons(100, HEIGHT, "Next Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 200, 800, budgetSheetIndex);
 
-                Controls.Add(nextPageButton.MakeButton(nextPageButton.NextPage_Click, buttonList, budgetSheetIndex, false));
+                Controls.Add(nextPageButton.MakeButton(NextPage_Click, buttonList, budgetSheetIndex, false));
 
                 foreach (Button button in buttonList)
                 {
@@ -166,17 +170,15 @@ namespace Project_ITEC145__Budgeting_App__
             int bottomOfCategory = _addField.Top + 35;
             int difference = bottomOfCategory - topOfCategory;
 
-            Category thisCategory;
-
             foreach(Category currentCategory in categoriesList)
             {
                 if(currentCategory._categoryIndex == categoryIndex)
                 {
-                    thisCategory = currentCategory;
+                    _workingCategory = currentCategory;
 
                     foreach (Category category in categoriesList)                       //Used to move categories down that are below the current category
                     {
-                        if (category._categoryIndex > thisCategory._categoryIndex)
+                        if (category._categoryIndex > _workingCategory._categoryIndex)
                         {
                             category._categoryLocation -= difference;
 
@@ -187,22 +189,22 @@ namespace Project_ITEC145__Budgeting_App__
                         }
                     }
 
-                    foreach (Control control in currentCategory.valid)                                 //Adds all controls in current category to the delete list
+                    foreach (Control control in _workingCategory.valid)                                 //Adds all controls in current category to the delete list
                     {
-                        currentCategory.delete.Add(currentCategory);
+                        _workingCategory.delete.Add(control);
                     }
-                    valid.Clear();
+                    _workingCategory.valid.Clear();
 
-                    for (int i = 0; i < delete.Count; i++)
+                    for (int i = 0; i < _workingCategory.delete.Count; i++)
                     {
-                        budgetForm.Controls.Remove(delete[i]);                          //Deletes all controls
+                        _budgetForm.Controls.Remove(_workingCategory.delete[i]);                          //Deletes all controls
                     }
 
-                    foreach (Category category in budgetForm.categoriesList)            //Checks all categories buttons, and hides them if the current category is too far down the page.
+                    foreach (Category category in categoriesList)            //Checks all categories buttons, and hides them if the current category is too far down the page.
                     {
                         foreach (Button addFields in category.validButton)
                         {
-                            if (_categoryLocation < 760)
+                            if (category._categoryLocation < 760)
                             {
                                 if (addFields.Name == "AddField")
                                 {
@@ -210,20 +212,310 @@ namespace Project_ITEC145__Budgeting_App__
                                 }
                             }
 
-                            if (budgetForm.lastLocation < 760)
+                            if (_budgetForm.lastLocation < 760)
                             {
                                 if (addFields.Name == "AddField")
                                 {
-                                    budgetForm.addCategoryButton.Visible = true;
+                                    _budgetForm.addCategoryButton.Visible = true;
                                 }
                             }
                         }
                     }
                 }
             }
+            
+            lastLocation -= difference;                              //These might be redundant as the category no longer functionally exists
+            _workingCategory._categoryLocation = _budgetForm.lastLocation;
+        }
+        public void addCategoryFieldForm_Click(object sender, EventArgs e)
+        {
+            //Add Category to budget sheet
+            string CategoryName = Buttons.categoryFieldForm.txtCategoryName.Text;
+            Category newCategory = new Category(CategoryName, ref lastLocation, ref categoryIndex, budgetSheetIndex);
+            Buttons.categoryFieldForm.Close();
 
-            budgetForm.lastLocation -= difference;                              //These might be redundant as the category no longer functionally exists
-            _categoryLocation = budgetForm.lastLocation;
+            foreach (Category category in categoriesList)
+            {
+                foreach (Button addFields in category.validButton)
+                {
+                    if (lastLocation > 760)
+                    {
+                        if (addFields.Name == "AddField")
+                        {
+                            addFields.Visible = false;
+                        }
+                    }
+
+                    if (lastLocation > 680)
+                    {
+                        if (addFields.Name == "AddField")
+                        {
+                            addCategoryButton.Visible = false;
+                        }
+                    }
+                }
+            }
+        }
+        public void addFields_Click(object sender, EventArgs e)                         //The addfield button click event
+        {
+            //Make fields that are editable with a delete button
+            TextBox textBox = new TextBox();
+            textBox.Text = "Enter Field Name";
+            textBox.Name = $"{_workingCategory._count}";
+            textBox.Font = new Font("Arial", 18, FontStyle.Bold);
+            textBox.Top = _workingCategory._categoryLocation;
+            textBox.Left = _workingCategory._locationx + 40;
+            textBox.Size = new Size(300, 30);
+            _budgetForm.Controls.Add(textBox);
+            _workingCategory.valid.Add(textBox);
+
+            TextBox moneyBox = new TextBox();                                           //Where you enter your assigned money
+            moneyBox.Text = "0";                                                        //Will need error checking for this
+            moneyBox.Name = $"{_workingCategory._count}";
+            moneyBox.TextAlign = HorizontalAlignment.Right;
+            moneyBox.Font = new Font("Arial", 18, FontStyle.Bold);
+            moneyBox.Top = _workingCategory._categoryLocation;
+            moneyBox.Left = textBox.Left + 400;
+            moneyBox.Size = new Size(150, 30);
+            _budgetForm.Controls.Add(moneyBox);
+            _budgetForm.variableList.Add(moneyBox);
+            _workingCategory.valid.Add(moneyBox);
+
+            Label label = new Label();                                                  //Dollar sign label
+            label.Text = "$";
+            label.Name = $"{_workingCategory._count}";
+            label.Font = new Font("Arial", 18, FontStyle.Bold);
+            label.Top = _workingCategory._categoryLocation;
+            label.Left = moneyBox.Left - 30;
+            label.Size = new Size(30, 30);
+            _budgetForm.Controls.Add(label);
+            _workingCategory.valid.Add(label);
+
+            Button delField = new Button();                                             //Delete field button within a category
+            delField.Text = "X";
+            delField.Name = $"{_workingCategory._count}";
+            delField.Tag = delField.Name;               //Found out about tags to send a buttons info to a click event
+            delField.Top = _workingCategory._categoryLocation;
+            delField.Left = moneyBox.Left + 160;
+            delField.Click += new EventHandler(_budgetForm.delFields_Click);
+            _budgetForm.Controls.Add(delField);
+            _workingCategory.valid.Add(delField);
+            _workingCategory.validButton.Add(delField);
+
+            _workingCategory._categoryLocation += 40;
+            _budgetForm.lastLocation += 40;
+
+            _workingCategory._count++;
+
+            foreach (Category category in _budgetForm.categoriesList)                 //Used to move all controls that are below a category
+            {
+                int difference = 40;
+
+                if (category._categoryIndex > _workingCategory._categoryIndex)
+                {
+                    category._categoryLocation += difference;
+
+                    foreach (Control control in category.valid)
+                    {
+                        control.Top += difference;
+                    }
+                }
+            }
+
+            foreach (Button addFields in _workingCategory.validButton)                               //Used to move the addfields button down that belongs to the current category
+            {
+                if (_workingCategory._categoryLocation < 800)
+                {
+                    if (addFields.Name == "AddField")
+                    {
+                        addFields.Top = _workingCategory._categoryLocation;
+                    }
+                }
+            }
+
+            foreach (Category category in _budgetForm.categoriesList)                //Hides add buttons on the form so that no more buttons can be added
+            {
+                foreach (Button addFields in category.validButton)
+                {
+                    if (_budgetForm.lastLocation > 760)
+                    {
+                        if (addFields.Name == "AddField")
+                        {
+                            addFields.Visible = false;
+                        }
+                    }
+
+                    if (_budgetForm.lastLocation > 680)
+                    {
+                        if (addFields.Name == "AddField")
+                        {
+                            _budgetForm.addCategoryButton.Visible = false;
+                        }
+                    }
+                }
+            }
+        }
+        public void delFields_Click(object sender, EventArgs eButton)
+        {
+            Button clickedButton = (Button)sender;                  //Casts the sender into a button so that I can retrieve the Tag variable. (stack overflow)
+            clickedButton.Name = clickedButton.Tag.ToString();      //Converts Tag to string and assigns the variable name to the tag
+            int difference = 40;
+
+            foreach (Control field in _workingCategory.valid)
+            {
+                if (field.Name == clickedButton.Name)
+                {
+                    _workingCategory.delete.Add(field);                              //Adds objects that have the same name (or count) as the delete button to the delete list
+                }
+            }
+            foreach (Control field in _workingCategory.delete)
+            {
+                _workingCategory.valid.Remove(field);                                //Removes objects form the valid list in advance of being deleted
+            }
+            for (int i = 0; i < _workingCategory.delete.Count; i++)
+            {
+                _budgetForm.Controls.Remove(_workingCategory.delete[i]);              //Deletes objects from budgetsheet
+            }
+
+            foreach (Control field in _workingCategory.valid)                                                //Moves valid buttons up to fill deleted buttons space
+            {
+                if (int.TryParse(field.Name, out int fieldName) && int.TryParse(clickedButton.Name, out int buttonName))
+                {
+                    if (fieldName > buttonName)
+                    {
+                        field.Top -= 40;
+                    }
+                }
+            }
+            _budgetForm.lastLocation -= difference;
+            _workingCategory._categoryLocation -= 40;
+
+            foreach (Button addFields in _workingCategory.validButton)
+            {
+                if (addFields.Name == "AddField")                   //Moves the add field button to the next field row
+                {
+                    addFields.Top = _workingCategory._categoryLocation;
+                }
+            }
+
+            foreach (Category category in _budgetForm.categoriesList)        //Moves categories and their controls below this one up.
+            {
+                if (category._categoryIndex > _workingCategory._categoryIndex)
+                {
+                    foreach (Control control in category.valid)
+                    {
+                        control.Top -= difference;
+                    }
+                    category._categoryLocation -= 40;
+                }
+            }
+
+            foreach (Category category in _budgetForm.categoriesList)        //Checks all categories controls and makes their add buttons visible and also shows the add category button again
+            {
+                foreach (Button addFields in category.validButton)
+                {
+                    if (_workingCategory._categoryLocation < 760)
+                    {
+                        if (addFields.Name == "AddField")
+                        {
+                            addFields.Visible = true;
+                        }
+                    }
+
+                    if (_budgetForm.lastLocation < 720)
+                    {
+                        if (addFields.Name == "AddField")
+                        {
+                            _budgetForm.addCategoryButton.Visible = true;
+                        }
+                    }
+                }
+            }
+        }
+        public void cancelCategoryFieldForm_Click(object sender, EventArgs e)
+        {
+            Buttons.categoryFieldForm.Close();
+        }
+        public void NewPage_Click(object sender, EventArgs e)
+        {
+            List<BudgetSheet> globalBudgetSheets = BudgetSheet.budgetSheets;
+            int currentBudgetSheetIndex = globalBudgetSheets.Count - 1;
+
+            BudgetSheet newSheet = new BudgetSheet();
+
+            foreach (BudgetSheet sheet in BudgetSheet.budgetSheets)
+            {
+                foreach (Control control in sheet.Controls)
+                {
+                    if (control.Name == "lblCurrentBalance")
+                    {
+                        control.Text = $"Assignable : ${BudgetSheet.budgetSheetCurrentBalance}";
+                    }
+
+                    if (int.TryParse(control.Name, out int result) == true)
+                    {
+                        if (control.Text == "New Page" && result == budgetSheetIndex)
+                        {
+                            control.Visible = false;
+                        }
+
+                        if (control.Text == "Next Page" && result == budgetSheetIndex)
+                        {
+                            control.Visible = true;
+                        }
+                    }
+                }
+            }
+
+            globalBudgetSheets[currentBudgetSheetIndex].Hide();
+
+            newSheet.ShowDialog();
+        }
+
+        public void PrevPage_Click(object sender, EventArgs e)
+        {
+            foreach (BudgetSheet sheet in BudgetSheet.budgetSheets)
+            {
+                foreach (Control control in sheet.Controls)
+                {
+                    if (control.Name == "lblCurrentBalance")
+                    {
+                        control.Text = $"Assignable : ${BudgetSheet.budgetSheetCurrentBalance}";
+                    }
+
+                    if (int.TryParse(control.Name, out int result) == true)
+                    {
+                        if (control.Text == "Previous Page" && result == budgetSheetIndex)
+                        {
+                            BudgetSheet.budgetSheets[budgetSheetIndex].Hide();
+                            BudgetSheet.budgetSheets[budgetSheetIndex - 1].Show();
+                        }
+                    }
+                }
+            }
+        }
+
+        public void NextPage_Click(object sender, EventArgs e)
+        {
+            foreach (BudgetSheet sheet in BudgetSheet.budgetSheets)
+            {
+                foreach (Control control in sheet.Controls)
+                {
+                    if (int.TryParse(control.Name, out int result) == true)
+                    {
+                        if (control.Name == "lblCurrentBalance")
+                        {
+                            control.Text = $"Assignable : {BudgetSheet.budgetSheetCurrentBalance}";
+                        }
+
+                        if (control.Text == "Next Page" && result == budgetSheetIndex)
+                        {
+                            BudgetSheet.budgetSheets[budgetSheetIndex].Hide();
+                            BudgetSheet.budgetSheets[budgetSheetIndex + 1].Show();
+                        }
+                    }
+                }
+            }
         }
     }
 }

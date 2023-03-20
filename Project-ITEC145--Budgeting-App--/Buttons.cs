@@ -130,40 +130,6 @@ namespace Project_ITEC145__Budgeting_App__
             BudgetSheet budgetSheet = new BudgetSheet();
             budgetSheet.Show();
         }
-        
-        public void addCategoryFieldForm_Click(object sender, EventArgs e)
-        {
-            //Add Category to budget sheet
-            string CategoryName = Buttons.categoryFieldForm.txtCategoryName.Text;
-            Category newCategory = new Category(CategoryName,ref budgetForm.lastLocation, ref budgetForm.categoryIndex, _budgetSheetIndex);
-            Buttons.categoryFieldForm.Close();
-
-            foreach (Category category in budgetForm.categoriesList)
-            {
-                foreach (Button addFields in category.validButton)
-                {
-                    if (budgetForm.lastLocation > 760)
-                    {
-                        if (addFields.Name == "AddField")
-                        {
-                            addFields.Visible = false;
-                        }
-                    }
-
-                    if (budgetForm.lastLocation > 680)
-                    {
-                        if (addFields.Name == "AddField")
-                        {
-                            budgetForm.addCategoryButton.Visible = false;
-                        }
-                    }
-                }
-            }
-        }
-        public void cancelCategoryFieldForm_Click(object sender, EventArgs e)
-        {
-            Buttons.categoryFieldForm.Close();
-        }
         public void currentBalance_Click(object sender, EventArgs e)
         {
             switch(decimal.TryParse(Buttons.balanceForm.txtCurrentBalance.Text, out decimal result))
@@ -180,88 +146,6 @@ namespace Project_ITEC145__Budgeting_App__
                     break;
             }
         }
-        public void NewPage_Click(object sender, EventArgs e)
-        {
-            List<BudgetSheet> globalBudgetSheets = BudgetSheet.budgetSheets;
-            int currentBudgetSheetIndex = globalBudgetSheets.Count-1;
-
-            BudgetSheet newSheet = new BudgetSheet();
-
-            foreach (BudgetSheet sheet in BudgetSheet.budgetSheets)
-            {
-                foreach (Control control in sheet.Controls)
-                {
-                    if (control.Name == "lblCurrentBalance")
-                    {
-                        control.Text = $"Assignable : ${BudgetSheet.budgetSheetCurrentBalance}";
-                    }
-
-                    if (int.TryParse(control.Name, out int result) == true)
-                    {
-                        if (control.Text == "New Page" && result == this._budgetSheetIndex)
-                        {
-                            control.Visible = false;
-                        }
-
-                        if (control.Text == "Next Page" && result == this._budgetSheetIndex)
-                        {
-                            control.Visible = true;
-                        }
-
-                    }
-                }
-            }
-
-            globalBudgetSheets[currentBudgetSheetIndex].Hide();
-
-            
-            newSheet.ShowDialog();
-        }
-
-        public void PrevPage_Click(object sender, EventArgs e)
-        {
-            foreach (BudgetSheet sheet in BudgetSheet.budgetSheets)
-            {
-                foreach (Control control in sheet.Controls)
-                {
-                    if (control.Name == "lblCurrentBalance")
-                    {
-                        control.Text = $"Assignable : ${BudgetSheet.budgetSheetCurrentBalance}";
-                    }
-
-                    if (int.TryParse(control.Name, out int result) == true)
-                    {
-                        if (control.Text == "Previous Page" && result == this._budgetSheetIndex)
-                        {
-                            BudgetSheet.budgetSheets[_budgetSheetIndex].Hide();
-                            BudgetSheet.budgetSheets[_budgetSheetIndex - 1].Show();
-                        }
-                    }
-                }
-            }
-        }
-
-        public void NextPage_Click(object sender, EventArgs e)
-        {
-            foreach(BudgetSheet sheet in BudgetSheet.budgetSheets)
-            {
-                foreach(Control control in sheet.Controls)
-                {
-                    if(int.TryParse(control.Name, out int result) == true)
-                    {
-                        if (control.Name == "lblCurrentBalance")
-                        {
-                            control.Text = $"Assignable : {BudgetSheet.budgetSheetCurrentBalance}";
-                        }
-
-                        if (control.Text == "Next Page" && result == this._budgetSheetIndex)
-                        {
-                            BudgetSheet.budgetSheets[_budgetSheetIndex].Hide();
-                            BudgetSheet.budgetSheets[_budgetSheetIndex + 1].Show();
-                        }
-                    }
-                }
-            }
-        }
+        
     }
 }

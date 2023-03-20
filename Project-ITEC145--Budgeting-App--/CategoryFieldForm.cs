@@ -27,8 +27,8 @@ namespace Project_ITEC145__Budgeting_App__
             Buttons OkButton = new Buttons(100, BudgetSheet.HEIGHT, "Ok", new Font("Arial", 12, FontStyle.Regular), CategoryFieldInterface.GetWindowFirstX(this), 50);
             Buttons CancelButton = new Buttons(100, BudgetSheet.HEIGHT, "Cancel", new Font("Arial", 12, FontStyle.Regular), CategoryFieldInterface.GetWindowThirdX(this), 50);
 
-            Controls.Add(OkButton.MakeButton(OkButton.addCategoryFieldForm_Click, ButtonsList));
-            Controls.Add(CancelButton.MakeButton(CancelButton.cancelCategoryFieldForm_Click, ButtonsList));
+            Controls.Add(OkButton.MakeButton(budgetForm.addCategoryFieldForm_Click, ButtonsList));
+            Controls.Add(CancelButton.MakeButton(budgetForm.cancelCategoryFieldForm_Click, ButtonsList));
         }
     }
 }
