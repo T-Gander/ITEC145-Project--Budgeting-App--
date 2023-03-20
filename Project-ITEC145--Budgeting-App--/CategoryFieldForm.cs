@@ -12,15 +12,16 @@ namespace Project_ITEC145__Budgeting_App__
 {
     public partial class CategoryFieldForm : Form
     {
-        static public BudgetSheet budgetForm;
+        public BudgetSheet budgetForm;
         Interface CategoryFieldInterface = new Interface();
         List<Button> ButtonsList = new List<Button>();
 
-        public CategoryFieldForm()
+        public CategoryFieldForm(int budgetSheetIndex)
         {
             InitializeComponent();
 
-            Buttons.categoryFieldForm = this;   //Assigns this form to the buttons class
+            BudgetSheet.categoryFieldForm = this;   //Assigns this form to the buttons class
+            budgetForm = BudgetSheet.budgetSheets[budgetSheetIndex];
 
             this.StartPosition = FormStartPosition.CenterScreen;
 

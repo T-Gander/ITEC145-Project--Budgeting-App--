@@ -12,8 +12,6 @@ namespace Project_ITEC145__Budgeting_App__
 {
     public partial class MainMenu : Form
     {
-        static public BudgetSheet budgetForm;
-
         Interface MainMenuInterface = new Interface();
         List<Button> buttonList = new List<Button>();
 
@@ -23,7 +21,6 @@ namespace Project_ITEC145__Budgeting_App__
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            Buttons.menuForm = this;
             Interface.menuForm = this;
             BudgetSheet.menuForm = this;
         }
@@ -36,10 +33,25 @@ namespace Project_ITEC145__Budgeting_App__
             Buttons ExitButton = new Buttons(150, BudgetSheet.HEIGHT, "Exit", new Font("Arial", 12, FontStyle.Regular), MainMenuInterface.GetWindowCenterX(this), 350);
 
 
-            Controls.Add(NewButton.MakeButton(NewButton.openBudgetSheet_Click,buttonList));
-            Controls.Add(LoadButton.MakeButton(LoadButton.doNothing_Click, buttonList));
-            Controls.Add(InstructionsButton.MakeButton(InstructionsButton.doNothing_Click, buttonList));
-            Controls.Add(ExitButton.MakeButton(ExitButton.menuClose_Click, buttonList));
+            Controls.Add(NewButton.MakeButton(openBudgetSheet_Click,buttonList));
+            Controls.Add(LoadButton.MakeButton(doNothing_Click, buttonList));
+            Controls.Add(InstructionsButton.MakeButton(doNothing_Click, buttonList));
+            Controls.Add(ExitButton.MakeButton(menuClose_Click, buttonList));
+        }
+        public void doNothing_Click(object sender, EventArgs e)
+        {
+            //For testing
+        }
+
+        public void openBudgetSheet_Click(object sender, EventArgs e)
+        {
+            BudgetSheet.menuForm.Hide();
+            BudgetSheet budgetSheet = new BudgetSheet();
+            budgetSheet.Show();
+        }
+        public void menuClose_Click(object sender, EventArgs e)
+        {
+            BudgetSheet.menuForm.Close();
         }
     }
 }

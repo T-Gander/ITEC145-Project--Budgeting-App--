@@ -10,16 +10,11 @@ namespace Project_ITEC145__Budgeting_App__
 {
     internal class Buttons
     {
-        static public BudgetSheet budgetForm;
-        static public MainMenu menuForm;                                    //So the buttons class can keep track of forms
-        static public CategoryFieldForm categoryFieldForm;
-        static public BudgetSheetNameForm budgetSheetNameForm;
-        static public CurrentBalance balanceForm;
+        public BudgetSheet budgetForm;
 
         private int _width;
         private int _height;
         private string _name;
-        private int _budgetSheetIndex;
         private Font _font;
         private string _text;
         private Point _location;
@@ -31,6 +26,7 @@ namespace Project_ITEC145__Budgeting_App__
 
         public Buttons(int width, int height, string name, Font font, int locationx, int locationy, int budgetSheetIndex)
         {
+            budgetForm = BudgetSheet.budgetSheets[budgetSheetIndex];
             string fullname = "";
             List<string> nameparts = new List<string>();
             nameparts.AddRange(name.Split(' '));
@@ -46,7 +42,6 @@ namespace Project_ITEC145__Budgeting_App__
             _font = font;
             _location = new Point(locationx - (_width / 2), locationy);
             _text = name;
-            _budgetSheetIndex = budgetSheetIndex;
         }
 
         public Buttons(int width, int height, string name, Font font, int locationx, int locationy)
@@ -106,46 +101,5 @@ namespace Project_ITEC145__Budgeting_App__
             button.Click += clickHandler;                           //Found this hint on stackoverflow
             return button;
         }
-
-        //Click events for initialized buttons
-
-        public void doNothing_Click(object sender, EventArgs e)
-        {
-            //For testing
-        }
-        public void nameForm_Click(object sender, EventArgs e)
-        {
-            Buttons.budgetForm.Text = Buttons.budgetSheetNameForm.txtBudgetName.Text;
-            Buttons.budgetSheetNameForm.Close();
-            CurrentBalance form = new CurrentBalance();
-            form.ShowDialog();
-        }
-        public void menuClose_Click(object sender, EventArgs e)     
-        {
-            Buttons.menuForm.Close();
-        }
-        public void openBudgetSheet_Click(object sender, EventArgs e)
-        {
-            Buttons.menuForm.Hide();
-            BudgetSheet budgetSheet = new BudgetSheet();
-            budgetSheet.Show();
-        }
-        public void currentBalance_Click(object sender, EventArgs e)
-        {
-            switch(decimal.TryParse(Buttons.balanceForm.txtCurrentBalance.Text, out decimal result))
-            {
-                case true:
-                    BudgetSheet.currentBalance.Text = $"Assignable : ${result}";
-                    BudgetSheet.budgetSheetCurrentBalance = result;
-                    //Will need to add this value to transactions sheet when I eventually make it.
-                    Buttons.balanceForm.Close();
-                    break;
-                case false:
-                    MessageBox.Show("The value entered was not in a decimal format, please try again.");
-                    Buttons.balanceForm.txtCurrentBalance.Text = "";
-                    break;
-            }
-        }
-        
     }
 }

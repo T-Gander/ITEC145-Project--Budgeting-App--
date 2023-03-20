@@ -12,22 +12,34 @@ namespace Project_ITEC145__Budgeting_App__
 {
     public partial class CurrentBalance : Form
     {
-        static public BudgetSheet budgetForm;
-        Interface CategoryFieldInterface = new Interface();
-        List<Button> ButtonsList = new List<Button>();
-
         public CurrentBalance()
         {
             InitializeComponent();
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            Buttons.balanceForm = this;
+            BudgetSheet.balanceForm = this;
 
             Interface balanceForm = new Interface();
             Buttons addBalanceForm = new Buttons(100, BudgetSheet.HEIGHT, "Ok", new Font("Arial", 12), balanceForm.GetWindowCenterX(this), 50);
 
-            Controls.Add(addBalanceForm.MakeButton(addBalanceForm.currentBalance_Click));
+            Controls.Add(addBalanceForm.MakeButton(currentBalance_Click));
+        }
+        public void currentBalance_Click(object sender, EventArgs e)
+        {
+            switch (decimal.TryParse(txtCurrentBalance.Text, out decimal result))
+            {
+                case true:
+                    BudgetSheet.currentBalance.Text = $"Assignable : ${result}";
+                    BudgetSheet.budgetSheetCurrentBalance = result;
+                    //Will need to add this value to transactions sheet when I eventually make it.
+                    BudgetSheet.balanceForm.Close();
+                    break;
+                case false:
+                    MessageBox.Show("The value entered was not in a decimal format, please try again.");
+                    BudgetSheet.balanceForm.txtCurrentBalance.Text = "";
+                    break;
+            }
         }
     }
 }

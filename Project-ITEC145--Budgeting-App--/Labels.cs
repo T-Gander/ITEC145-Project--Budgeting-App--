@@ -8,7 +8,7 @@ namespace Project_ITEC145__Budgeting_App__
 {
     internal class Labels
     {
-        static public BudgetSheet budgetForm;
+        private BudgetSheet _budgetForm;
 
         private int _width;
         private int _height;
@@ -21,8 +21,9 @@ namespace Project_ITEC145__Budgeting_App__
         public int Height { get { return _height; } }
 
 
-        public Labels(int width, int height, string name, Font font, int locationx, int locationy)
+        public Labels(int width, int height, string name, Font font, int locationx, int locationy, int budgetSheetIndex)
         {
+            _budgetForm = BudgetSheet.budgetSheets[budgetSheetIndex];
             string fullname = "";
             List<string> nameparts = new List<string>();
             nameparts.AddRange(name.Split(' '));
