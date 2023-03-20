@@ -72,19 +72,6 @@ namespace Project_ITEC145__Budgeting_App__
             return button;
         }
 
-        public Button MakeButton(EventHandler clickHandler, bool visible)         //Overload method (without adding button to list)
-        {
-            Button button = new Button();
-            button.Name = _name;
-            button.Font = _font;
-            button.Text = _text;
-            button.Size = new Size(_width, _height);
-            button.Location = _location;
-            button.Click += clickHandler;                           //Found this hint on stackoverflow
-            button.Visible = visible;
-            return button;
-        }
-
         //Click events for initialized buttons
 
         public void doNothing_Click(object sender, EventArgs e)

@@ -152,13 +152,6 @@ namespace Project_ITEC145__Budgeting_App__
                         if (addFields.Name == "AddField")
                         {
                             addFields.Visible = false;
-                            foreach(Button NewPage in budgetForm.buttonList)
-                            {
-                                if(NewPage.Name == "NewPage")
-                                {
-                                    NewPage.Visible = true;
-                                }
-                            }
                         }
                     }
 
