@@ -7,6 +7,7 @@ namespace Project_ITEC145__Budgeting_App__
     {
         public static bool name = false;                                    //A bool for checking if the form has been named yet.
         public static string globalName;
+        public static List<TextBox> moneyBoxes = new List<TextBox>();       //Used to calculate all moneyboxes
 
         public static int budgetSheetIndexAssign = 0;
         public static decimal budgetSheetCurrentBalance = 0;                                                                                            //An amount of this can likely be refactored, I got better at using classes as I worked on this project.
@@ -16,8 +17,8 @@ namespace Project_ITEC145__Budgeting_App__
         public int lastLocation = 100;
         public int categoryIndex = 0;                                       //Used to keep track of categories within the form.
 
-        public static Label currentBalance = new Label();                   //Global balance label for all budget sheet forms
-        public List<Category> categoriesList = new List<Category>();                    
+        public static Label currentBalance = new Label();                                 //Global balance label for all budget sheet forms
+        public List<Category> categoriesList = new List<Category>();
         public List<Button> buttonList = new List<Button>();                //To keep track of all controls within the form
         public List<Label> labelList = new List<Label>();
         public List<TextBox> variableList = new List<TextBox>();
@@ -31,6 +32,7 @@ namespace Project_ITEC145__Budgeting_App__
         public Button addCategoryButton;                                //Used to keep track of a forms add category button
         public Button _delCategory;                                     //Used to keep track of the delete category button.
         public Button _addField;                                        //Used to keep track of the addfield button
+        public Label _currentBalance;
 
         public BudgetSheet()
         {
@@ -41,6 +43,7 @@ namespace Project_ITEC145__Budgeting_App__
             Interface.budgetForm = this;
             Interface firstPage = new Interface();
 
+            Label balance = new Label();
             currentBalance.Name = "lblCurrentBalance";                                  //Creates the balance label if the budgetsheet hasn't been named yet
             currentBalance.Text = $"Assignable : ${budgetSheetCurrentBalance}";
             currentBalance.Font = new Font("Arial", 22, FontStyle.Bold);
@@ -48,7 +51,7 @@ namespace Project_ITEC145__Budgeting_App__
             currentBalance.Top = 50;
             currentBalance.Left = firstPage.GetWindowThirdX(this) - 600;
             currentBalance.Size = new Size(550, 35);
-            currentBalance.IsAccessible = true;
+            _currentBalance = currentBalance;
 
             if (budgetSheets == null)
             {
@@ -65,14 +68,14 @@ namespace Project_ITEC145__Budgeting_App__
                 Controls.Add(currentBalanceLabel.MakeBalanceLabel());
                 Labels budgetLabel = new Labels(550, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 275, 50, this);                          //Creates a labels class (seems a little redundant and inefficient now, but when I made this class I
                 Controls.Add(budgetLabel.MakeHeaderLabel());
-                
+
                 Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 50, this);
                 Controls.Add(addCategory.MakeButton(addCategory_Click, buttonList));                                                        //Same here and adds the button to this budget sheets button list
-                Buttons newPage = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this)- 300, 800, this);
+                Buttons newPage = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this) - 300, 800, this);
                 Controls.Add(newPage.MakeButton(NewPage_Click, buttonList, budgetSheetIndex, true));
                 Buttons nextPage = new Buttons(100, HEIGHT, "Next Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this) - 300, 800, this);
                 Controls.Add(nextPage.MakeButton(NextPage_Click, buttonList, budgetSheetIndex, false));
-                
+
                 foreach (Button button in buttonList)
                 {
                     if (button.Name == "AddCategory")
@@ -96,7 +99,7 @@ namespace Project_ITEC145__Budgeting_App__
                 Controls.Add(currentBalanceLabel.MakeBalanceLabel());
                 Labels headerLabel = new Labels(800, HEIGHT, $"{globalName}", new Font("Arial", 24, FontStyle.Bold), 400, 50, this);
                 Controls.Add(headerLabel.MakeHeaderLabel());
-                
+
                 Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), newPage.GetWindowThirdX(this), 50);
                 Controls.Add(addCategory.MakeButton(addCategory_Click, buttonList));
                 Buttons previousPage = new Buttons(100, HEIGHT, "Previous Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 300, 800, this);
@@ -105,7 +108,7 @@ namespace Project_ITEC145__Budgeting_App__
                 Controls.Add(newPageButton.MakeButton(NewPage_Click, buttonList, budgetSheetIndex, true));
                 Buttons nextPageButton = new Buttons(100, HEIGHT, "Next Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 200, 800, this);
                 Controls.Add(nextPageButton.MakeButton(NextPage_Click, buttonList, budgetSheetIndex, false));
-                Buttons deletePage = new Buttons(100, HEIGHT, "Delete Page", new Font("Arial", 12), newPage.GetWindowThirdX(this)+100, 50, this);
+                Buttons deletePage = new Buttons(100, HEIGHT, "Delete Page", new Font("Arial", 12), newPage.GetWindowThirdX(this) + 100, 50, this);
                 Controls.Add(deletePage.MakeButton(DeletePage_Click, buttonList, budgetSheetIndex, true));
 
                 foreach (Button button in buttonList)
@@ -119,15 +122,9 @@ namespace Project_ITEC145__Budgeting_App__
                 budgetSheets.Add(this);
             }
         }
-
         private void BudgetSheet_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void timerConditions_Tick(object sender, EventArgs e)
-        {
-            //Redundant
         }
         public void addCategory_Click(object sender, EventArgs e)
         {
@@ -171,8 +168,8 @@ namespace Project_ITEC145__Budgeting_App__
         {
             int currentIndex = budgetSheets.IndexOf(this);
 
-            BudgetSheet lastSheet = budgetSheets[currentIndex-1];
-            
+            BudgetSheet lastSheet = budgetSheets[currentIndex - 1];
+
             this.Hide();
             lastSheet.Show();
         }

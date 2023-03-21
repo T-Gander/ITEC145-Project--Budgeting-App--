@@ -13,6 +13,7 @@ namespace Project_ITEC145__Budgeting_App__
         public List<Control> delete = new List<Control>();             //Used to delete controls.
         public List<Control> valid = new List<Control>();              //a list of a category controls
         public List<Button> validButton = new List<Button>();           //Used to select buttons only
+        
         private string _name;
         public int _locationx;
         public int _count;
@@ -81,7 +82,7 @@ namespace Project_ITEC145__Budgeting_App__
             budgetForm.Controls.Add(textBox);
             valid.Add(textBox);
 
-            TextBox moneyBox = new TextBox();                                           //Where you enter your assigned money
+            TextBox moneyBox = new TextBox();                                           //Where you enter your assigned money will need to update the current balance label whenever it's changed.
             moneyBox.Text = "0";                                                        //Will need error checking for this
             moneyBox.Name = $"{_count}";
             moneyBox.TextAlign = HorizontalAlignment.Right;
@@ -89,6 +90,8 @@ namespace Project_ITEC145__Budgeting_App__
             moneyBox.Top = _categoryLocation;
             moneyBox.Left = textBox.Left + 400;
             moneyBox.Size = new Size(150, 30);
+            moneyBox.LostFocus += new EventHandler(moneyBox_TextChanged);
+            BudgetSheet.moneyBoxes.Add(moneyBox);
             budgetForm.Controls.Add(moneyBox);
             budgetForm.variableList.Add(moneyBox);
             valid.Add(moneyBox);
@@ -298,6 +301,32 @@ namespace Project_ITEC145__Budgeting_App__
 
             budgetForm.lastLocation -= difference;                              //These might be redundant as the category no longer functionally exists
             _categoryLocation = budgetForm.lastLocation;
+        }
+        public void moneyBox_TextChanged(object sender, EventArgs e)
+        {
+            decimal showedResult = 0;
+            TextBox moneyBox = (TextBox)sender;
+            BudgetSheet.moneyBoxes.Remove(moneyBox);
+
+            if(decimal.TryParse(moneyBox.Text, out decimal result))
+            {
+                decimal sum = 0;
+                BudgetSheet.moneyBoxes.Add(moneyBox);
+                foreach(TextBox allMoneyBoxes in BudgetSheet.moneyBoxes)
+                {
+                    sum += decimal.Parse(allMoneyBoxes.Text);
+                }
+                
+                showedResult = BudgetSheet.budgetSheetCurrentBalance - sum;
+                BudgetSheet.currentBalance.Text = $"Assignable : {showedResult}";
+                BudgetSheet.budgetSheets[0]._currentBalance.Text = $"Assignable : {showedResult}";
+            }
+            else
+            {
+                MessageBox.Show("Please enter a value that is considered a decimal.");
+                moneyBox.Text = "0";
+                BudgetSheet.moneyBoxes.Add(moneyBox);
+            }
         }
     }
 }

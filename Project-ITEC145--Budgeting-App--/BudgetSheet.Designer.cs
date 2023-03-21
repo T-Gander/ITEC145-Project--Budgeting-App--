@@ -28,14 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            timerConditions = new System.Windows.Forms.Timer(components);
             SuspendLayout();
-            // 
-            // timerConditions
-            // 
-            timerConditions.Enabled = true;
-            timerConditions.Tick += timerConditions_Tick;
             // 
             // BudgetSheet
             // 
@@ -50,7 +43,5 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer timerConditions;
     }
 }
