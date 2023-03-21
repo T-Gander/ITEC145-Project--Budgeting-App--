@@ -118,6 +118,8 @@ namespace Project_ITEC145__Budgeting_App__
             valid.Add(delField);
             validButton.Add(delField);
 
+            //Add an add transaction button here
+
             _categoryLocation += 40;
             budgetForm.lastLocation += 40;
 

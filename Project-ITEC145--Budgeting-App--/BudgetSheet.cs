@@ -109,6 +109,8 @@ namespace Project_ITEC145__Budgeting_App__
                 Labels headerLabel = new Labels(800, HEIGHT, $"{globalName}", new Font("Arial", 24, FontStyle.Bold), 400, 50, this);
                 Controls.Add(headerLabel.MakeHeaderLabel());
 
+                //Add an add income button here
+
                 Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), newPage.GetWindowThirdX(this), 50);
                 Controls.Add(addCategory.MakeButton(addCategory_Click, buttonList));
                 Buttons previousPage = new Buttons(100, HEIGHT, "Previous Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 300, 800, this);
