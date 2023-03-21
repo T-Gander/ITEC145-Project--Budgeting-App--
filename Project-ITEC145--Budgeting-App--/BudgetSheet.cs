@@ -9,7 +9,7 @@ namespace Project_ITEC145__Budgeting_App__
         public static string globalName;
 
         public static int budgetSheetIndexAssign = 0;
-        public static decimal budgetSheetCurrentBalance = 0;
+        public static decimal budgetSheetCurrentBalance = 0;                                                                                            //An amount of this can likely be refactored, I got better at using classes as I worked on this project.
 
         public int budgetSheetIndex = 0;
         public const int HEIGHT = 50;
