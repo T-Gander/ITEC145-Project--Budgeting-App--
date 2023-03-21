@@ -22,14 +22,14 @@ namespace Project_ITEC145__Budgeting_App__
         private Button _delCategory;
         private Button _addField;
 
-        public Category(string Name, ref int locationy, ref int categoryIndex, int budgetSheetIndex)
+        public Category(string Name, ref int locationy, ref int categoryIndex, BudgetSheet budgetSheet)
         {
-            _categoryLocation += 40;                                    //a location the category class uses to keep track of where to place controls
+            _categoryLocation = locationy;                                    //a location the category class uses to keep track of where to place controls
 
             _name = Name;
             _locationx = 10;
             _categoryIndex = categoryIndex;
-            budgetForm = BudgetSheet.budgetSheets[budgetSheetIndex];
+            budgetForm = budgetSheet;
             categoryIndex++;
 
             Button delCategory = new Button();                          
@@ -63,7 +63,8 @@ namespace Project_ITEC145__Budgeting_App__
             validButton.Add(addField);
 
             budgetForm.categoriesList.Add(this);
-            locationy = locationy + 40;
+            locationy += 40;
+            _categoryLocation += 40;
             budgetForm.lastLocation += 30;
         }
 

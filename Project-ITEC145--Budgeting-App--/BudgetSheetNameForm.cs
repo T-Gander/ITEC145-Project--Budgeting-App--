@@ -12,9 +12,13 @@ namespace Project_ITEC145__Budgeting_App__
 {
     public partial class BudgetSheetNameForm : Form
     {
-        public BudgetSheetNameForm()
+        private BudgetSheet _budgetForm;
+
+        public BudgetSheetNameForm(BudgetSheet budgetSheet)
         {
             InitializeComponent();
+
+            _budgetForm = budgetSheet;
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
@@ -27,7 +31,7 @@ namespace Project_ITEC145__Budgeting_App__
         }
         public void nameForm_Click(object sender, EventArgs e)
         {
-            BudgetSheet.budgetSheets[0].Text = BudgetSheet.budgetSheetNameForm.txtBudgetName.Text;
+            _budgetForm.Text = BudgetSheet.budgetSheetNameForm.txtBudgetName.Text;
             BudgetSheet.budgetSheetNameForm.Close();
             CurrentBalance form = new CurrentBalance();
             form.ShowDialog();

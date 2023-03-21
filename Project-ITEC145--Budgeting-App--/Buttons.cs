@@ -24,9 +24,9 @@ namespace Project_ITEC145__Budgeting_App__
         public int Height { get { return _height; } }
 
 
-        public Buttons(int width, int height, string name, Font font, int locationx, int locationy, int budgetSheetIndex)
+        public Buttons(int width, int height, string name, Font font, int locationx, int locationy, BudgetSheet budgetSheet)
         {
-            budgetForm = BudgetSheet.budgetSheets[budgetSheetIndex];
+            budgetForm = budgetSheet;
             string fullname = "";
             List<string> nameparts = new List<string>();
             nameparts.AddRange(name.Split(' '));
