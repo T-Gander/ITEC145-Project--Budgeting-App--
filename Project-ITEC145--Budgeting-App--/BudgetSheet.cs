@@ -38,8 +38,6 @@ namespace Project_ITEC145__Budgeting_App__
         {
             InitializeComponent();
 
-            
-
             this.StartPosition = FormStartPosition.CenterScreen;                        //Centers form
 
             Interface.budgetForm = this;
@@ -201,7 +199,7 @@ namespace Project_ITEC145__Budgeting_App__
         {
             int currentIndex = budgetSheets.IndexOf(this);
 
-            if (currentIndex == 1)
+            if (currentIndex == 1 && budgetSheets.Count == 2)
             {
                 BudgetSheet mainSheet = budgetSheets[0];
 
@@ -222,10 +220,20 @@ namespace Project_ITEC145__Budgeting_App__
                         control.Visible = true;
                     }
                 }
+
+                foreach (Control control in BudgetSheet.budgetSheets[currentIndex].Controls)
+                {
+                    if (control.Tag == "MoneyBox")
+                    {
+                        moneyBoxes.Remove((TextBox)control);
+                        recalculateBalance();
+                    }
+                }
+
                 budgetSheets.Remove(this);
                 budgetSheets[budgetSheets.Count - 1].Show();
                 budgetSheets[budgetSheets.Count - 1].Controls.Add(currentBalance);
-                BudgetSheet.currentBalance.BringToFront();
+                currentBalance.BringToFront();
 
                 this.Close();
             }
@@ -243,17 +251,49 @@ namespace Project_ITEC145__Budgeting_App__
                     if (control.Text == "Next Page")
                     {
                         control.Visible = false;
+                        if(budgetSheets.IndexOf(lastSheet) == 0)
+                        {
+                            control.Visible = true;
+                        }
                     }
 
                     if (control.Text == "New Page")
                     {
                         control.Visible = true;
+                        if (budgetSheets.IndexOf(lastSheet) == 0)
+                        {
+                            control.Visible = false;
+                        }
+                    }
+                }
+
+                foreach (Control control in BudgetSheet.budgetSheets[currentIndex].Controls)
+                {
+                    if (control.Tag == "MoneyBox")
+                    {
+                        moneyBoxes.Remove((TextBox)control);
+                        recalculateBalance();
                     }
                 }
                 budgetSheets.Remove(this);
                 lastSheet.Show();
                 this.Close();
             }
+        }
+
+        public void recalculateBalance()
+        {
+            decimal sum = 0;
+
+            foreach (TextBox allMoneyBoxes in moneyBoxes)
+            {
+                sum += decimal.Parse(allMoneyBoxes.Text);                                                           //Not working for some reason, check that the form is being properly updated in the debugger
+            }
+
+            budgetSheetCurrentBalance = originalBalance - sum;
+            currentBalance.Text = $"Assignable : ${budgetSheetCurrentBalance}";
+            this.Controls.Add(currentBalance);
+            currentBalance.BringToFront();
         }
     }
 }

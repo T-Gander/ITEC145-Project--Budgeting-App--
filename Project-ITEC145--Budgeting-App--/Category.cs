@@ -91,6 +91,7 @@ namespace Project_ITEC145__Budgeting_App__
             moneyBox.Left = textBox.Left + 400;
             moneyBox.Size = new Size(150, 30);
             moneyBox.LostFocus += new EventHandler(moneyBox_TextChanged);
+            moneyBox.Tag = "MoneyBox";
             BudgetSheet.moneyBoxes.Add(moneyBox);
             budgetForm.Controls.Add(moneyBox);
             budgetForm.variableList.Add(moneyBox);
@@ -181,6 +182,11 @@ namespace Project_ITEC145__Budgeting_App__
                 if (field.Name == clickedButton.Name)
                 {
                     delete.Add(field);                              //Adds objects that have the same name (or count) as the delete button to the delete list
+                    if (field.Tag == "MoneyBox")
+                    {
+                        BudgetSheet.moneyBoxes.Remove((TextBox)field);
+                        budgetForm.recalculateBalance();
+                    }
                 }
             }
             foreach (Control field in delete)
@@ -269,6 +275,11 @@ namespace Project_ITEC145__Budgeting_App__
             foreach (Control control in valid)                                 //Adds all controls in current category to the delete list
             {
                 delete.Add(control);
+                if (control.Tag == "MoneyBox")
+                {
+                    BudgetSheet.moneyBoxes.Remove((TextBox)control);
+                    budgetForm.recalculateBalance();
+                }
             }
             valid.Clear();
 
@@ -317,8 +328,8 @@ namespace Project_ITEC145__Budgeting_App__
                     sum += decimal.Parse(allMoneyBoxes.Text);                                                           //Not working for some reason, check that the form is being properly updated in the debugger
                 }
                 
-                showedResult = BudgetSheet.originalBalance - sum;
-                BudgetSheet.currentBalance.Text = $"Assignable : ${showedResult}";
+                BudgetSheet.budgetSheetCurrentBalance = BudgetSheet.originalBalance - sum;
+                BudgetSheet.currentBalance.Text = $"Assignable : ${BudgetSheet.budgetSheetCurrentBalance}";
             }
             else
             {
