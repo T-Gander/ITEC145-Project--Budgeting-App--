@@ -31,7 +31,7 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 case true:
                     BudgetSheet.currentBalance.Text = $"Assignable : ${result}";
-                    BudgetSheet.budgetSheetCurrentBalance = result;
+                    BudgetSheet.originalBalance = result;
                     //Will need to add this value to transactions sheet when I eventually make it.
                     BudgetSheet.balanceForm.Close();
                     break;

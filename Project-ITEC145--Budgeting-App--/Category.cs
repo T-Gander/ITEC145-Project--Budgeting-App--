@@ -309,7 +309,7 @@ namespace Project_ITEC145__Budgeting_App__
 
             if(decimal.TryParse(moneyBox.Text, out decimal result))
             {
-                decimal showedResult = 0;
+                decimal showedResult;
                 decimal sum = 0;
                 BudgetSheet.moneyBoxes.Add(moneyBox);
                 foreach(TextBox allMoneyBoxes in BudgetSheet.moneyBoxes)
@@ -317,9 +317,8 @@ namespace Project_ITEC145__Budgeting_App__
                     sum += decimal.Parse(allMoneyBoxes.Text);                                                           //Not working for some reason, check that the form is being properly updated in the debugger
                 }
                 
-                showedResult = BudgetSheet.budgetSheetCurrentBalance - sum;
-                BudgetSheet.currentBalance.Text = $"Assignable : {showedResult}";
-                BudgetSheet.budgetSheets[0]._currentBalance.Text = $"Assignable : {showedResult}";
+                showedResult = BudgetSheet.originalBalance - sum;
+                BudgetSheet.currentBalance.Text = $"Assignable : ${showedResult}";
             }
             else
             {

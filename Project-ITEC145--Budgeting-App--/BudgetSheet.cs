@@ -16,6 +16,7 @@ namespace Project_ITEC145__Budgeting_App__
         public const int HEIGHT = 50;
         public int lastLocation = 100;
         public int categoryIndex = 0;                                       //Used to keep track of categories within the form.
+        public static decimal originalBalance = 0;
 
         public static Label currentBalance = new Label();                                 //Global balance label for all budget sheet forms
         public List<Category> categoriesList = new List<Category>();
@@ -32,11 +33,12 @@ namespace Project_ITEC145__Budgeting_App__
         public Button addCategoryButton;                                //Used to keep track of a forms add category button
         public Button _delCategory;                                     //Used to keep track of the delete category button.
         public Button _addField;                                        //Used to keep track of the addfield button
-        public Label _currentBalance;
 
         public BudgetSheet()
         {
             InitializeComponent();
+
+            
 
             this.StartPosition = FormStartPosition.CenterScreen;                        //Centers form
 
@@ -51,10 +53,11 @@ namespace Project_ITEC145__Budgeting_App__
             currentBalance.Top = 50;
             currentBalance.Left = firstPage.GetWindowThirdX(this) - 600;
             currentBalance.Size = new Size(550, 35);
-            _currentBalance = currentBalance;
 
             if (budgetSheets == null)
             {
+                budgetSheetCurrentBalance = originalBalance;
+
                 budgetSheets = new List<BudgetSheet>();                                 //Creates a budgetsheet if it doesn't already exist
                 name = true;
                 budgetSheetIndexAssign++;
@@ -64,8 +67,7 @@ namespace Project_ITEC145__Budgeting_App__
                 BudgetSheetNameForm form = new BudgetSheetNameForm(this);
                 form.ShowDialog();
 
-                Labels currentBalanceLabel = new Labels(550, HEIGHT, $"Assignable : ${budgetSheetCurrentBalance}", new Font("Arial", 22, FontStyle.Bold), budgetSheet.GetWindowThirdX(this) - 350, 50, this);                          //Creates a labels class (seems a little redundant and inefficient now, but when I made this class I
-                Controls.Add(currentBalanceLabel.MakeBalanceLabel());
+                Controls.Add(currentBalance);
                 Labels budgetLabel = new Labels(550, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 275, 50, this);                          //Creates a labels class (seems a little redundant and inefficient now, but when I made this class I
                 Controls.Add(budgetLabel.MakeHeaderLabel());
 
@@ -89,14 +91,23 @@ namespace Project_ITEC145__Budgeting_App__
             }
             else
             {
+                decimal difference = 0;
+
+                foreach (TextBox moneyBox in moneyBoxes)
+                {
+                    difference += decimal.Parse(moneyBox.Text);
+                }
+                
+                budgetSheetCurrentBalance = originalBalance - difference;
+
+
                 budgetSheetIndex = budgetSheetIndexAssign;
                 budgetSheetIndexAssign++;
                 globalName = budgetSheets[0].Text;
 
                 Interface newPage = new Interface();
 
-                Labels currentBalanceLabel = new Labels(550, HEIGHT, $"Assignable : ${budgetSheetCurrentBalance}", new Font("Arial", 22, FontStyle.Bold), newPage.GetWindowThirdX(this) - 350, 50, this);                          //Creates a labels class (seems a little redundant and inefficient now, but when I made this class I
-                Controls.Add(currentBalanceLabel.MakeBalanceLabel());
+                Controls.Add(currentBalance);
                 Labels headerLabel = new Labels(800, HEIGHT, $"{globalName}", new Font("Arial", 24, FontStyle.Bold), 400, 50, this);
                 Controls.Add(headerLabel.MakeHeaderLabel());
 
@@ -169,6 +180,8 @@ namespace Project_ITEC145__Budgeting_App__
             int currentIndex = budgetSheets.IndexOf(this);
 
             BudgetSheet lastSheet = budgetSheets[currentIndex - 1];
+            lastSheet.Controls.Add(currentBalance);
+            BudgetSheet.currentBalance.BringToFront();
 
             this.Hide();
             lastSheet.Show();
@@ -178,6 +191,8 @@ namespace Project_ITEC145__Budgeting_App__
             int currentIndex = budgetSheets.IndexOf(this);
 
             BudgetSheet nextSheet = budgetSheets[currentIndex + 1];
+            nextSheet.Controls.Add(currentBalance);
+            BudgetSheet.currentBalance.BringToFront();
 
             this.Hide();
             nextSheet.Show();
@@ -209,6 +224,9 @@ namespace Project_ITEC145__Budgeting_App__
                 }
                 budgetSheets.Remove(this);
                 budgetSheets[budgetSheets.Count - 1].Show();
+                budgetSheets[budgetSheets.Count - 1].Controls.Add(currentBalance);
+                BudgetSheet.currentBalance.BringToFront();
+
                 this.Close();
             }
             else
