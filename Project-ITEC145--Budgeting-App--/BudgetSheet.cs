@@ -68,11 +68,11 @@ namespace Project_ITEC145__Budgeting_App__
                 
                 Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 50, this);
                 Controls.Add(addCategory.MakeButton(addCategory_Click, buttonList));                                                        //Same here and adds the button to this budget sheets button list
-                Buttons newPage = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this)-300, 800, this);
+                Buttons newPage = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this)- 300, 800, this);
                 Controls.Add(newPage.MakeButton(NewPage_Click, buttonList, budgetSheetIndex, true));
                 Buttons nextPage = new Buttons(100, HEIGHT, "Next Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this) - 300, 800, this);
                 Controls.Add(nextPage.MakeButton(NextPage_Click, buttonList, budgetSheetIndex, false));
-
+                
                 foreach (Button button in buttonList)
                 {
                     if (button.Name == "AddCategory")
@@ -100,13 +100,13 @@ namespace Project_ITEC145__Budgeting_App__
                 Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), newPage.GetWindowThirdX(this), 50);
                 Controls.Add(addCategory.MakeButton(addCategory_Click, buttonList));
                 Buttons previousPage = new Buttons(100, HEIGHT, "Previous Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 300, 800, this);
-                
-                //add a previous page button as well as the add page
                 Controls.Add(previousPage.MakeButton(PrevPage_Click, buttonList, budgetSheetIndex, true));
                 Buttons newPageButton = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 200, 800, this);
                 Controls.Add(newPageButton.MakeButton(NewPage_Click, buttonList, budgetSheetIndex, true));
                 Buttons nextPageButton = new Buttons(100, HEIGHT, "Next Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 200, 800, this);
                 Controls.Add(nextPageButton.MakeButton(NextPage_Click, buttonList, budgetSheetIndex, false));
+                Buttons deletePage = new Buttons(100, HEIGHT, "Delete Page", new Font("Arial", 12), newPage.GetWindowThirdX(this)+100, 50, this);
+                Controls.Add(deletePage.MakeButton(DeletePage_Click, buttonList, budgetSheetIndex, true));
 
                 foreach (Button button in buttonList)
                 {
@@ -141,13 +141,13 @@ namespace Project_ITEC145__Budgeting_App__
 
             BudgetSheet newSheet = new BudgetSheet();
 
-            foreach (BudgetSheet sheet in BudgetSheet.budgetSheets)
+            foreach (BudgetSheet sheet in budgetSheets)
             {
                 foreach (Control control in sheet.Controls)
                 {
                     if (control.Name == "lblCurrentBalance")
                     {
-                        control.Text = $"Assignable : ${BudgetSheet.budgetSheetCurrentBalance}";
+                        control.Text = $"Assignable : ${budgetSheetCurrentBalance}";
                     }
 
                     if (int.TryParse(control.Name, out int result) == true)
@@ -169,46 +169,75 @@ namespace Project_ITEC145__Budgeting_App__
         }
         public void PrevPage_Click(object sender, EventArgs e)
         {
-            foreach (BudgetSheet sheet in BudgetSheet.budgetSheets)
-            {
-                foreach (Control control in sheet.Controls)
-                {
-                    if (control.Name == "lblCurrentBalance")
-                    {
-                        control.Text = $"Assignable : ${BudgetSheet.budgetSheetCurrentBalance}";
-                    }
+            int currentIndex = budgetSheets.IndexOf(this);
 
-                    if (int.TryParse(control.Name, out int result) == true)
-                    {
-                        if (control.Text == "Previous Page" && result == budgetSheetIndex)
-                        {
-                            BudgetSheet.budgetSheets[budgetSheetIndex].Hide();
-                            BudgetSheet.budgetSheets[budgetSheetIndex - 1].Show();
-                        }
-                    }
-                }
-            }
+            BudgetSheet lastSheet = budgetSheets[currentIndex-1];
+            
+            this.Hide();
+            lastSheet.Show();
         }
         public void NextPage_Click(object sender, EventArgs e)
         {
-            foreach (BudgetSheet sheet in BudgetSheet.budgetSheets)
-            {
-                foreach (Control control in sheet.Controls)
-                {
-                    if (int.TryParse(control.Name, out int result) == true)
-                    {
-                        if (control.Name == "lblCurrentBalance")
-                        {
-                            control.Text = $"Assignable : {BudgetSheet.budgetSheetCurrentBalance}";
-                        }
+            int currentIndex = budgetSheets.IndexOf(this);
 
-                        if (control.Text == "Next Page" && result == budgetSheetIndex)
-                        {
-                            BudgetSheet.budgetSheets[budgetSheetIndex].Hide();
-                            BudgetSheet.budgetSheets[budgetSheetIndex + 1].Show();
-                        }
+            BudgetSheet nextSheet = budgetSheets[currentIndex + 1];
+
+            this.Hide();
+            nextSheet.Show();
+        }
+        public void DeletePage_Click(object sender, EventArgs e)
+        {
+            int currentIndex = budgetSheets.IndexOf(this);
+
+            if (currentIndex == 1)
+            {
+                BudgetSheet mainSheet = budgetSheets[0];
+
+                foreach (Control control in mainSheet.Controls)
+                {
+                    if (control.Name == "lblCurrentBalance")
+                    {
+                        control.Text = $"Assignable : {budgetSheetCurrentBalance}";
+                    }
+
+                    if (control.Text == "Next Page")
+                    {
+                        control.Visible = false;
+                    }
+
+                    if (control.Text == "New Page")
+                    {
+                        control.Visible = true;
                     }
                 }
+                budgetSheets.Remove(this);
+                budgetSheets[budgetSheets.Count - 1].Show();
+                this.Close();
+            }
+            else
+            {
+                BudgetSheet lastSheet = budgetSheets[currentIndex - 1];
+
+                foreach (Control control in lastSheet.Controls)
+                {
+                    if (control.Name == "lblCurrentBalance")
+                    {
+                        control.Text = $"Assignable : {budgetSheetCurrentBalance}";
+                    }
+
+                    if (control.Text == "Next Page")
+                    {
+                        control.Visible = false;
+                    }
+
+                    if (control.Text == "New Page")
+                    {
+                        control.Visible = true;
+                    }
+                }
+                budgetSheets.Remove(this);
+                lastSheet.Show();
+                this.Close();
             }
         }
     }
