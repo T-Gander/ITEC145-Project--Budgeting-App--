@@ -133,7 +133,6 @@ namespace Project_ITEC145__Budgeting_App__
 
             _categoryLocation += 40;
             budgetForm.lastLocation += 40;
-
             _count++;
 
             foreach (Category category in budgetForm.categoriesList)                 //Used to move all controls that are below a category
@@ -150,7 +149,6 @@ namespace Project_ITEC145__Budgeting_App__
                     }
                 }
             }
-
             foreach (Button addFields in validButton)                               //Used to move the addfields button down that belongs to the current category
             {
                 if (_categoryLocation < 800)
@@ -161,7 +159,6 @@ namespace Project_ITEC145__Budgeting_App__
                     }
                 }
             }
-
             foreach (Category category in budgetForm.categoriesList)                //Hides add buttons on the form so that no more buttons can be added
             {
                 foreach (Button addFields in category.validButton)
@@ -210,7 +207,6 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 budgetForm.Controls.Remove(delete[i]);              //Deletes objects from budgetsheet
             }
-
             foreach (Control field in valid)                        //Moves valid buttons up to fill deleted buttons space
             {
                 if (int.TryParse(field.Name, out int fieldName) && int.TryParse(clickedButton.Name, out int buttonName))
@@ -231,7 +227,6 @@ namespace Project_ITEC145__Budgeting_App__
                     addFields.Top = _categoryLocation;
                 }
             }
-
             foreach (Category category in budgetForm.categoriesList)        //Moves categories and their controls below this one up.
             {
                 if (category._categoryIndex > _categoryIndex)
@@ -243,7 +238,6 @@ namespace Project_ITEC145__Budgeting_App__
                     category._categoryLocation -= 40;
                 }
             }
-
             foreach (Category category in budgetForm.categoriesList)        //Checks all categories controls and makes their add buttons visible and also shows the add category button again
             {
                 foreach (Button addFields in category.validButton)
@@ -284,7 +278,6 @@ namespace Project_ITEC145__Budgeting_App__
                     }
                 }
             }
-
             foreach (Control control in valid)                                 //Adds all controls in current category to the delete list
             {
                 delete.Add(control);
@@ -300,7 +293,6 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 budgetForm.Controls.Remove(delete[i]);                          //Deletes all controls assigned to be deleted
             }
-
             foreach (Category category in budgetForm.categoriesList)            //Checks all categories buttons, and hides them if the current category is too far down the page.
             {
                 foreach (Button addFields in category.validButton)
