@@ -35,7 +35,7 @@ namespace Project_ITEC145__Budgeting_App__
 
             Controls.Add(NewButton.MakeButton(openBudgetSheet_Click,buttonList));
             Controls.Add(LoadButton.MakeButton(doNothing_Click, buttonList));
-            Controls.Add(InstructionsButton.MakeButton(doNothing_Click, buttonList));
+            Controls.Add(InstructionsButton.MakeButton(Instructions_Click, buttonList));
             Controls.Add(ExitButton.MakeButton(menuClose_Click, buttonList));
         }
         public void doNothing_Click(object sender, EventArgs e)
@@ -52,6 +52,20 @@ namespace Project_ITEC145__Budgeting_App__
         public void menuClose_Click(object sender, EventArgs e)
         {
             BudgetSheet.menuForm.Close();
+        }
+        public void Instructions_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Welcome to Thomas' Budget Sheet Software!" + "\n" + "\n" +
+                            "This software is designed in a way that should be fairly straightforward to figure out yourself, but incase you need help keep reading!" + "\n" +
+                            "All you need to do is follow the messagebox prompts, and then add a category to start budgeting." + "\n" + "\n" +
+                            "This budgeting software assumes you are using the Envelope Budgeting method, which only lets you budget the money you currently have," +
+                            " based on the current balance that you intially provide the software upon making a new budget sheet." +"\n" +
+                            "Your initial balance is then added to a transactions form to keep track of any transactions you make. In order to add a transaction, press the add transaction" +
+                            " button thats located next to a field, the transaction will then be added to your transactions sheet, the debit will also then be reflected in your current assignable balance " 
+                            + "and also the transaction amount will be deducted from your assigned amount within your field." + "\n" +
+                            "You may view the transaction form at any time by clicking the View Transactions button within your budget form." + "\n" + "\n" +
+                            "Other than that, the categories button is used to help keep your budget sheet organised, and a save button is also located on the budget form so that you can load a past budget sheet you've saved." + "\n" + "\n" +
+                            "Happy Budgeting!");
         }
     }
 }
