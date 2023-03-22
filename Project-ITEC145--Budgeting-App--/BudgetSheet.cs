@@ -5,20 +5,20 @@ namespace Project_ITEC145__Budgeting_App__
 {
     public partial class BudgetSheet : Form
     {
-        public static bool name = false;                                    //A bool for checking if the form has been named yet.
-        public static string globalName;
+        public static bool name = false;                                    //A bool for checking if the form has been named yet. (May be redundant now)
+        public static string globalName;                                    //Used to set the budget sheet name to all forms
         public static List<TextBox> moneyBoxes = new List<TextBox>();       //Used to calculate all moneyboxes
 
         public static int budgetSheetIndexAssign = 0;
-        public static decimal budgetSheetCurrentBalance = 0;                                                                                            //An amount of this can likely be refactored, I got better at using classes as I worked on this project.
+        public static decimal budgetSheetCurrentBalance = 0;                //An amount of this can likely be refactored, I got better at using classes as I worked on this project.
 
-        public int budgetSheetIndex = 0;
+        public int budgetSheetIndex = 0;                                    //Initial forms index which is changed later if it already exists
         public const int HEIGHT = 50;
-        public int lastLocation = 100;
+        public int lastLocation = 100;                                      //Used to keep track of where to place controls
         public int categoryIndex = 0;                                       //Used to keep track of categories within the form.
-        public static decimal originalBalance = 0;
+        public static decimal originalBalance = 0;                          //May be retired once I have transactions working
 
-        public static Label currentBalance = new Label();                                 //Global balance label for all budget sheet forms
+        public static Label currentBalance = new Label();                   //Global balance label for all budget sheet forms
         public List<Category> categoriesList = new List<Category>();
         public List<Button> buttonList = new List<Button>();                //To keep track of all controls within the form
         public List<Label> labelList = new List<Label>();
@@ -30,9 +30,9 @@ namespace Project_ITEC145__Budgeting_App__
         static public CategoryFieldForm categoryFieldForm;
         static public CurrentBalance balanceForm;
 
-        public Button addCategoryButton;                                //Used to keep track of a forms add category button
-        public Button _delCategory;                                     //Used to keep track of the delete category button.
-        public Button _addField;                                        //Used to keep track of the addfield button
+        public Button addCategoryButton;                                    //Used to keep track of a forms add category button
+        public Button _delCategory;                                         //Used to keep track of the delete category button.
+        public Button _addField;                                            //Used to keep track of the addfield button
 
         public BudgetSheet()
         {
@@ -58,19 +58,19 @@ namespace Project_ITEC145__Budgeting_App__
 
                 budgetSheets = new List<BudgetSheet>();                                 //Creates a budgetsheet if it doesn't already exist
                 name = true;
-                budgetSheetIndexAssign++;
+                budgetSheetIndexAssign++;                                               //Used to keep track of budgetsheet forms
 
-                Interface budgetSheet = new Interface();                                    //Builds interface class (which contains calculations on finding a location on a form)
+                Interface budgetSheet = new Interface();                                //Builds interface class (which contains calculations on finding a location on a form)
 
-                BudgetSheetNameForm form = new BudgetSheetNameForm(this);
+                BudgetSheetNameForm form = new BudgetSheetNameForm(this);               
                 form.ShowDialog();
 
                 Controls.Add(currentBalance);
-                Labels budgetLabel = new Labels(550, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 275, 50, this);                          //Creates a labels class (seems a little redundant and inefficient now, but when I made this class I
+                Labels budgetLabel = new Labels(550, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 275, 50, this); //Labels class creates customised buttons
                 Controls.Add(budgetLabel.MakeHeaderLabel());
 
                 Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 50, this);
-                Controls.Add(addCategory.MakeButton(addCategory_Click, buttonList));                                                        //Same here and adds the button to this budget sheets button list
+                Controls.Add(addCategory.MakeButton(addCategory_Click, buttonList));    //Same here and adds the button to this budget sheets button list
                 Buttons newPage = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this) - 300, 800, this);
                 Controls.Add(newPage.MakeButton(NewPage_Click, buttonList, budgetSheetIndex, true));
                 Buttons nextPage = new Buttons(100, HEIGHT, "Next Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this) - 300, 800, this);
@@ -97,7 +97,6 @@ namespace Project_ITEC145__Budgeting_App__
                 }
                 
                 budgetSheetCurrentBalance = originalBalance - difference;
-
 
                 budgetSheetIndex = budgetSheetIndexAssign;
                 budgetSheetIndexAssign++;
@@ -269,7 +268,7 @@ namespace Project_ITEC145__Budgeting_App__
                     }
                 }
 
-                foreach (Control control in BudgetSheet.budgetSheets[currentIndex].Controls)
+                foreach (Control control in budgetSheets[currentIndex].Controls)
                 {
                     if (control.Tag == "MoneyBox")
                     {
@@ -289,7 +288,7 @@ namespace Project_ITEC145__Budgeting_App__
 
             foreach (TextBox allMoneyBoxes in moneyBoxes)
             {
-                sum += decimal.Parse(allMoneyBoxes.Text);                                                           //Not working for some reason, check that the form is being properly updated in the debugger
+                sum += decimal.Parse(allMoneyBoxes.Text);                     
             }
 
             budgetSheetCurrentBalance = originalBalance - sum;

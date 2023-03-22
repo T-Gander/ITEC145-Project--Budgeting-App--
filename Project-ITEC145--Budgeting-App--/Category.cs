@@ -8,15 +8,15 @@ namespace Project_ITEC145__Budgeting_App__
 {
     public class Category
     {
-        public BudgetSheet budgetForm;
+        public BudgetSheet budgetForm;                                 //Used to connect to the parent budgetsheet
 
         public List<Control> delete = new List<Control>();             //Used to delete controls.
         public List<Control> valid = new List<Control>();              //a list of a category controls
-        public List<Button> validButton = new List<Button>();           //Used to select buttons only
+        public List<Button> validButton = new List<Button>();          //Used to select buttons only
         
         private string _name;
         public int _locationx;
-        public int _count;
+        public int _count;                                             //Used to give an identifier to a category's fields
         public int _categoryLocation;                                  //Used to assign the category location based on the next available space.
         public int _categoryIndex;                                     //Keeps track of a categories ID and a new one is created each time a category class is made
 
@@ -82,8 +82,8 @@ namespace Project_ITEC145__Budgeting_App__
             budgetForm.Controls.Add(textBox);
             valid.Add(textBox);
 
-            TextBox moneyBox = new TextBox();                                           //Where you enter your assigned money will need to update the current balance label whenever it's changed.
-            moneyBox.Text = "0";                                                        //Will need error checking for this
+            TextBox moneyBox = new TextBox();                                           //Where you enter your assigned money
+            moneyBox.Text = "0";                                                        
             moneyBox.Name = $"{_count}";
             moneyBox.TextAlign = HorizontalAlignment.Right;
             moneyBox.Font = new Font("Arial", 18, FontStyle.Bold);
@@ -97,7 +97,7 @@ namespace Project_ITEC145__Budgeting_App__
             budgetForm.variableList.Add(moneyBox);
             valid.Add(moneyBox);
 
-            Label label = new Label();                                                  //Dollar sign label
+            Label label = new Label();                                                  //Dollar sign label, functionally useless
             label.Text = "$";
             label.Name = $"{_count}";
             label.Font = new Font("Arial", 18, FontStyle.Bold);
@@ -110,7 +110,7 @@ namespace Project_ITEC145__Budgeting_App__
             Button delField = new Button();                                             //Delete field button within a category
             delField.Text = "X";
             delField.Name = $"{_count}";
-            delField.Tag = delField.Name;               //Found out about tags to send a buttons info to a click event
+            delField.Tag = delField.Name;                                               //Found out about tags to send a buttons info to a click event (could probably just cast the sender to do the same thing)
             delField.Top = _categoryLocation;
             delField.Left = moneyBox.Left + 160;
             delField.Click += new EventHandler(delFields_Click);
@@ -200,7 +200,7 @@ namespace Project_ITEC145__Budgeting_App__
                 budgetForm.Controls.Remove(delete[i]);              //Deletes objects from budgetsheet
             }
 
-            foreach (Control field in valid)                                                //Moves valid buttons up to fill deleted buttons space
+            foreach (Control field in valid)                        //Moves valid buttons up to fill deleted buttons space
             {
                 if (int.TryParse(field.Name, out int fieldName) && int.TryParse(clickedButton.Name, out int buttonName))
                 {
@@ -261,7 +261,7 @@ namespace Project_ITEC145__Budgeting_App__
             int bottomOfCategory = _addField.Top + 35;
             int difference = bottomOfCategory - topOfCategory;
 
-            foreach (Category category in budgetForm.categoriesList)                       //Used to move categories down that are below the current category
+            foreach (Category category in budgetForm.categoriesList)        //Used to move categories down that are below the current category
             {
                 if (category._categoryIndex > _categoryIndex)
                 {
@@ -287,7 +287,7 @@ namespace Project_ITEC145__Budgeting_App__
 
             for (int i = 0; i < delete.Count; i++)
             {
-                budgetForm.Controls.Remove(delete[i]);                          //Deletes all controls
+                budgetForm.Controls.Remove(delete[i]);                          //Deletes all controls assigned to be deleted
             }
 
             foreach (Category category in budgetForm.categoriesList)            //Checks all categories buttons, and hides them if the current category is too far down the page.
@@ -312,12 +312,12 @@ namespace Project_ITEC145__Budgeting_App__
                 }
             }
 
-            budgetForm.lastLocation -= difference;                              //These might be redundant as the category no longer functionally exists
-            _categoryLocation = budgetForm.lastLocation;
+            budgetForm.lastLocation -= difference;                              
+            _categoryLocation = budgetForm.lastLocation;        //This might be redundant as the category no longer functionally exists
         }
-        public void moneyBox_TextChanged(object sender, EventArgs e)
+        public void moneyBox_TextChanged(object sender, EventArgs e)    //Used to update the balance on all forms when the text has changed
         {
-            TextBox moneyBox = (TextBox)sender;
+            TextBox moneyBox = (TextBox)sender;                         
             BudgetSheet.moneyBoxes.Remove(moneyBox);
 
             if(decimal.TryParse(moneyBox.Text, out decimal result))
@@ -327,7 +327,7 @@ namespace Project_ITEC145__Budgeting_App__
                 BudgetSheet.moneyBoxes.Add(moneyBox);
                 foreach(TextBox allMoneyBoxes in BudgetSheet.moneyBoxes)
                 {
-                    sum += decimal.Parse(allMoneyBoxes.Text);                                                           //Not working for some reason, check that the form is being properly updated in the debugger
+                    sum += decimal.Parse(allMoneyBoxes.Text);                           
                 }
                 
                 BudgetSheet.budgetSheetCurrentBalance = BudgetSheet.originalBalance - sum;
