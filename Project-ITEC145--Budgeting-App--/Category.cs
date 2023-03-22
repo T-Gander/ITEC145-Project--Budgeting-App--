@@ -114,11 +114,22 @@ namespace Project_ITEC145__Budgeting_App__
             delField.Top = _categoryLocation;
             delField.Left = moneyBox.Left + 160;
             delField.Click += new EventHandler(delFields_Click);
+            delField.Size = new Size(30, 30);
             budgetForm.Controls.Add(delField);
             valid.Add(delField);
             validButton.Add(delField);
 
-            //Add an add transaction button here
+            Button addTransaction = new Button();                                             //Delete field button within a category
+            addTransaction.Text = "Add Transaction";
+            addTransaction.Name = $"{_count}";
+            addTransaction.Tag = addTransaction.Name;                                               //Found out about tags to send a buttons info to a click event (could probably just cast the sender to do the same thing)
+            addTransaction.Top = _categoryLocation;
+            addTransaction.Left = delField.Left + 40;
+            addTransaction.Size = new Size(100, 30);
+            addTransaction.Click += new EventHandler(addTransaction_Click);
+            budgetForm.Controls.Add(addTransaction);
+            valid.Add(addTransaction);
+            validButton.Add(addTransaction);
 
             _categoryLocation += 40;
             budgetForm.lastLocation += 40;
@@ -339,6 +350,11 @@ namespace Project_ITEC145__Budgeting_App__
                 moneyBox.Text = "0";
                 BudgetSheet.moneyBoxes.Add(moneyBox);
             }
+        }
+        public void addTransaction_Click(object sender, EventArgs e)
+        {
+            AddTransaction addTransaction = new AddTransaction();
+            addTransaction.ShowDialog();
         }
     }
 }
