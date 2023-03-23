@@ -12,6 +12,8 @@ namespace Project_ITEC145__Budgeting_App__
 {
     public partial class CurrentBalance : Form
     {
+        static public BudgetSheet budgetForm;
+
         public CurrentBalance()
         {
             InitializeComponent();
@@ -19,6 +21,7 @@ namespace Project_ITEC145__Budgeting_App__
             this.StartPosition = FormStartPosition.CenterScreen;
 
             BudgetSheet.balanceForm = this;
+
 
             Interface balanceForm = new Interface();
             Buttons addBalanceForm = new Buttons(100, BudgetSheet.HEIGHT, "Ok", new Font("Arial", 12), balanceForm.GetWindowCenterX(this), 50);
@@ -30,9 +33,20 @@ namespace Project_ITEC145__Budgeting_App__
             switch (decimal.TryParse(txtCurrentBalance.Text, out decimal result))
             {
                 case true:
-                    BudgetSheet.currentBalance.Text = $"Assignable : ${result}";
-                    BudgetSheet.originalBalance = result;
-                    //Will need to add this value to transactions sheet when I eventually make it.
+                    
+                    BudgetSheet currentBudgetSheet = budgetForm;
+
+                    string name = "Starting Balance";
+
+                    DataGridViewRow newDataGridViewRow = new DataGridViewRow();
+
+                    newDataGridViewRow.CreateCells(BudgetSheet.transactionsSheet.datagridTransactions);
+                    newDataGridViewRow.Cells[0].Value = name;
+                    newDataGridViewRow.Cells[1].Value = result;
+
+                    BudgetSheet.transactionsSheet.datagridTransactions.Rows.Insert(0, newDataGridViewRow);
+                    BudgetSheet.originalBalance += result;
+                    currentBudgetSheet.recalculateBalance();
                     BudgetSheet.balanceForm.Close();
                     break;
                 case false:

@@ -88,6 +88,7 @@
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // rdoCredit
             // 
@@ -99,6 +100,7 @@
             this.rdoCredit.TabStop = true;
             this.rdoCredit.Text = "Credit (Positive Transaction)";
             this.rdoCredit.UseVisualStyleBackColor = true;
+            this.rdoCredit.CheckedChanged += new System.EventHandler(this.rdoCredit_CheckedChanged);
             // 
             // rdoDebit
             // 
@@ -110,6 +112,7 @@
             this.rdoDebit.TabStop = true;
             this.rdoDebit.Text = "Debit (Negative Transaction)";
             this.rdoDebit.UseVisualStyleBackColor = true;
+            this.rdoDebit.CheckedChanged += new System.EventHandler(this.rdoDebit_CheckedChanged);
             // 
             // AddTransaction
             // 

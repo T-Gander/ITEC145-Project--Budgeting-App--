@@ -97,7 +97,12 @@ namespace Project_ITEC145__Budgeting_App__
             this.Close();
         }
 
-        private void btnAddTransaction_Click_1(object sender, EventArgs e)
+        private void rdoDebit_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Click_1(object sender, EventArgs e)
         {
 
         }

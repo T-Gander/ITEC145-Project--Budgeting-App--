@@ -46,7 +46,8 @@ namespace Project_ITEC145__Budgeting_App__
         public void openBudgetSheet_Click(object sender, EventArgs e)
         {
             BudgetSheet.menuForm.Hide();
-            BudgetSheet budgetSheet = new BudgetSheet();
+            MyTransactionsSheet transactionsSheet = new MyTransactionsSheet();
+            BudgetSheet budgetSheet = new BudgetSheet(transactionsSheet);
             budgetSheet.Show();
         }
         public void menuClose_Click(object sender, EventArgs e)

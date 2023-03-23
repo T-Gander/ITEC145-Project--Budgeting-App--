@@ -35,7 +35,7 @@ namespace Project_ITEC145__Budgeting_App__
         public Button _delCategory;                                         //Used to keep track of the delete category button.
         public Button _addField;                                            //Used to keep track of the addfield button
 
-        public BudgetSheet()
+        public BudgetSheet(MyTransactionsSheet myTransactionsSheet)
         {
             InitializeComponent();
 
@@ -44,7 +44,8 @@ namespace Project_ITEC145__Budgeting_App__
             Interface.budgetForm = this;
             Interface firstPage = new Interface();
 
-            MyTransactionsSheet myTransactionsSheet = new MyTransactionsSheet();        //Creates my transactions sheet in the background
+            CurrentBalance.budgetForm = this;
+
             transactionsSheet = myTransactionsSheet;
 
             Label balance = new Label();
@@ -66,11 +67,12 @@ namespace Project_ITEC145__Budgeting_App__
 
                 Interface budgetSheet = new Interface();                                //Builds interface class (which contains calculations on finding a location on a form)
 
-                BudgetSheetNameForm form = new BudgetSheetNameForm(this);               
+                BudgetSheetNameForm form = new BudgetSheetNameForm(this);
+                
                 form.ShowDialog();
 
                 Controls.Add(currentBalance);
-                Labels budgetLabel = new Labels(550, HEIGHT, $"{this.Text}", new Font("Arial", 24, FontStyle.Bold), 275, 50, this); //Labels class creates customised buttons
+                Labels budgetLabel = new Labels(550, HEIGHT, $"{globalName}", new Font("Arial", 24, FontStyle.Bold), 275, 50, this); //Labels class creates customised buttons
                 Controls.Add(budgetLabel.MakeHeaderLabel());
 
                 Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 50, this);
@@ -103,6 +105,19 @@ namespace Project_ITEC145__Budgeting_App__
                 }
                 
                 budgetSheetCurrentBalance = originalBalance - difference;
+
+                if(budgetSheetCurrentBalance < 0)
+                {
+                    currentBalance.ForeColor = Color.Red;
+                }
+                else if(budgetSheetCurrentBalance > 0)
+                {
+                    currentBalance.ForeColor = Color.Green;
+                }
+                else
+                {
+                    currentBalance.ForeColor = Color.Black;
+                }
 
                 budgetSheetIndex = budgetSheetIndexAssign;
                 budgetSheetIndexAssign++;
@@ -154,7 +169,7 @@ namespace Project_ITEC145__Budgeting_App__
             List<BudgetSheet> globalBudgetSheets = BudgetSheet.budgetSheets;
             int currentBudgetSheetIndex = globalBudgetSheets.Count - 1;
 
-            BudgetSheet newSheet = new BudgetSheet();
+            BudgetSheet newSheet = new BudgetSheet(transactionsSheet);
 
             foreach (BudgetSheet sheet in budgetSheets)
             {
