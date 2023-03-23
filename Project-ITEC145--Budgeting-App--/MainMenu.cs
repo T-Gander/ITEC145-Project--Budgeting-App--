@@ -57,8 +57,8 @@ namespace Project_ITEC145__Budgeting_App__
         {
             MessageBox.Show("Welcome to Thomas' Budget Sheet Software!" + "\n" + "\n" +
                             "This software is designed in a way that should be fairly straightforward to figure out yourself, but incase you need help keep reading!" + "\n" +
-                            "All you need to do is follow the messagebox prompts, and then add a category to start budgeting." + "\n" + "\n" +
-                            "This budgeting software assumes you are using the Envelope Budgeting method, which only lets you budget the money you currently have," +
+                            "After clicking 'New' follow the messagebox prompts, and then add a category to start budgeting." + "\n" + "\n" +
+                            "This budgeting software uses the Envelope Budgeting method, which only lets you budget the money you currently have," +
                             " based on the current balance that you intially provide the software upon making a new budget sheet." +"\n" +
                             "Your initial balance is then added to a transactions form to keep track of any transactions you make. In order to add a transaction, press the add transaction" +
                             " button thats located next to a field, the transaction will then be added to your transactions sheet, the debit will also then be reflected in your current assignable balance " 
