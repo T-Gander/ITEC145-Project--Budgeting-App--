@@ -79,14 +79,7 @@ namespace Project_ITEC145__Budgeting_App__
                         {
                             decimal currentValue = decimal.Parse(moneyBox.Text);
                             currentValue += amount;
-                            if (Credit.Equals(true))
-                            {
-
-                            }
-                            else
-                            {
-                                moneyBox.Text = currentValue.ToString();
-                            }
+                            moneyBox.Text = currentValue.ToString();
                         }
                     }
                     currentBudgetSheet.recalculateBalance();
@@ -102,6 +95,11 @@ namespace Project_ITEC145__Budgeting_App__
             }
 
             this.Close();
+        }
+
+        private void btnAddTransaction_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
