@@ -19,31 +19,34 @@ namespace Project_ITEC145__Budgeting_App__
             InitializeComponent();
             BudgetSheet.transactionsSheet = this;
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void btnDeleteSelected_Click(object sender, EventArgs e)
+       
+        private void btnDeleteSelected_Click_1(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in datagridTransactions.Rows)
             {
                 DataGridViewCheckBoxCell checkboxCell = (DataGridViewCheckBoxCell)row.Cells[2];
 
-                if (checkboxCell.Value == checkboxCell.TrueValue)        //Datagrids are a pain to interact with...
+                if (checkboxCell.Value != null)
                 {
-                    deleteList.Add(row);
-                }
+                    if ((bool)checkboxCell.Value == true)   //Datagrids are a pain to interact with...
+                    {
+                        deleteList.Add(row);
+                        BudgetSheet.originalBalance -= (decimal)row.Cells[1].Value;
+                    }
+                }        
             }
 
-            for (int i = 0; i < deleteList.Count; i++)
+            for(int i = 0; i < deleteList.Count; i++)
             {
                 datagridTransactions.Rows.Remove(deleteList[i]);
             }
+
+            deleteList.Clear();
+
+            BudgetSheet.budgetSheets[0].recalculateBalance();
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void btnClose_Click_1(object sender, EventArgs e)
         {
             this.Hide();
         }
