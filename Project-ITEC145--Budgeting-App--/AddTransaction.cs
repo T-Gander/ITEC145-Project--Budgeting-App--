@@ -37,9 +37,42 @@ namespace Project_ITEC145__Budgeting_App__
             Credit = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnAddTransaction_Click(object sender, EventArgs e)
         {
+            string name = txtName.Text;
 
+            if (decimal.TryParse(txtAmount.Text, out decimal amount))
+            {
+                if(amount > 0)
+                {
+                    if(Debit.Equals(true))
+                    {
+                        amount *= -1;
+                    }
+                    else
+                    {
+                        //Do nothing
+                    }
+
+                    DataGridViewRow newDataGridViewRow = new DataGridViewRow();
+
+                    newDataGridViewRow.CreateCells(BudgetSheet.transactionsSheet.datagridTransactions);
+
+                    newDataGridViewRow.Cells[0].Value = name;
+                    newDataGridViewRow.Cells[1].Value = amount;
+
+                    BudgetSheet.transactionsSheet.datagridTransactions.Rows.Insert(0,newDataGridViewRow);
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a valid positive decimal");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid decimal value.");
+            }
+            
         }
     }
 }

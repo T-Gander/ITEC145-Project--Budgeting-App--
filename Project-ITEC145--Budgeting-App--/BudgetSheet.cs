@@ -79,6 +79,8 @@ namespace Project_ITEC145__Budgeting_App__
                 Controls.Add(newPage.MakeButton(NewPage_Click, buttonList, budgetSheetIndex, true));
                 Buttons nextPage = new Buttons(100, HEIGHT, "Next Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this) - 300, 800, this);
                 Controls.Add(nextPage.MakeButton(NextPage_Click, buttonList, budgetSheetIndex, false));
+                Buttons showTransactions = new Buttons(200, HEIGHT, "Show Transactions", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 800, this);
+                Controls.Add(showTransactions.MakeButton(ShowTransactions_Click, buttonList, budgetSheetIndex, true));
 
                 foreach (Button button in buttonList)
                 {
@@ -124,6 +126,8 @@ namespace Project_ITEC145__Budgeting_App__
                 Controls.Add(nextPageButton.MakeButton(NextPage_Click, buttonList, budgetSheetIndex, false));
                 Buttons deletePage = new Buttons(100, HEIGHT, "Delete Page", new Font("Arial", 12), newPage.GetWindowThirdX(this) + 100, 50, this);
                 Controls.Add(deletePage.MakeButton(DeletePage_Click, buttonList, budgetSheetIndex, true));
+                Buttons showTransactions = new Buttons(200, HEIGHT, "Show Transactions", new Font("Arial", 12), newPage.GetWindowThirdX(this), 800, this);
+                Controls.Add(showTransactions.MakeButton(ShowTransactions_Click, buttonList, budgetSheetIndex, true));
 
                 foreach (Button button in buttonList)
                 {
@@ -285,7 +289,6 @@ namespace Project_ITEC145__Budgeting_App__
                 this.Close();
             }
         }
-
         public void recalculateBalance()
         {
             decimal sum = 0;
@@ -300,5 +303,11 @@ namespace Project_ITEC145__Budgeting_App__
             this.Controls.Add(currentBalance);
             currentBalance.BringToFront();
         }
+        public void ShowTransactions_Click(object sender, EventArgs e)
+        {
+            transactionsSheet.Show();
+        }
+
+
     }
 }

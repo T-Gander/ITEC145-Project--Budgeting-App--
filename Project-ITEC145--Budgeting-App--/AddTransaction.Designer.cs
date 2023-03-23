@@ -78,7 +78,7 @@
             btnAddTransaction.TabIndex = 4;
             btnAddTransaction.Text = "Add Transaction";
             btnAddTransaction.UseVisualStyleBackColor = true;
-            btnAddTransaction.Click += button1_Click;
+            btnAddTransaction.Click += btnAddTransaction_Click;
             // 
             // btnCancel
             // 
