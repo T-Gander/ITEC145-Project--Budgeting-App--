@@ -29,6 +29,7 @@ namespace Project_ITEC145__Budgeting_App__
         static public MainMenu menuForm;                                    //So the buttons class can keep track of forms
         static public CategoryFieldForm categoryFieldForm;
         static public CurrentBalance balanceForm;
+        static public MyTransactionsSheet transactionsSheet;
 
         public Button addCategoryButton;                                    //Used to keep track of a forms add category button
         public Button _delCategory;                                         //Used to keep track of the delete category button.
@@ -42,6 +43,9 @@ namespace Project_ITEC145__Budgeting_App__
 
             Interface.budgetForm = this;
             Interface firstPage = new Interface();
+
+            MyTransactionsSheet myTransactionsSheet = new MyTransactionsSheet();        //Creates my transactions sheet in the background
+            transactionsSheet = myTransactionsSheet;
 
             Label balance = new Label();
             currentBalance.Name = "lblCurrentBalance";                                  //Creates the balance label if the budgetsheet hasn't been named yet
