@@ -13,6 +13,7 @@ namespace Project_ITEC145__Budgeting_App__
         public List<Control> delete = new List<Control>();             //Used to delete controls.
         public List<Control> valid = new List<Control>();              //a list of a category controls
         public List<Button> validButton = new List<Button>();          //Used to select buttons only
+        public List<TextBox> categoryMoneyBoxList = new List<TextBox>();
         
         private string _name;
         public int _locationx;
@@ -95,6 +96,7 @@ namespace Project_ITEC145__Budgeting_App__
             BudgetSheet.moneyBoxes.Add(moneyBox);
             budgetForm.Controls.Add(moneyBox);
             budgetForm.variableList.Add(moneyBox);
+            categoryMoneyBoxList.Add(moneyBox);
             valid.Add(moneyBox);
 
             Label label = new Label();                                                  //Dollar sign label, functionally useless
@@ -122,7 +124,7 @@ namespace Project_ITEC145__Budgeting_App__
             Button addTransaction = new Button();                                             //Delete field button within a category
             addTransaction.Text = "Add Transaction";
             addTransaction.Name = $"{_count}";
-            addTransaction.Tag = addTransaction.Name;                                               //Found out about tags to send a buttons info to a click event (could probably just cast the sender to do the same thing)
+            addTransaction.Tag = addTransaction.Name;
             addTransaction.Top = _categoryLocation;
             addTransaction.Left = delField.Left + 40;
             addTransaction.Size = new Size(100, 30);
@@ -342,10 +344,16 @@ namespace Project_ITEC145__Budgeting_App__
                 moneyBox.Text = "0";
                 BudgetSheet.moneyBoxes.Add(moneyBox);
             }
+
+            budgetForm.recalculateBalance();
         }
         public void addTransaction_Click(object sender, EventArgs e)
         {
-            AddTransaction addTransaction = new AddTransaction();
+            int controlIndex = 0;
+            Button thisButton = (Button)sender;
+            controlIndex = int.Parse(thisButton.Tag.ToString());
+
+            AddTransaction addTransaction = new AddTransaction(budgetForm.budgetSheetIndex, _categoryIndex, controlIndex);
             addTransaction.ShowDialog();
         }
     }

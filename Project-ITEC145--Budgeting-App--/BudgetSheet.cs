@@ -188,9 +188,9 @@ namespace Project_ITEC145__Budgeting_App__
 
             BudgetSheet lastSheet = budgetSheets[currentIndex - 1];
             lastSheet.Controls.Add(currentBalance);
-            BudgetSheet.currentBalance.BringToFront();
+            currentBalance.BringToFront();
 
-            this.Hide();
+            Hide();
             lastSheet.Show();
         }
         public void NextPage_Click(object sender, EventArgs e)
@@ -199,9 +199,9 @@ namespace Project_ITEC145__Budgeting_App__
 
             BudgetSheet nextSheet = budgetSheets[currentIndex + 1];
             nextSheet.Controls.Add(currentBalance);
-            BudgetSheet.currentBalance.BringToFront();
+            currentBalance.BringToFront();
 
-            this.Hide();
+            Hide();
             nextSheet.Show();
         }
         public void DeletePage_Click(object sender, EventArgs e)
@@ -244,7 +244,7 @@ namespace Project_ITEC145__Budgeting_App__
                 budgetSheets[budgetSheets.Count - 1].Controls.Add(currentBalance);
                 currentBalance.BringToFront();
 
-                this.Close();
+                Close();
             }
             else
             {
@@ -286,7 +286,7 @@ namespace Project_ITEC145__Budgeting_App__
                 }
                 budgetSheets.Remove(this);
                 lastSheet.Show();
-                this.Close();
+                Close();
             }
         }
         public void recalculateBalance()
@@ -299,8 +299,20 @@ namespace Project_ITEC145__Budgeting_App__
             }
 
             budgetSheetCurrentBalance = originalBalance - sum;
+            if(budgetSheetCurrentBalance < 0)
+            {
+                currentBalance.ForeColor = Color.Red;
+            }
+            else if(budgetSheetCurrentBalance > 0)
+            {
+                currentBalance.ForeColor = Color.Green;
+            }
+            else
+            {
+                currentBalance.ForeColor = Color.Black;
+            }
             currentBalance.Text = $"Assignable : ${budgetSheetCurrentBalance}";
-            this.Controls.Add(currentBalance);
+            Controls.Add(currentBalance);
             currentBalance.BringToFront();
         }
         public void ShowTransactions_Click(object sender, EventArgs e)

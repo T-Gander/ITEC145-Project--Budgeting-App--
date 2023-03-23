@@ -55,7 +55,6 @@
             datagridTransactions.Columns.AddRange(new DataGridViewColumn[] { name, transaction, delete });
             datagridTransactions.Location = new Point(12, 12);
             datagridTransactions.Name = "datagridTransactions";
-            datagridTransactions.ReadOnly = true;
             datagridTransactions.RowTemplate.Height = 25;
             datagridTransactions.Size = new Size(776, 372);
             datagridTransactions.TabIndex = 1;
@@ -65,20 +64,17 @@
             // 
             name.HeaderText = "Name";
             name.Name = "name";
-            name.ReadOnly = true;
             name.Width = 500;
             // 
             // transaction
             // 
             transaction.HeaderText = "Transaction Amount";
             transaction.Name = "transaction";
-            transaction.ReadOnly = true;
             // 
             // delete
             // 
             delete.HeaderText = "Delete Transaction?";
             delete.Name = "delete";
-            delete.ReadOnly = true;
             // 
             // btnDeleteSelected
             // 
@@ -95,10 +91,13 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            ControlBox = false;
             Controls.Add(btnDeleteSelected);
             Controls.Add(datagridTransactions);
             Controls.Add(btnClose);
+            MaximizeBox = false;
             Name = "MyTransactionsSheet";
+            ShowIcon = false;
             Text = "MyTransactionsSheet";
             ((System.ComponentModel.ISupportInitialize)datagridTransactions).EndInit();
             ResumeLayout(false);
