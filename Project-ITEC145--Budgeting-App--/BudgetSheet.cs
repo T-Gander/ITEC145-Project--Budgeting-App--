@@ -83,6 +83,8 @@ namespace Project_ITEC145__Budgeting_App__
                 Controls.Add(nextPage.MakeButton(NextPage_Click, buttonList, budgetSheetIndex, false));
                 Buttons showTransactions = new Buttons(200, HEIGHT, "Show Transactions", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 800, this);
                 Controls.Add(showTransactions.MakeButton(ShowTransactions_Click, buttonList, budgetSheetIndex, true));
+                Buttons exit = new Buttons(100, HEIGHT, "Exit", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this)+300, 800, this);
+                Controls.Add(exit.MakeButton(Exit_Click, buttonList, budgetSheetIndex, true));
 
                 foreach (Button button in buttonList)
                 {
@@ -143,6 +145,8 @@ namespace Project_ITEC145__Budgeting_App__
                 Controls.Add(deletePage.MakeButton(DeletePage_Click, buttonList, budgetSheetIndex, true));
                 Buttons showTransactions = new Buttons(200, HEIGHT, "Show Transactions", new Font("Arial", 12), newPage.GetWindowThirdX(this), 800, this);
                 Controls.Add(showTransactions.MakeButton(ShowTransactions_Click, buttonList, budgetSheetIndex, true));
+                Buttons exit = new Buttons(100, HEIGHT, "Exit", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this) + 300, 800, this);
+                Controls.Add(exit.MakeButton(Exit_Click, buttonList, budgetSheetIndex, true));
 
                 foreach (Button button in buttonList)
                 {
@@ -154,10 +158,6 @@ namespace Project_ITEC145__Budgeting_App__
 
                 budgetSheets.Add(this);
             }
-        }
-        private void BudgetSheet_Load(object sender, EventArgs e)
-        {
-
         }
         public void addCategory_Click(object sender, EventArgs e)
         {
@@ -333,6 +333,10 @@ namespace Project_ITEC145__Budgeting_App__
         public void ShowTransactions_Click(object sender, EventArgs e)
         {
             transactionsSheet.Show();
+        }
+        public void Exit_Click(object sender, EventArgs e)
+        {
+            menuForm.Close();
         }
 
 

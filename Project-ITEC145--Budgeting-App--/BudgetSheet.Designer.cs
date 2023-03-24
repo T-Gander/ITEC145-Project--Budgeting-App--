@@ -38,7 +38,6 @@
             MaximizeBox = false;
             Name = "BudgetSheet";
             Text = "BudgetSheet";
-            Load += BudgetSheet_Load;
             ResumeLayout(false);
         }
 
