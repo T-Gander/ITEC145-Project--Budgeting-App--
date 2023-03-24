@@ -28,39 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtCurrentBalance = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            txtCurrentBalance = new TextBox();
+            label1 = new Label();
+            SuspendLayout();
             // 
             // txtCurrentBalance
             // 
-            this.txtCurrentBalance.Location = new System.Drawing.Point(140, 7);
-            this.txtCurrentBalance.Name = "txtCurrentBalance";
-            this.txtCurrentBalance.Size = new System.Drawing.Size(209, 23);
-            this.txtCurrentBalance.TabIndex = 3;
+            txtCurrentBalance.Location = new Point(140, 7);
+            txtCurrentBalance.Name = "txtCurrentBalance";
+            txtCurrentBalance.Size = new Size(209, 23);
+            txtCurrentBalance.TabIndex = 3;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 18);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Current Balance:";
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(127, 18);
+            label1.TabIndex = 2;
+            label1.Text = "Starting Balance:";
             // 
             // CurrentBalance
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(367, 118);
-            this.Controls.Add(this.txtCurrentBalance);
-            this.Controls.Add(this.label1);
-            this.Name = "CurrentBalance";
-            this.Text = "CurrentBalance";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(367, 118);
+            ControlBox = false;
+            Controls.Add(txtCurrentBalance);
+            Controls.Add(label1);
+            Name = "CurrentBalance";
+            Text = "Budget Sheet - Starting Balance";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

@@ -33,7 +33,7 @@ namespace Project_ITEC145__Budgeting_App__
             switch (decimal.TryParse(txtCurrentBalance.Text, out decimal result))
             {
                 case true:
-                    
+
                     BudgetSheet currentBudgetSheet = budgetForm;
 
                     string name = "Starting Balance";

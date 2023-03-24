@@ -51,9 +51,9 @@ namespace Project_ITEC145__Budgeting_App__
 
             if (decimal.TryParse(txtAmount.Text, out decimal amount))
             {
-                if(amount > 0)
+                if (amount > 0)
                 {
-                    if(Debit.Equals(true))
+                    if (Debit.Equals(true))
                     {
                         amount *= -1;
                     }
@@ -69,13 +69,13 @@ namespace Project_ITEC145__Budgeting_App__
                     newDataGridViewRow.Cells[0].Value = name;
                     newDataGridViewRow.Cells[1].Value = amount;
 
-                    BudgetSheet.transactionsSheet.datagridTransactions.Rows.Insert(0,newDataGridViewRow);
+                    BudgetSheet.transactionsSheet.datagridTransactions.Rows.Insert(0, newDataGridViewRow);
 
                     BudgetSheet.originalBalance += amount;
 
-                    foreach(TextBox moneyBox in currentBudgetSheet.categoriesList[_categoryIndex].categoryMoneyBoxList)
+                    foreach (TextBox moneyBox in currentBudgetSheet.categoriesList[_categoryIndex].categoryMoneyBoxList)
                     {
-                        if(moneyBox.Name == _controlIndex.ToString() && moneyBox.Tag == "MoneyBox")
+                        if (moneyBox.Name == _controlIndex.ToString() && moneyBox.Tag == "MoneyBox")
                         {
                             decimal currentValue = decimal.Parse(moneyBox.Text);
                             currentValue += amount;

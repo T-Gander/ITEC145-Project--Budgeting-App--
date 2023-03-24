@@ -28,82 +28,78 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnClose = new System.Windows.Forms.Button();
-            this.datagridTransactions = new System.Windows.Forms.DataGridView();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.transaction = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.delete = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.btnDeleteSelected = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.datagridTransactions)).BeginInit();
-            this.SuspendLayout();
+            btnClose = new Button();
+            datagridTransactions = new DataGridView();
+            name = new DataGridViewTextBoxColumn();
+            transaction = new DataGridViewTextBoxColumn();
+            delete = new DataGridViewCheckBoxColumn();
+            btnDeleteSelected = new Button();
+            ((System.ComponentModel.ISupportInitialize)datagridTransactions).BeginInit();
+            SuspendLayout();
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(713, 390);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 50);
-            this.btnClose.TabIndex = 0;
-            this.btnClose.Text = "Close";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click_1);
+            btnClose.Location = new Point(713, 390);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(75, 50);
+            btnClose.TabIndex = 0;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click_1;
             // 
             // datagridTransactions
             // 
-            this.datagridTransactions.AllowUserToAddRows = false;
-            this.datagridTransactions.AllowUserToDeleteRows = false;
-            this.datagridTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.datagridTransactions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.name,
-            this.transaction,
-            this.delete});
-            this.datagridTransactions.Location = new System.Drawing.Point(12, 12);
-            this.datagridTransactions.Name = "datagridTransactions";
-            this.datagridTransactions.RowTemplate.Height = 25;
-            this.datagridTransactions.Size = new System.Drawing.Size(776, 372);
-            this.datagridTransactions.TabIndex = 1;
+            datagridTransactions.AllowUserToAddRows = false;
+            datagridTransactions.AllowUserToDeleteRows = false;
+            datagridTransactions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            datagridTransactions.Columns.AddRange(new DataGridViewColumn[] { name, transaction, delete });
+            datagridTransactions.Location = new Point(12, 12);
+            datagridTransactions.Name = "datagridTransactions";
+            datagridTransactions.RowTemplate.Height = 25;
+            datagridTransactions.Size = new Size(776, 372);
+            datagridTransactions.TabIndex = 1;
             // 
             // name
             // 
-            this.name.HeaderText = "Name";
-            this.name.Name = "name";
-            this.name.Width = 500;
+            name.HeaderText = "Name";
+            name.Name = "name";
+            name.Width = 500;
             // 
             // transaction
             // 
-            this.transaction.HeaderText = "Transaction Amount";
-            this.transaction.Name = "transaction";
+            transaction.HeaderText = "Transaction Amount";
+            transaction.Name = "transaction";
             // 
             // delete
             // 
-            this.delete.HeaderText = "Delete Transaction?";
-            this.delete.Name = "delete";
+            delete.HeaderText = "Delete Transaction?";
+            delete.Name = "delete";
             // 
             // btnDeleteSelected
             // 
-            this.btnDeleteSelected.Location = new System.Drawing.Point(12, 390);
-            this.btnDeleteSelected.Name = "btnDeleteSelected";
-            this.btnDeleteSelected.Size = new System.Drawing.Size(100, 50);
-            this.btnDeleteSelected.TabIndex = 2;
-            this.btnDeleteSelected.Text = "Delete Selected Transactions";
-            this.btnDeleteSelected.UseVisualStyleBackColor = true;
-            this.btnDeleteSelected.Click += new System.EventHandler(this.btnDeleteSelected_Click_1);
+            btnDeleteSelected.Location = new Point(12, 390);
+            btnDeleteSelected.Name = "btnDeleteSelected";
+            btnDeleteSelected.Size = new Size(100, 50);
+            btnDeleteSelected.TabIndex = 2;
+            btnDeleteSelected.Text = "Delete Selected Transactions";
+            btnDeleteSelected.UseVisualStyleBackColor = true;
+            btnDeleteSelected.Click += btnDeleteSelected_Click_1;
             // 
             // MyTransactionsSheet
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.ControlBox = false;
-            this.Controls.Add(this.btnDeleteSelected);
-            this.Controls.Add(this.datagridTransactions);
-            this.Controls.Add(this.btnClose);
-            this.MaximizeBox = false;
-            this.Name = "MyTransactionsSheet";
-            this.ShowIcon = false;
-            this.Text = "MyTransactionsSheet";
-            ((System.ComponentModel.ISupportInitialize)(this.datagridTransactions)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            ControlBox = false;
+            Controls.Add(btnDeleteSelected);
+            Controls.Add(datagridTransactions);
+            Controls.Add(btnClose);
+            MaximizeBox = false;
+            Name = "MyTransactionsSheet";
+            ShowIcon = false;
+            Text = "BudgetSheet - My Transactions";
+            ((System.ComponentModel.ISupportInitialize)datagridTransactions).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion

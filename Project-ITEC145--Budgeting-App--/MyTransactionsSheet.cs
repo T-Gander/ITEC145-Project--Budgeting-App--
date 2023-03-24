@@ -19,7 +19,7 @@ namespace Project_ITEC145__Budgeting_App__
             InitializeComponent();
             BudgetSheet.transactionsSheet = this;
         }
-       
+
         private void btnDeleteSelected_Click_1(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in datagridTransactions.Rows)
@@ -33,10 +33,10 @@ namespace Project_ITEC145__Budgeting_App__
                         deleteList.Add(row);
                         BudgetSheet.originalBalance -= (decimal)row.Cells[1].Value;
                     }
-                }        
+                }
             }
 
-            for(int i = 0; i < deleteList.Count; i++)
+            for (int i = 0; i < deleteList.Count; i++)
             {
                 datagridTransactions.Rows.Remove(deleteList[i]);
             }
