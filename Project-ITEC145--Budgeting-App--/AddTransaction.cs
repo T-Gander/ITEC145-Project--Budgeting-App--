@@ -75,11 +75,15 @@ namespace Project_ITEC145__Budgeting_App__
 
                     foreach (TextBox moneyBox in currentBudgetSheet.categoriesList[_categoryIndex].categoryMoneyBoxList)
                     {
-                        if (moneyBox.Name == _controlIndex.ToString() && moneyBox.Tag == "MoneyBox")
+                        if (moneyBox.Name == _controlIndex.ToString() && moneyBox.Tag == "MoneyBox" && Credit == false)
                         {
                             decimal currentValue = decimal.Parse(moneyBox.Text);
                             currentValue += amount;
                             moneyBox.Text = currentValue.ToString();
+                        }
+                        else
+                        {
+
                         }
                     }
                     currentBudgetSheet.recalculateBalance();
