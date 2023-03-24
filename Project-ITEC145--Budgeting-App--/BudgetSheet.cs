@@ -54,7 +54,7 @@ namespace Project_ITEC145__Budgeting_App__
             currentBalance.Font = new Font("Arial", 22, FontStyle.Bold);
             currentBalance.ForeColor = Color.Green;
             currentBalance.Top = 50;
-            currentBalance.Left = firstPage.GetWindowCenterX(this)-125;
+            currentBalance.Left = firstPage.GetWindowCenterX(this) - 125;
             currentBalance.Size = new Size(540, 35);
 
             if (budgetSheets == null)
@@ -68,21 +68,21 @@ namespace Project_ITEC145__Budgeting_App__
                 Interface budgetSheet = new Interface();                                //Builds interface class (which contains calculations on finding a location on a form)
 
                 BudgetSheetNameForm form = new BudgetSheetNameForm(this);
-                
+
                 form.ShowDialog();
 
                 Controls.Add(currentBalance);
                 Labels budgetLabel = new Labels(550, HEIGHT, $"{globalName}", new Font("Arial", 24, FontStyle.Bold), 275, 50, this); //Labels class creates customised buttons
                 Controls.Add(budgetLabel.MakeHeaderLabel());
 
-                Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this)+100, 50, this);
+                Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this) - 250, 130, this);
                 Controls.Add(addCategory.MakeButton(addCategory_Click, buttonList));    //Same here and adds the button to this budget sheets button list
                 Buttons newPage = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this) - 300, 800, this);
                 Controls.Add(newPage.MakeButton(NewPage_Click, buttonList, budgetSheetIndex, true));
                 Buttons nextPage = new Buttons(100, HEIGHT, "Next Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this) - 300, 800, this);
                 Controls.Add(nextPage.MakeButton(NextPage_Click, buttonList, budgetSheetIndex, false));
                 Buttons showTransactions = new Buttons(200, HEIGHT, "Show Transactions", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 800, this);
-                Controls.Add(showTransactions.MakeButton(ShowTransactions_Click, buttonList, budgetSheetIndex, true)); 
+                Controls.Add(showTransactions.MakeButton(ShowTransactions_Click, buttonList, budgetSheetIndex, true));
                 Buttons exit = new Buttons(100, HEIGHT, "Exit", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this) + 300, 800, this);
                 Controls.Add(exit.MakeButton(Exit_Click, buttonList, budgetSheetIndex, true));
                 Buttons save = new Buttons(100, HEIGHT, "Save", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this) + 200, 800, this);
@@ -107,14 +107,14 @@ namespace Project_ITEC145__Budgeting_App__
                 {
                     difference += decimal.Parse(moneyBox.Text);
                 }
-                
+
                 budgetSheetCurrentBalance = originalBalance - difference;
 
-                if(budgetSheetCurrentBalance < 0)
+                if (budgetSheetCurrentBalance < 0)
                 {
                     currentBalance.ForeColor = Color.Red;
                 }
-                else if(budgetSheetCurrentBalance > 0)
+                else if (budgetSheetCurrentBalance > 0)
                 {
                     currentBalance.ForeColor = Color.Green;
                 }
@@ -135,7 +135,7 @@ namespace Project_ITEC145__Budgeting_App__
 
                 //Add an add income button here
 
-                Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), newPage.GetWindowThirdX(this)+100, 50);
+                Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), newPage.GetWindowThirdX(this) - 250, 130);
                 Controls.Add(addCategory.MakeButton(addCategory_Click, buttonList));
                 Buttons previousPage = new Buttons(100, HEIGHT, "Previous Page", new Font("Arial", 12), newPage.GetWindowFirstX(this) - 200, 800, this);
                 Controls.Add(previousPage.MakeButton(PrevPage_Click, buttonList, budgetSheetIndex, true));
@@ -279,7 +279,7 @@ namespace Project_ITEC145__Budgeting_App__
                     if (control.Text == "Next Page")
                     {
                         control.Visible = false;
-                        if(budgetSheets.IndexOf(lastSheet) == 0)
+                        if (budgetSheets.IndexOf(lastSheet) == 0)
                         {
                             control.Visible = true;
                         }
@@ -316,15 +316,15 @@ namespace Project_ITEC145__Budgeting_App__
 
             foreach (TextBox allMoneyBoxes in moneyBoxes)
             {
-                sum += decimal.Parse(allMoneyBoxes.Text);                     
+                sum += decimal.Parse(allMoneyBoxes.Text);
             }
 
             budgetSheetCurrentBalance = originalBalance - sum;
-            if(budgetSheetCurrentBalance < 0)
+            if (budgetSheetCurrentBalance < 0)
             {
                 currentBalance.ForeColor = Color.Red;
             }
-            else if(budgetSheetCurrentBalance > 0)
+            else if (budgetSheetCurrentBalance > 0)
             {
                 currentBalance.ForeColor = Color.Green;
             }

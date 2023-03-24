@@ -35,6 +35,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1464, 861);
+            ControlBox = false;
             MaximizeBox = false;
             Name = "BudgetSheet";
             Text = "BudgetSheet";

@@ -28,39 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtBudgetName = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
+            label1 = new Label();
+            txtBudgetName = new TextBox();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Budget Sheet Name :";
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(157, 18);
+            label1.TabIndex = 0;
+            label1.Text = "Budget Sheet Name :";
             // 
             // txtBudgetName
             // 
-            this.txtBudgetName.Location = new System.Drawing.Point(170, 7);
-            this.txtBudgetName.Name = "txtBudgetName";
-            this.txtBudgetName.Size = new System.Drawing.Size(164, 23);
-            this.txtBudgetName.TabIndex = 1;
+            txtBudgetName.Location = new Point(170, 7);
+            txtBudgetName.Name = "txtBudgetName";
+            txtBudgetName.Size = new Size(164, 23);
+            txtBudgetName.TabIndex = 1;
             // 
             // BudgetSheetNameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 114);
-            this.Controls.Add(this.txtBudgetName);
-            this.Controls.Add(this.label1);
-            this.Name = "BudgetSheetNameForm";
-            this.Text = "BudgetSheetNameForm";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(354, 114);
+            ControlBox = false;
+            Controls.Add(txtBudgetName);
+            Controls.Add(label1);
+            Name = "BudgetSheetNameForm";
+            Text = "BudgetSheet - Name Form";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

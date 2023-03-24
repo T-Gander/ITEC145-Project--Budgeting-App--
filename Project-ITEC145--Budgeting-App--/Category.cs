@@ -113,7 +113,7 @@ namespace Project_ITEC145__Budgeting_App__
             delField.Text = "X";
             delField.Name = $"{_count}";
             delField.Tag = delField.Name;                                               //Found out about tags to send a buttons info to a click event (could probably just cast the sender to do the same thing)
-            delField.Top = _categoryLocation;
+            delField.Top = _categoryLocation+2;
             delField.Left = moneyBox.Left + 160;
             delField.Click += new EventHandler(delFields_Click);
             delField.Size = new Size(30, 30);
@@ -125,7 +125,7 @@ namespace Project_ITEC145__Budgeting_App__
             addTransaction.Text = "Add Transaction";
             addTransaction.Name = $"{_count}";
             addTransaction.Tag = addTransaction.Name;
-            addTransaction.Top = _categoryLocation;
+            addTransaction.Top = _categoryLocation+2;
             addTransaction.Left = delField.Left + 40;
             addTransaction.Size = new Size(100, 30);
             addTransaction.Click += new EventHandler(addTransaction_Click);
