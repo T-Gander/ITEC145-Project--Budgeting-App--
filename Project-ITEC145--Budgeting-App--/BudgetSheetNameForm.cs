@@ -31,8 +31,7 @@ namespace Project_ITEC145__Budgeting_App__
         }
         public void nameForm_Click(object sender, EventArgs e)
         {
-            _budgetForm.Text = BudgetSheet.budgetSheetNameForm.txtBudgetName.Text;
-            BudgetSheet.globalName = _budgetForm.Text;
+            BudgetSheet.globalName = BudgetSheet.budgetSheetNameForm.txtBudgetName.Text;
             BudgetSheet.budgetSheetNameForm.Close();
             CurrentBalance form = new CurrentBalance();
             form.ShowDialog();

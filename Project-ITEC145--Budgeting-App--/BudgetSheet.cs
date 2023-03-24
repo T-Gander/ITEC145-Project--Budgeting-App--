@@ -51,7 +51,7 @@ namespace Project_ITEC145__Budgeting_App__
             Label balance = new Label();
             currentBalance.Name = "lblCurrentBalance";                                  //Creates the balance label if the budgetsheet hasn't been named yet
             currentBalance.Text = $"Assignable : ${budgetSheetCurrentBalance}";
-            currentBalance.Font = new Font("Arial", 22, FontStyle.Bold);
+            currentBalance.Font = new Font("Arial", 24, FontStyle.Bold);
             currentBalance.ForeColor = Color.Green;
             currentBalance.Top = 50;
             currentBalance.Left = firstPage.GetWindowCenterX(this) - 125;
@@ -125,7 +125,6 @@ namespace Project_ITEC145__Budgeting_App__
 
                 budgetSheetIndex = budgetSheetIndexAssign;
                 budgetSheetIndexAssign++;
-                globalName = budgetSheets[0].Text;
 
                 Interface newPage = new Interface();
 
@@ -258,10 +257,10 @@ namespace Project_ITEC145__Budgeting_App__
                     }
                 }
 
-                budgetSheets[budgetSheets.Count - 1].Show();
-                budgetSheets[budgetSheets.Count - 1].Controls.Add(currentBalance);
-                currentBalance.BringToFront();
                 budgetSheets.Remove(this);
+                mainSheet.Controls.Add(currentBalance);
+                currentBalance.BringToFront();
+                mainSheet.Show();
 
                 Close();
             }
