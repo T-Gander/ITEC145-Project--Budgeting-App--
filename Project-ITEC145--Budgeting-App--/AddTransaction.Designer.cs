@@ -130,7 +130,7 @@
             MinimizeBox = false;
             Name = "AddTransaction";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "BudgetSheet - Category - Add a Transaction";
+            Text = "BudgetSheet V1 - Category - Add a Transaction";
             ResumeLayout(false);
             PerformLayout();
         }

@@ -28,40 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtCategoryName = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
+            label1 = new Label();
+            txtCategoryName = new TextBox();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(12, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Category Name:";
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(12, 11);
+            label1.Name = "label1";
+            label1.Size = new Size(122, 18);
+            label1.TabIndex = 0;
+            label1.Text = "Category Name:";
             // 
             // txtCategoryName
             // 
-            this.txtCategoryName.Location = new System.Drawing.Point(140, 9);
-            this.txtCategoryName.Name = "txtCategoryName";
-            this.txtCategoryName.Size = new System.Drawing.Size(209, 23);
-            this.txtCategoryName.TabIndex = 1;
+            txtCategoryName.Location = new Point(140, 9);
+            txtCategoryName.Name = "txtCategoryName";
+            txtCategoryName.Size = new Size(209, 23);
+            txtCategoryName.TabIndex = 1;
             // 
             // CategoryFieldForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 116);
-            this.Controls.Add(this.txtCategoryName);
-            this.Controls.Add(this.label1);
-            this.MaximizeBox = false;
-            this.Name = "CategoryFieldForm";
-            this.Text = "CategoryFieldForm";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(363, 116);
+            Controls.Add(txtCategoryName);
+            Controls.Add(label1);
+            MaximizeBox = false;
+            Name = "CategoryFieldForm";
+            Text = "BudgetSheet V1 - Category";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

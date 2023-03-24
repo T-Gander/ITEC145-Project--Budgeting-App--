@@ -97,7 +97,7 @@
             MaximizeBox = false;
             Name = "MyTransactionsSheet";
             ShowIcon = false;
-            Text = "BudgetSheet - My Transactions";
+            Text = "BudgetSheet V1 - My Transactions";
             ((System.ComponentModel.ISupportInitialize)datagridTransactions).EndInit();
             ResumeLayout(false);
         }

@@ -58,7 +58,7 @@
             Controls.Add(txtCurrentBalance);
             Controls.Add(label1);
             Name = "CurrentBalance";
-            Text = "Budget Sheet - Starting Balance";
+            Text = "BudgetSheet V1 - Starting Balance";
             ResumeLayout(false);
             PerformLayout();
         }

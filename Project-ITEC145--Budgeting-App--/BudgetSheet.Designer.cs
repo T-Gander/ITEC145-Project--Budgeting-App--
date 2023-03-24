@@ -38,7 +38,7 @@
             ControlBox = false;
             MaximizeBox = false;
             Name = "BudgetSheet";
-            Text = "BudgetSheet";
+            Text = "BudgetSheet V1";
             ResumeLayout(false);
         }
 
