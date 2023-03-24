@@ -34,7 +34,7 @@ namespace Project_ITEC145__Budgeting_App__
 
 
             Controls.Add(NewButton.MakeButton(openBudgetSheet_Click, buttonList));
-            Controls.Add(LoadButton.MakeButton(doNothing_Click, buttonList));
+            Controls.Add(LoadButton.MakeButton(Load_Click, buttonList));
             Controls.Add(InstructionsButton.MakeButton(Instructions_Click, buttonList));
             Controls.Add(ExitButton.MakeButton(menuClose_Click, buttonList));
         }
@@ -67,6 +67,10 @@ namespace Project_ITEC145__Budgeting_App__
                             "You may view the transaction form at any time by clicking the View Transactions button within your budget form." + "\n" + "\n" +
                             "Other than that, the categories button is used to help keep your budget sheet organised, and a save button is also located on the budget form so that you can load a past budget sheet you've saved." + "\n" + "\n" +
                             "Happy Budgeting!");
+        }
+        public void Load_Click(object sender, EventArgs e)
+        {
+            Load load = new Load();
         }
     }
 }

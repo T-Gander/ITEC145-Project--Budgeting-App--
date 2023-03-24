@@ -346,6 +346,8 @@ namespace Project_ITEC145__Budgeting_App__
         public void Save_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Save Successful! (--Under Construction--)");
+
+            Save saveBudgetSheet = new Save(this);
         }
 
     }
