@@ -14,8 +14,8 @@ namespace Project_ITEC145__Budgeting_App__
         private int _budgetSheetCount = 0;
         private int _controlCount = 0;
         private string _budgetSheetName = "";
+                                                                                            
 
-        
         private List<int> _categories = new List<int>();
         private List<List<int>> _budgetSheets = new List<List<int>>();
 
@@ -23,36 +23,38 @@ namespace Project_ITEC145__Budgeting_App__
 
         public Save(BudgetSheet budgetSheet)
         {
-            _budgetSheetName = BudgetSheet.globalName;
-            _transactions = BudgetSheet.transactionsSheet;
+            MessageBox.Show("Not Implemented.");
 
-            //Code to save control data
-            foreach(BudgetSheet budgetForm in BudgetSheet.budgetSheets)
-            {
-                List<List<int>> categories = new List<List<int>>();   
+            //_budgetSheetName = BudgetSheet.globalName;
+            //_transactions = BudgetSheet.transactionsSheet;
 
-                foreach (Category category in budgetSheet.categoriesList)
-                {
-                    foreach (TextBox controlCount in category.categoryMoneyBoxList)
-                    {
-                        _controlCount++;
-                    }
+            ////Code to save control data
+            //foreach(BudgetSheet budgetForm in BudgetSheet.budgetSheets)
+            //{
+            //    List<List<int>> categories = new List<List<int>>();   
 
-                    _categories.Add(_controlCount);
-                    _controlCount = 0;
-                    _categoryCount++;
-                }
-                _budgetSheets.Add(_categories);
-                _categoryCount = 0;
-                _budgetSheetCount++;
-            }
+            //    foreach (Category category in budgetSheet.categoriesList)
+            //    {
+            //        foreach (TextBox controlCount in category.categoryMoneyBoxList)
+            //        {
+            //            _controlCount++;
+            //        }
 
-            using (Stream stream = File.Open("SavedData.bin", FileMode.Create))     //Stolen from Steve
-            {
-                BinaryFormatter bin = new BinaryFormatter();
-                bin.Serialize(stream, _budgetSheets);                               //Things to save
-                bin.Serialize(stream, _budgetSheetName);
-            }
+            //        _categories.Add(_controlCount);
+            //        _controlCount = 0;
+            //        _categoryCount++;
+            //    }
+            //    _budgetSheets.Add(_categories);
+            //    _categoryCount = 0;
+            //    _budgetSheetCount++;
+            //}
+
+            //using (Stream stream = File.Open("SavedData.bin", FileMode.Create))     //Stolen from Steve
+            //{                                                                                                   //Not enough time to finish this for project submission.
+            //    BinaryFormatter bin = new BinaryFormatter();
+            //    bin.Serialize(stream, _budgetSheets);                               //Things to save
+            //    bin.Serialize(stream, _budgetSheetName);
+            //}
         }
     }
 }

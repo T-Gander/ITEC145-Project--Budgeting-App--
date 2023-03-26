@@ -5,6 +5,7 @@ namespace Project_ITEC145__Budgeting_App__
 {
     public partial class BudgetSheet : Form
     {
+        public static bool load = false;
         public static bool name = false;                                    //A bool for checking if the form has been named yet. (May be redundant now)
         public static string globalName;                                    //Used to set the budget sheet name to all forms
         public static List<TextBox> moneyBoxes = new List<TextBox>();       //Used to calculate all moneyboxes
@@ -57,7 +58,7 @@ namespace Project_ITEC145__Budgeting_App__
             currentBalance.Left = firstPage.GetWindowCenterX(this) - 125;
             currentBalance.Size = new Size(540, 35);
 
-            if (budgetSheets == null)
+            if (budgetSheets == null && load == false)
             {
                 budgetSheetCurrentBalance = originalBalance;
 
