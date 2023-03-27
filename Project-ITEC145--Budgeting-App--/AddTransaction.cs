@@ -55,7 +55,7 @@ namespace Project_ITEC145__Budgeting_App__
                 {
                     if(_categoryIndex < 0)
                     {
-                        _categoryIndex += 100;
+                        _categoryIndex += 100;      //Used when loaded categories are present to arrive at the correct index in following calculations
                     }
 
                     if (Debit.Equals(true))
