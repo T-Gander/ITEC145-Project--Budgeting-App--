@@ -116,9 +116,9 @@ namespace Project_ITEC145__Budgeting_App__
                     Buttons addCategory = new Buttons(100, HEIGHT, "Add Category", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this) - 250, 130, this);
                     Controls.Add(addCategory.MakeButton(addCategory_Click, buttonList));    //Same here and adds the button to this budget sheets button list
                     Buttons newPage = new Buttons(100, HEIGHT, "New Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this) - 300, 800, this);
-                    Controls.Add(newPage.MakeButton(NewPage_Click, buttonList, budgetSheetIndex, false));
+                    Controls.Add(newPage.MakeButton(NewPage_Click, buttonList, budgetSheetIndex, true));
                     Buttons nextPage = new Buttons(100, HEIGHT, "Next Page", new Font("Arial", 12), budgetSheet.GetWindowFirstX(this) - 300, 800, this);
-                    Controls.Add(nextPage.MakeButton(NextPage_Click, buttonList, budgetSheetIndex, true));
+                    Controls.Add(nextPage.MakeButton(NextPage_Click, buttonList, budgetSheetIndex, false));
                     Buttons showTransactions = new Buttons(200, HEIGHT, "Show Transactions", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this), 800, this);              //Refactorable
                     Controls.Add(showTransactions.MakeButton(ShowTransactions_Click, buttonList, budgetSheetIndex, true));
                     Buttons exit = new Buttons(100, HEIGHT, "Exit", new Font("Arial", 12), budgetSheet.GetWindowThirdX(this) + 300, 800, this);
@@ -138,6 +138,19 @@ namespace Project_ITEC145__Budgeting_App__
                 }
                 else
                 {
+                    foreach (Control control in budgetSheets[0].Controls)
+                    {
+                        if (control.Text == "New Page")
+                        {
+                            control.Visible = false;
+                        }
+
+                        if (control.Text == "Next Page")
+                        {
+                            control.Visible = true;
+                        }
+                    }
+
                     decimal difference = 0;
 
                     foreach (TextBox moneyBox in moneyBoxes)
@@ -204,7 +217,7 @@ namespace Project_ITEC145__Budgeting_App__
         }
         public void NewPage_Click(object sender, EventArgs e)
         {
-            List<BudgetSheet> globalBudgetSheets = BudgetSheet.budgetSheets;
+            List<BudgetSheet> globalBudgetSheets = budgetSheets;
             int currentBudgetSheetIndex = globalBudgetSheets.Count - 1;
 
             BudgetSheet newSheet = new BudgetSheet(transactionsSheet);

@@ -77,18 +77,15 @@ namespace Project_ITEC145__Budgeting_App__
                         int categoryIndex = categoryCount;
                         
                         Category addCategory = new Category(_categoryNames[categoryCount], ref categoryLocationy, ref categoryIndex, loadBudgetSheet);
-                        
-                        if(_fieldNames.Count == 0)
+
+                        if (_fieldNames.Count == 0)
                         {
 
                         }
                         else
                         {
-                            for (int l = 0; l < _categoriesCount[i]; l++)   //Problem is here
-                            {
-                                addCategory.addFields_Load(_fieldNames[fieldNameCount], _moneyBoxes[fieldNameCount].ToString());
-                                fieldNameCount++;
-                            }
+                            addCategory.addFields_Load(_fieldNames[fieldNameCount], _moneyBoxes[fieldNameCount].ToString());
+                            fieldNameCount++;
                             categoryCount++;
                         }
                     }
