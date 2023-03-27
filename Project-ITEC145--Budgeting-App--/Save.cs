@@ -48,26 +48,43 @@ namespace Project_ITEC145__Budgeting_App__
 
                 for (int i = 0; i < budgetForm.categoriesList.Count; i++)
                 {
-                    name = budgetForm.categoriesList[i]._name;
-                    locationy = budgetForm.categoriesList[i]._delCategory.Top - 5;
-                    categoryIndex = budgetForm.categoriesList[i]._categoryIndex;
-                    numberOfMoneyBoxes = budgetForm.categoriesList[i].categoryMoneyBoxList.Count;
-
-                    foreach(TextBox fieldName in budgetForm.categoriesList[i].categoryFieldNameList)
+                    if (budgetForm.categoriesList[i].categoryMoneyBoxList.Count == 0)
                     {
-                        _fieldNames.Add(fieldName.Text);
-                    }
+                        //Omit Category
+                        name = budgetForm.categoriesList[i]._name;
+                        locationy = budgetForm.categoriesList[i]._delCategory.Top - 5;
+                        categoryIndex = budgetForm.categoriesList[i]._categoryIndex;
+                        numberOfMoneyBoxes = budgetForm.categoriesList[i].categoryMoneyBoxList.Count;
 
-                    foreach (TextBox moneyBox in budgetForm.categoriesList[i].categoryMoneyBoxList)
+                        _categoryNames.Add(name);
+                        _categoryLocationy.Add(locationy);
+                        _categoryIndex.Add(categoryIndex);
+                        _categoryMoneyBoxesCount.Add(numberOfMoneyBoxes);
+                        _controlCount = 0;
+                    }
+                    else
                     {
-                        _moneyBoxes.Add(decimal.Parse(moneyBox.Text));
-                    }
+                        name = budgetForm.categoriesList[i]._name;
+                        locationy = budgetForm.categoriesList[i]._delCategory.Top - 5;
+                        categoryIndex = budgetForm.categoriesList[i]._categoryIndex;
+                        numberOfMoneyBoxes = budgetForm.categoriesList[i].categoryMoneyBoxList.Count;
 
-                    _categoryNames.Add(name);
-                    _categoryLocationy.Add(locationy);
-                    _categoryIndex.Add(categoryIndex);
-                    _categoryMoneyBoxesCount.Add(numberOfMoneyBoxes);
-                    _controlCount = 0;
+                        foreach(TextBox fieldName in budgetForm.categoriesList[i].categoryFieldNameList)
+                        {
+                            _fieldNames.Add(fieldName.Text);
+                        }
+
+                        foreach (TextBox moneyBox in budgetForm.categoriesList[i].categoryMoneyBoxList)
+                        {
+                            _moneyBoxes.Add(decimal.Parse(moneyBox.Text));
+                        }
+
+                        _categoryNames.Add(name);
+                        _categoryLocationy.Add(locationy);
+                        _categoryIndex.Add(categoryIndex);
+                        _categoryMoneyBoxesCount.Add(numberOfMoneyBoxes);
+                        _controlCount = 0;
+                    }
                 }
                 _categories.Add(budgetForm.categoriesList.Count);
                 _budgetSheets.Add(_categories);

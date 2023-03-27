@@ -76,14 +76,14 @@ namespace Project_ITEC145__Budgeting_App__
                         int categoryLocationy = _categoryLocationy[categoryCount];                          //Currently Duplicating Budget Sheets, need to change for loop so that unique indexes are being used
                         int categoryIndex = categoryCount;
                         
-                        Category addCategory = new Category(_categoryNames[categoryCount], ref categoryLocationy, ref categoryIndex, loadBudgetSheet);
-
-                        if (_fieldNames.Count == 0)
+                        if (_categoryMoneyBoxesCount[k] == 0)
                         {
-
+                            Category emptyCategory = new Category(_categoryNames[categoryCount], ref categoryLocationy, ref categoryIndex, loadBudgetSheet);
+                            categoryCount++;
                         }
                         else
                         {
+                            Category addCategory = new Category(_categoryNames[categoryCount], ref categoryLocationy, ref categoryIndex, loadBudgetSheet);
                             addCategory.addFields_Load(_fieldNames[fieldNameCount], _moneyBoxes[fieldNameCount].ToString());
                             fieldNameCount++;
                             categoryCount++;
