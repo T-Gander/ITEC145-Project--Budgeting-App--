@@ -61,17 +61,20 @@ namespace Project_ITEC145__Budgeting_App__
                 BudgetSheet.currentBalance = _currentBalance;
                 BudgetSheet.originalBalance = _originalBalance;
 
+                
                 int fieldNameCount = 0;
 
                 for (int i = 0; i < _budgetSheetsCount.Count; i++)
                 {
                     BudgetSheet loadBudgetSheet = new BudgetSheet(BudgetSheet.transactionsSheet);
+                    int categoryCount = 0;
 
                     for (int j = 0; j < _categoriesCount.Count; j++)
                     {
-                        int categoryLocationy = _categoryLocationy[j];
-                        int categoryIndex = _categoryIndex[j];
-                        
+                        int categoryLocationy = _categoryLocationy[j];                          //Currently Duplicating Budget Sheets, need to change for loop so that unique indexes are being used
+                        int categoryIndex = categoryCount;
+                        fieldNameCount = 0;
+                        categoryCount++;
 
                         Category addCategory = new Category(_categoryNames[j], ref categoryLocationy, ref categoryIndex, loadBudgetSheet);
 
@@ -81,7 +84,7 @@ namespace Project_ITEC145__Budgeting_App__
                             fieldNameCount++;
                         }
                     }
-                    _budgetSheets.Add(loadBudgetSheet);
+                    _budgetSheets[i] = loadBudgetSheet;
                 }
                 _budgetSheets[0].recalculateBalance();
                 _budgetSheets[0].Show();

@@ -44,26 +44,24 @@ namespace Project_ITEC145__Budgeting_App__
             //Code to save control data
             foreach (BudgetSheet budgetForm in BudgetSheet.budgetSheets)
             {
-                List<List<int>> categories = new List<List<int>>();
-
-                for(int i = 0; i < budgetSheet.categoriesList.Count; i++)
+                for(int i = 0; i < budgetForm.categoriesList.Count; i++)
                 {
-                    foreach (TextBox controlCount in budgetSheet.categoriesList[i].categoryMoneyBoxList)
+                    foreach (TextBox controlCount in budgetForm.categoriesList[i].categoryMoneyBoxList)
                     {
                         _controlCount++;
                     }
 
-                    name = budgetSheet.categoriesList[i]._name;
-                    locationy = budgetSheet.categoriesList[i]._delCategory.Top - 5;
-                    categoryIndex = budgetSheet.categoriesList[i]._categoryIndex;
-                    numberOfMoneyBoxes = budgetSheet.categoriesList[i].categoryMoneyBoxList.Count;
+                    name = budgetForm.categoriesList[i]._name;
+                    locationy = budgetForm.categoriesList[i]._delCategory.Top - 5;
+                    categoryIndex = budgetForm.categoriesList[i]._categoryIndex;
+                    numberOfMoneyBoxes = budgetForm.categoriesList[i].categoryMoneyBoxList.Count;
                     
                     foreach (TextBox moneyBox in BudgetSheet.moneyBoxes)
                     {
                         _moneyBoxes.Add(decimal.Parse(moneyBox.Text));
                     }
 
-                    foreach(TextBox fieldName in budgetSheet.categoriesList[i].categoryFieldNameList)
+                    foreach(TextBox fieldName in budgetForm.categoriesList[i].categoryFieldNameList)
                     {
                         _fieldNames.Add(fieldName.Text);
                     }
