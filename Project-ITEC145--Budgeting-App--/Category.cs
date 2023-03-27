@@ -70,12 +70,12 @@ namespace Project_ITEC145__Budgeting_App__
             _categoryLocation += 40;
             budgetForm.lastLocation += 30;
         }
-        public void addFields_Load(string fieldName, string fieldValue)                                     //The addfield load event
+        public void addFields_Load(string fieldName, string fieldValue, int count)                                     //The addfield load event
         {
             //Make fields that are editable with a delete button
             TextBox textBox = new TextBox();
             textBox.Text = fieldName;
-            textBox.Name = $"{_count}";
+            textBox.Name = count.ToString();
             textBox.Font = new Font("Arial", 18, FontStyle.Bold);
             textBox.Top = _categoryLocation;
             textBox.Left = _locationx + 40;
@@ -86,7 +86,7 @@ namespace Project_ITEC145__Budgeting_App__
 
             TextBox moneyBox = new TextBox();                                           //Where you enter your assigned money
             moneyBox.Text = fieldValue;
-            moneyBox.Name = $"{_count}";
+            moneyBox.Name = count.ToString();
             moneyBox.TextAlign = HorizontalAlignment.Right;
             moneyBox.Font = new Font("Arial", 18, FontStyle.Bold);
             moneyBox.Top = _categoryLocation;
@@ -102,7 +102,7 @@ namespace Project_ITEC145__Budgeting_App__
 
             Label label = new Label();                                                  //Dollar sign label, functionally useless
             label.Text = "$";
-            label.Name = $"{_count}";
+            label.Name = count.ToString();
             label.Font = new Font("Arial", 18, FontStyle.Bold);
             label.Top = _categoryLocation;
             label.Left = moneyBox.Left - 30;
@@ -112,7 +112,7 @@ namespace Project_ITEC145__Budgeting_App__
 
             Button delField = new Button();                                             //Delete field button within a category
             delField.Text = "X";
-            delField.Name = $"{_count}";
+            delField.Name = count.ToString();
             delField.Tag = delField.Name;                                               //Found out about tags to send a buttons info to a click event (could probably just cast the sender to do the same thing)
             delField.Top = _categoryLocation + 2;
             delField.Left = moneyBox.Left + 160;
@@ -124,7 +124,7 @@ namespace Project_ITEC145__Budgeting_App__
 
             Button addTransaction = new Button();                                             //Delete field button within a category
             addTransaction.Text = "Add Transaction";
-            addTransaction.Name = $"{_count}";
+            addTransaction.Name = count.ToString();
             addTransaction.Tag = addTransaction.Name;
             addTransaction.Top = _categoryLocation + 2;
             addTransaction.Left = delField.Left + 40;
@@ -136,7 +136,6 @@ namespace Project_ITEC145__Budgeting_App__
 
             _categoryLocation += 40;
             budgetForm.lastLocation += 40;
-            _count++;
 
             foreach (Category category in budgetForm.categoriesList)                 //Used to move all controls that are below a category
             {
