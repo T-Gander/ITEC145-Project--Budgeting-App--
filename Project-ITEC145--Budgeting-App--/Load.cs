@@ -58,30 +58,33 @@ namespace Project_ITEC145__Budgeting_App__
                 BudgetSheet.budgetSheetCurrentBalance = _budgetSheetBalance;
                 BudgetSheet.load = true;
                 BudgetSheet.transactionsSheet = _transactions;
-                BudgetSheet.currentBalance = _currentBalance;
                 BudgetSheet.originalBalance = _originalBalance;
 
-                
                 int fieldNameCount = 0;
+                int categoryCount = 0;
+                int MoneyBoxesCount = 0;
 
                 for (int i = 0; i < _budgetSheetsCount.Count; i++)
                 {
                     BudgetSheet loadBudgetSheet = new BudgetSheet(BudgetSheet.transactionsSheet);
-                    int categoryCount = 0;
 
                     for (int j = 0; j < _categoriesCount.Count; j++)
                     {
-                        int categoryLocationy = _categoryLocationy[j];                          //Currently Duplicating Budget Sheets, need to change for loop so that unique indexes are being used
-                        int categoryIndex = categoryCount;
-                        fieldNameCount = 0;
-                        categoryCount++;
+                        int totalCategories = _categoriesCount[j];
 
-                        Category addCategory = new Category(_categoryNames[j], ref categoryLocationy, ref categoryIndex, loadBudgetSheet);
-
-                        for (int k = 0; k < _categoryMoneyBoxesCount[j]; k++)
+                        for(int k = 0; k < totalCategories; k++)
                         {
-                            addCategory.addFields_Load(_fieldNames[fieldNameCount], _moneyBoxes[fieldNameCount].ToString());
-                            fieldNameCount++;
+                            int categoryLocationy = _categoryLocationy[categoryCount];                          //Currently Duplicating Budget Sheets, need to change for loop so that unique indexes are being used
+                            int categoryIndex = categoryCount;
+                            categoryCount++;
+
+                            Category addCategory = new Category(_categoryNames[j], ref categoryLocationy, ref categoryIndex, loadBudgetSheet);
+
+                            for (int l = 0; l < _categoryMoneyBoxesCount[l]; l++)
+                            {
+                                addCategory.addFields_Load(_fieldNames[fieldNameCount], _moneyBoxes[fieldNameCount].ToString());
+                                fieldNameCount++;
+                            }
                         }
                     }
                     _budgetSheets[i] = loadBudgetSheet;
