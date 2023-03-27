@@ -53,6 +53,11 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 if (amount > 0)
                 {
+                    if(_categoryIndex < 0)
+                    {
+                        _categoryIndex += 100;
+                    }
+
                     if (Debit.Equals(true))
                     {
                         amount *= -1;
