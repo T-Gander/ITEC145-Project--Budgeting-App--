@@ -103,7 +103,7 @@ namespace Project_ITEC145__Budgeting_App__
             }
             catch
             {
-                MessageBox.Show("No saved file detected.");
+                MessageBox.Show("No saved file detected. Or an error occurred.");
             }
         }
     }

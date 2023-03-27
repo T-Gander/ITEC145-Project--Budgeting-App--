@@ -150,7 +150,7 @@ namespace Project_ITEC145__Budgeting_App__
                             control.Visible = true;
                         }
                     }
-                    if(budgetSheets.Count > 1)      
+                    if(budgetSheets.Count > 1)                                                      //Used to fix loaded budget sheets
                     {
                         foreach (Control control in budgetSheets[budgetSheets.Count - 1].Controls)
                         {
@@ -164,7 +164,7 @@ namespace Project_ITEC145__Budgeting_App__
                                 control.Visible = true;
                             }
                         }
-                    }                                                                               //Used to fix loaded budget sheets
+                    }                                                                               
 
                     decimal difference = 0;
 
@@ -181,7 +181,7 @@ namespace Project_ITEC145__Budgeting_App__
                     }
                     else if (budgetSheetCurrentBalance > 0)
                     {
-                        currentBalance.ForeColor = Color.Green;
+                        currentBalance.ForeColor = Color.Green;                 //Shows a different color font depending on the balance
                     }
                     else
                     {
@@ -225,11 +225,11 @@ namespace Project_ITEC145__Budgeting_App__
                 }
             }
         }
-        public void addCategory_Click(object sender, EventArgs e)
+        public void addCategory_Click(object sender, EventArgs e)       //Opens a form to name your new category
         {
             CategoryFieldForm form = new CategoryFieldForm(this);
-            form.ShowDialog();
-        }
+            form.ShowDialog();                                          
+        }   
         public void NewPage_Click(object sender, EventArgs e)
         {
             List<BudgetSheet> globalBudgetSheets = budgetSheets;
@@ -250,7 +250,7 @@ namespace Project_ITEC145__Budgeting_App__
                     {
                         if (control.Text == "New Page" && result == budgetSheetIndex)
                         {
-                            control.Visible = false;
+                            control.Visible = false;                                        //Hides and shows next page button based on the current budgetsheet index
                         }
 
                         if (control.Text == "Next Page" && result == budgetSheetIndex)
@@ -260,14 +260,14 @@ namespace Project_ITEC145__Budgeting_App__
                     }
                 }
             }
-            globalBudgetSheets[currentBudgetSheetIndex].Hide();
+            globalBudgetSheets[currentBudgetSheetIndex].Hide();             //Hides previous budgetsheet
             newSheet.ShowDialog();
         }
         public void PrevPage_Click(object sender, EventArgs e)
         {
             int currentIndex = budgetSheets.IndexOf(this);
 
-            BudgetSheet lastSheet = budgetSheets[currentIndex - 1];
+            BudgetSheet lastSheet = budgetSheets[currentIndex - 1];         //Prev page button doesn't exist on first budget sheet to prevent errors
             lastSheet.Controls.Add(currentBalance);
             currentBalance.BringToFront();
 
@@ -278,7 +278,7 @@ namespace Project_ITEC145__Budgeting_App__
         {
             int currentIndex = budgetSheets.IndexOf(this);
 
-            BudgetSheet nextSheet = budgetSheets[currentIndex + 1];
+            BudgetSheet nextSheet = budgetSheets[currentIndex + 1];         //Next page button is replaced with new page button on final page to prevent errors
             nextSheet.Controls.Add(currentBalance);
             currentBalance.BringToFront();
 
@@ -289,7 +289,7 @@ namespace Project_ITEC145__Budgeting_App__
         {
             int currentIndex = budgetSheets.IndexOf(this);
 
-            if (currentIndex == 1 && budgetSheets.Count == 2)
+            if (currentIndex == 1 && budgetSheets.Count == 2)               //If the delete button is clicked on the final deleteable page
             {
                 BudgetSheet mainSheet = budgetSheets[0];
 
@@ -372,7 +372,7 @@ namespace Project_ITEC145__Budgeting_App__
                 Close();
             }
         }
-        public void recalculateBalance()
+        public void recalculateBalance()                                    //Used everytime the text of a money box is changed
         {
             decimal sum = 0;
 
@@ -408,7 +408,7 @@ namespace Project_ITEC145__Budgeting_App__
         }
         public void Save_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Save Successful! (--Under Construction--)");
+            MessageBox.Show("Save Successful!");
 
             Save saveBudgetSheet = new Save(this);
         }

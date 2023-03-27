@@ -35,8 +35,6 @@ namespace Project_ITEC145__Budgeting_App__
 
         public Save(BudgetSheet budgetSheet)
         {
-            MessageBox.Show("Not Implemented.");
-
             _budgetSheetName = BudgetSheet.globalName;
             _transactions = BudgetSheet.transactionsSheet;
             _originalBalance = BudgetSheet.originalBalance;
