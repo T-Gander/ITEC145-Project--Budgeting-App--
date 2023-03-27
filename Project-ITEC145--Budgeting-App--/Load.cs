@@ -59,6 +59,7 @@ namespace Project_ITEC145__Budgeting_App__
                 BudgetSheet.load = true;
                 BudgetSheet.transactionsSheet = _transactions;
                 BudgetSheet.originalBalance = _originalBalance;
+                
 
                 int fieldNameCount = 0;
                 int categoryCount = 0;
@@ -67,54 +68,35 @@ namespace Project_ITEC145__Budgeting_App__
                 for (int i = 0; i < _budgetSheetsCount.Count; i++)
                 {
                     BudgetSheet loadBudgetSheet = new BudgetSheet(BudgetSheet.transactionsSheet);
+                    
+                    int totalCategories = _categoriesCount[i];
 
-                    for (int j = 0; j < _categoriesCount.Count; j++)
+                    for(int k = 0; k < totalCategories; k++)
                     {
-                        int totalCategories = _categoriesCount[j];
-
-                        for(int k = 0; k < totalCategories; k++)
+                        int categoryLocationy = _categoryLocationy[categoryCount];                          //Currently Duplicating Budget Sheets, need to change for loop so that unique indexes are being used
+                        int categoryIndex = categoryCount;
+                        
+                        Category addCategory = new Category(_categoryNames[categoryCount], ref categoryLocationy, ref categoryIndex, loadBudgetSheet);
+                        
+                        if(_fieldNames.Count == 0)
                         {
-                            int categoryLocationy = _categoryLocationy[categoryCount];                          //Currently Duplicating Budget Sheets, need to change for loop so that unique indexes are being used
-                            int categoryIndex = categoryCount;
-                            categoryCount++;
 
-                            Category addCategory = new Category(_categoryNames[j], ref categoryLocationy, ref categoryIndex, loadBudgetSheet);
-
-                            for (int l = 0; l < _categoryMoneyBoxesCount[l]; l++)   //Problem is here
+                        }
+                        else
+                        {
+                            for (int l = 0; l < _categoriesCount[i]; l++)   //Problem is here
                             {
                                 addCategory.addFields_Load(_fieldNames[fieldNameCount], _moneyBoxes[fieldNameCount].ToString());
                                 fieldNameCount++;
                             }
+                            categoryCount++;
                         }
                     }
                     _budgetSheets[i] = loadBudgetSheet;
+                    BudgetSheet.load = false;
                 }
                 _budgetSheets[0].recalculateBalance();
                 _budgetSheets[0].Show();
-                
-                
-
-                //foreach (BudgetSheet budgetForm in BudgetSheet.budgetSheets)
-                //{
-                //    List<List<int>> categories = new List<List<int>>();
-
-                //    foreach (Category category in budgetSheet.categoriesList)
-                //    {
-                //        foreach (TextBox controlCount in category.categoryMoneyBoxList)
-                //        {
-                //            _controlCount++;
-                //        }
-
-                //        _categories.Add(_controlCount);
-                //        _controlCount = 0;
-                //        _categoryCount++;
-                //    }
-                //    _budgetSheets.Add(_categories);
-                //    _categoryCount = 0;
-                //    _budgetSheetCount++;
-                //}
-
-
             }
             catch
             {

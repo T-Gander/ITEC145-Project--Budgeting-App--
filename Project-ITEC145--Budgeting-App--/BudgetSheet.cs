@@ -102,7 +102,7 @@ namespace Project_ITEC145__Budgeting_App__
             }
             else
             {
-                if (load = true && budgetSheetIndex == 0)
+                if (load == true && budgetSheetIndex == 0)
                 {
                     name = true;
                     budgetSheetIndexAssign++;                                               //Used to keep track of budgetsheet forms
