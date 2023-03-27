@@ -20,14 +20,18 @@ namespace Project_ITEC145__Budgeting_App__
         private List<string> _categoryNames = new List<string>();
         private List<int> _categoryLocationy = new List<int>();
         private List<int> _categoryIndex = new List<int>();
+        private List<int> _categoryMoneyBoxesCount = new List<int>();
         private List<List<int>> _budgetSheets = new List<List<int>>();
+        private List<string> _fieldNames = new List<string>();
+        private List<decimal> _moneyBoxes = new List<decimal>();
+        private decimal _originalBalance;
 
         private MyTransactionsSheet _transactions = new MyTransactionsSheet();
 
         public string name;
         public int locationy;
         public int categoryIndex;
-        
+        public int numberOfMoneyBoxes;
 
         public Save(BudgetSheet budgetSheet)
         {
@@ -35,13 +39,13 @@ namespace Project_ITEC145__Budgeting_App__
 
             _budgetSheetName = BudgetSheet.globalName;
             _transactions = BudgetSheet.transactionsSheet;
+            _originalBalance = BudgetSheet.originalBalance;
 
             //Code to save control data
             foreach (BudgetSheet budgetForm in BudgetSheet.budgetSheets)
             {
                 List<List<int>> categories = new List<List<int>>();
 
-                //foreach (Category category in budgetSheet.categoriesList)
                 for(int i = 0; i < budgetSheet.categoriesList.Count; i++)
                 {
                     foreach (TextBox controlCount in budgetSheet.categoriesList[i].categoryMoneyBoxList)
@@ -52,10 +56,22 @@ namespace Project_ITEC145__Budgeting_App__
                     name = budgetSheet.categoriesList[i]._name;
                     locationy = budgetSheet.categoriesList[i]._delCategory.Top - 5;
                     categoryIndex = budgetSheet.categoriesList[i]._categoryIndex;
+                    numberOfMoneyBoxes = budgetSheet.categoriesList[i].categoryMoneyBoxList.Count;
+                    
+                    foreach (TextBox moneyBox in BudgetSheet.moneyBoxes)
+                    {
+                        _moneyBoxes.Add(decimal.Parse(moneyBox.Text));
+                    }
+
+                    foreach(TextBox fieldName in budgetSheet.categoriesList[i].categoryFieldNameList)
+                    {
+                        _fieldNames.Add(fieldName.Text);
+                    }
                     
                     _categoryNames.Add(name);
                     _categoryLocationy.Add(locationy);
                     _categoryIndex.Add(categoryIndex);
+                    _categoryMoneyBoxesCount.Add(numberOfMoneyBoxes);
 
                     _categories.Add(_controlCount);
                     _controlCount = 0;
@@ -75,6 +91,10 @@ namespace Project_ITEC145__Budgeting_App__
                 bin.Serialize(stream, _categoryLocationy);
                 bin.Serialize(stream, _categoryIndex);
                 bin.Serialize(stream, _categories);
+                bin.Serialize(stream, _categoryMoneyBoxesCount);
+                bin.Serialize(stream, _fieldNames);
+                bin.Serialize(stream, _moneyBoxes);
+                bin.Serialize(stream, _originalBalance);
             }
         }
     }

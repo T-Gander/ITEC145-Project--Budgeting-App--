@@ -14,6 +14,7 @@ namespace Project_ITEC145__Budgeting_App__
         public List<Control> valid = new List<Control>();              //a list of a category controls
         public List<Button> validButton = new List<Button>();          //Used to select buttons only
         public List<TextBox> categoryMoneyBoxList = new List<TextBox>();
+        public List<TextBox> categoryFieldNameList = new List<TextBox>();
         
         public string _name;
         public int _locationx;
@@ -69,7 +70,120 @@ namespace Project_ITEC145__Budgeting_App__
             _categoryLocation += 40;
             budgetForm.lastLocation += 30;
         }
+        public void addFields_Load(string fieldName, string fieldValue)                                     //The addfield load event
+        {
+            //Make fields that are editable with a delete button
+            TextBox textBox = new TextBox();
+            textBox.Text = fieldName;
+            textBox.Name = $"{_count}";
+            textBox.Font = new Font("Arial", 18, FontStyle.Bold);
+            textBox.Top = _categoryLocation;
+            textBox.Left = _locationx + 40;
+            textBox.Size = new Size(300, 30);
+            budgetForm.Controls.Add(textBox);
+            categoryFieldNameList.Add(textBox);
+            valid.Add(textBox);
 
+            TextBox moneyBox = new TextBox();                                           //Where you enter your assigned money
+            moneyBox.Text = fieldValue;
+            moneyBox.Name = $"{_count}";
+            moneyBox.TextAlign = HorizontalAlignment.Right;
+            moneyBox.Font = new Font("Arial", 18, FontStyle.Bold);
+            moneyBox.Top = _categoryLocation;
+            moneyBox.Left = textBox.Left + 400;
+            moneyBox.Size = new Size(150, 30);
+            moneyBox.LostFocus += new EventHandler(moneyBox_TextChanged);
+            moneyBox.Tag = "MoneyBox";
+            BudgetSheet.moneyBoxes.Add(moneyBox);
+            budgetForm.Controls.Add(moneyBox);
+            budgetForm.variableList.Add(moneyBox);
+            categoryMoneyBoxList.Add(moneyBox);
+            valid.Add(moneyBox);
+
+            Label label = new Label();                                                  //Dollar sign label, functionally useless
+            label.Text = "$";
+            label.Name = $"{_count}";
+            label.Font = new Font("Arial", 18, FontStyle.Bold);
+            label.Top = _categoryLocation;
+            label.Left = moneyBox.Left - 30;
+            label.Size = new Size(30, 30);
+            budgetForm.Controls.Add(label);
+            valid.Add(label);
+
+            Button delField = new Button();                                             //Delete field button within a category
+            delField.Text = "X";
+            delField.Name = $"{_count}";
+            delField.Tag = delField.Name;                                               //Found out about tags to send a buttons info to a click event (could probably just cast the sender to do the same thing)
+            delField.Top = _categoryLocation + 2;
+            delField.Left = moneyBox.Left + 160;
+            delField.Click += new EventHandler(delFields_Click);
+            delField.Size = new Size(30, 30);
+            budgetForm.Controls.Add(delField);
+            valid.Add(delField);
+            validButton.Add(delField);
+
+            Button addTransaction = new Button();                                             //Delete field button within a category
+            addTransaction.Text = "Add Transaction";
+            addTransaction.Name = $"{_count}";
+            addTransaction.Tag = addTransaction.Name;
+            addTransaction.Top = _categoryLocation + 2;
+            addTransaction.Left = delField.Left + 40;
+            addTransaction.Size = new Size(100, 30);
+            addTransaction.Click += new EventHandler(addTransaction_Click);
+            budgetForm.Controls.Add(addTransaction);
+            valid.Add(addTransaction);
+            validButton.Add(addTransaction);
+
+            _categoryLocation += 40;
+            budgetForm.lastLocation += 40;
+            _count++;
+
+            foreach (Category category in budgetForm.categoriesList)                 //Used to move all controls that are below a category
+            {
+                int difference = 40;
+
+                if (category._categoryIndex > _categoryIndex)
+                {
+                    category._categoryLocation += difference;
+
+                    foreach (Control control in category.valid)
+                    {
+                        control.Top += difference;
+                    }
+                }
+            }
+            foreach (Button addFields in validButton)                               //Used to move the addfields button down that belongs to the current category
+            {
+                if (_categoryLocation < 800)
+                {
+                    if (addFields.Name == "AddField")
+                    {
+                        addFields.Top = _categoryLocation;
+                    }
+                }
+            }
+            foreach (Category category in budgetForm.categoriesList)                //Hides add buttons on the form so that no more buttons can be added
+            {
+                foreach (Button addFields in category.validButton)
+                {
+                    if (budgetForm.lastLocation > 760)
+                    {
+                        if (addFields.Name == "AddField")
+                        {
+                            addFields.Visible = false;
+                        }
+                    }
+
+                    if (budgetForm.lastLocation > 680)
+                    {
+                        if (addFields.Name == "AddField")
+                        {
+                            budgetForm.addCategoryButton.Visible = false;
+                        }
+                    }
+                }
+            }
+        }
         public void addFields_Click(object sender, EventArgs e)                         //The addfield button click event
         {
             //Make fields that are editable with a delete button
@@ -81,6 +195,7 @@ namespace Project_ITEC145__Budgeting_App__
             textBox.Left = _locationx + 40;
             textBox.Size = new Size(300, 30);
             budgetForm.Controls.Add(textBox);
+            categoryFieldNameList.Add(textBox);
             valid.Add(textBox);
 
             TextBox moneyBox = new TextBox();                                           //Where you enter your assigned money
@@ -322,8 +437,9 @@ namespace Project_ITEC145__Budgeting_App__
         }
         public void moneyBox_TextChanged(object sender, EventArgs e)    //Used to update the balance on all forms when the text has changed
         {
-            TextBox moneyBox = (TextBox)sender;                         
-            BudgetSheet.moneyBoxes.Remove(moneyBox);
+            TextBox moneyBox = (TextBox)sender; 
+            int currentIndex = BudgetSheet.moneyBoxes.IndexOf(moneyBox);
+            BudgetSheet.moneyBoxes.RemoveAt(currentIndex);
 
             if(decimal.TryParse(moneyBox.Text, out decimal result))
             {
@@ -342,7 +458,7 @@ namespace Project_ITEC145__Budgeting_App__
             {
                 MessageBox.Show("Please enter a value that is considered a decimal.");
                 moneyBox.Text = "0";
-                BudgetSheet.moneyBoxes.Add(moneyBox);
+                BudgetSheet.moneyBoxes.Insert(currentIndex, moneyBox);
             }
 
             budgetForm.recalculateBalance();

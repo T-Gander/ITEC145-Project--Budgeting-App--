@@ -22,14 +22,17 @@ namespace Project_ITEC145__Budgeting_App__
 
         private MyTransactionsSheet _transactions = new MyTransactionsSheet();
         private List<BudgetSheet> _budgetSheets = new List<BudgetSheet>();
-        private List<TextBox> _moneyBoxes = new List<TextBox>();
+        private List<decimal> _moneyBoxes = new List<decimal>();
         private Label _currentBalance = new Label();
         private decimal _originalBalance;
 
         private List<string> _categoryNames;
         private List<int> _categoryLocationy;
         private List<int> _categoryIndex;
-        
+        private List<int> _categoryMoneyBoxesCount;
+        private List<string> _fieldNames;
+
+
 
         public Load()
         {
@@ -44,19 +47,21 @@ namespace Project_ITEC145__Budgeting_App__
                     _categoryLocationy = (List<int>)bin.Deserialize(stream);
                     _categoryIndex = (List<int>)bin.Deserialize(stream);
                     _categoriesCount = (List<int>)bin.Deserialize(stream);
+                    _categoryMoneyBoxesCount = (List<int>)bin.Deserialize(stream);
+                    _fieldNames = (List<string>)bin.Deserialize(stream);
+                    _moneyBoxes = (List<decimal>)bin.Deserialize(stream);
+                    _originalBalance = (decimal)bin.Deserialize(stream);
                 }
-
-                _categoryCount = _budgetSheets.Count;
 
                 BudgetSheet.globalName = _budgetSheetName;
                 BudgetSheet.budgetSheets = _budgetSheets;
                 BudgetSheet.budgetSheetCurrentBalance = _budgetSheetBalance;
                 BudgetSheet.load = true;
-                BudgetSheet.moneyBoxes = _moneyBoxes;
                 BudgetSheet.transactionsSheet = _transactions;
                 BudgetSheet.currentBalance = _currentBalance;
                 BudgetSheet.originalBalance = _originalBalance;
-                
+
+                int fieldNameCount = 0;
 
                 for (int i = 0; i < _budgetSheetsCount.Count; i++)
                 {
@@ -66,12 +71,21 @@ namespace Project_ITEC145__Budgeting_App__
                     {
                         int categoryLocationy = _categoryLocationy[j];
                         int categoryIndex = _categoryIndex[j];
+                        
 
                         Category addCategory = new Category(_categoryNames[j], ref categoryLocationy, ref categoryIndex, loadBudgetSheet);
+
+                        for (int k = 0; k < _categoryMoneyBoxesCount[j]; k++)
+                        {
+                            addCategory.addFields_Load(_fieldNames[fieldNameCount], _moneyBoxes[fieldNameCount].ToString());
+                            fieldNameCount++;
+                        }
                     }
                     _budgetSheets.Add(loadBudgetSheet);
                 }
+                _budgetSheets[0].recalculateBalance();
                 _budgetSheets[0].Show();
+                
                 
 
                 //foreach (BudgetSheet budgetForm in BudgetSheet.budgetSheets)
