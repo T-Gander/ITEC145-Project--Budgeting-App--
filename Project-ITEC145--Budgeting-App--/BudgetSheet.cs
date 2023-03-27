@@ -138,7 +138,7 @@ namespace Project_ITEC145__Budgeting_App__
                 }
                 else
                 {
-                    foreach (Control control in budgetSheets[0].Controls)
+                    foreach (Control control in budgetSheets[0].Controls)                           //Used to fix loaded budget sheets
                     {
                         if (control.Text == "New Page")
                         {
@@ -150,6 +150,21 @@ namespace Project_ITEC145__Budgeting_App__
                             control.Visible = true;
                         }
                     }
+                    if(budgetSheets.Count > 1)      
+                    {
+                        foreach (Control control in budgetSheets[budgetSheets.Count - 1].Controls)
+                        {
+                            if (control.Text == "New Page")
+                            {
+                                control.Visible = false;
+                            }
+
+                            if (control.Text == "Next Page")
+                            {
+                                control.Visible = true;
+                            }
+                        }
+                    }                                                                               //Used to fix loaded budget sheets
 
                     decimal difference = 0;
 
