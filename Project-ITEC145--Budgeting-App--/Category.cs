@@ -15,13 +15,13 @@ namespace Project_ITEC145__Budgeting_App__
         public List<Button> validButton = new List<Button>();          //Used to select buttons only
         public List<TextBox> categoryMoneyBoxList = new List<TextBox>();
         
-        private string _name;
+        public string _name;
         public int _locationx;
         public int _count;                                             //Used to give an identifier to a category's fields
         public int _categoryLocation;                                  //Used to assign the category location based on the next available space.
         public int _categoryIndex;                                     //Keeps track of a categories ID and a new one is created each time a category class is made
 
-        private Button _delCategory;
+        public Button _delCategory;
         private Button _addField;
 
         public Category(string Name, ref int locationy, ref int categoryIndex, BudgetSheet budgetSheet)
