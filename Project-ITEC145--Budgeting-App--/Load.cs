@@ -70,12 +70,12 @@ namespace Project_ITEC145__Budgeting_App__
                     BudgetSheet loadBudgetSheet = new BudgetSheet(BudgetSheet.transactionsSheet);
                     
                     int totalCategories = _categoriesCount[i];
+                    int controlIndex = -100;
 
-                    for(int k = 0; k < totalCategories; k++)
+                    for (int k = 0; k < totalCategories; k++)
                     {
                         int categoryLocationy = _categoryLocationy[categoryCount];                         
                         int categoryIndex = categoryCount-100;
-                        int controlIndex = -100;
                         
                         if (_categoryMoneyBoxesCount[k] == 0)
                         {
@@ -85,13 +85,13 @@ namespace Project_ITEC145__Budgeting_App__
                         else
                         {
                             Category addCategory = new Category(_categoryNames[categoryCount], ref categoryLocationy, ref categoryIndex, loadBudgetSheet);
-                            for(int j = 0; j < _categoryMoneyBoxesCount[k]; j++)
+                            for(int j = 0; j < _categoryMoneyBoxesCount[categoryCount]; j++)
                             {
                                 addCategory.addFields_Load(_fieldNames[fieldNameCount], _moneyBoxes[fieldNameCount].ToString(), controlIndex);
                                 fieldNameCount++;
-                                categoryCount++;
                                 controlIndex++;
                             }
+                            categoryCount++;
                         }
                     }
                     loadBudgetSheet.lastLocation += 40;
