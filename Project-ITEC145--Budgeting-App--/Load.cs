@@ -94,7 +94,7 @@ namespace Project_ITEC145__Budgeting_App__
                             categoryCount++;
                         }
                     }
-                    loadBudgetSheet.lastLocation += 40;
+                    loadBudgetSheet.lastLocation += 80;
                     _budgetSheets[i] = loadBudgetSheet;
                     BudgetSheet.load = false;
                 }
